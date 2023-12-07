@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Фан-сайт гри World of Tanks Blitz">
+    <title>Фан-сайт гри World of Tanks Blitz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        /* Залиште стилі незмінними */
+
+        @media only screen and (max-width: 600px) {
+            /* Додано стилі для екранів ширше 600px */
+            body {
+                font-size: 14px;
+            }
+
+            nav a {
+                padding: 8px;
+                margin: 0 5px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            section {
+                padding: 20px;
+            }
+
+            section img {
+                margin-bottom: 10px;
+            }
+
+            #download-link {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #003366; /* Змінено колір для синього заднього фону */
+            color: #eee;
+        }
+
+        header {
+            background: linear-gradient(90deg, #003366, #005599);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            background-size: cover;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        nav {
+            background-color: #336699;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        nav a:hover {
+            color: #ff7f50;
+            transform: scale(1.1);
+        }
+
+        section {
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+            border-radius: 10px;
+            background: #336699;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        section img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border: 4px solid #fff;
+            border-radius: 8px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        section img:hover {
+            transform: scale(1.1);
+        }
+
+        #download-link {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 18px;
+            margin-top: 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        #download-link:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            background-color: #336699;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            border-top: 2px solid #555;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        footer:hover {
+            background-color: #005599;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        h2,
+        h3 {
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Додано нові стилі нижче */
+
+        .fab.fa-telegram {
+            transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .fab.fa-telegram:hover {
+            color: #0088cc;
+            transform: scale(1.2);
+        }
+
+        #tank-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #tank-list li {
+            margin-bottom: 5px;
+            padding: 5px;
+            border: 1px solid #336699;
+            border-radius: 5px;
+            background-color: #0000FF;
+        }
+
+        section iframe {
+            width: 100%;
+            max-width: 800px; /* Задайте максимальну ширину відповідно до ваших потреб */
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+
+        #news h3 {
+            animation: fadeInUp 1s ease-in-out, colorChange 0.5s ease-in-out;
+        }
+
+        @keyframes colorChange {
+            from {
+                color: #ff4500;
+            }
+
+            to {
+                color: #336699;
+            }
+        }
+        nav a {
+    transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+nav a:hover {
+    color: #00FF00;
+    transform: translateY(-3px);
+}
+.fab.fa-telegram {
+    transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.fab.fa-telegram:hover {
+    color: #0088cc;
+    transform: scale(1.2);
+}
+nav {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+#tank-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#tank-list li {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #336699;
+    border-radius: 5px;
+    background-color: #003366;
+    color: #fff;
+    text-align: center;
+    min-width: 150px;
+}
+section img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    border: 4px solid #fff;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+}
+
+section img:hover {
+    transform: scale(1.1);
+}
+#updates,
+#news {
+    background-color: #003366;
+    color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+#news h3 {
+    animation: fadeInUp 1s ease-in-out, colorChange 0.5s ease-in-out;
+}
+
+@keyframes colorChange {
+    from {
+        color: #ff4500;
+    }
+
+    to {
+        color: #336699;
+    }
+}
+nav a.current {
+    color: #ff7f50; /* або інший кольор, що виділяється */
+}
+window.onscroll = function () {
+    var nav = document.querySelector('nav');
+    if (window.scrollY > 0) {
+        nav.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
+    } else {
+        nav.style.boxShadow = 'none';
+    }
+};
+#download-link {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 18px;
+    margin-top: 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+#download-link:hover {
+    background-color: #45a049;
+    transform: scale(1.1);
+}
+section h2 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-top: 1; /* Додано, щоб зменшити зазор зверху */
+}
+footer p {
+    margin: 0;
+    text-align: center;
+}
+#news article {
+    animation: fadeInUp 1s ease-in-out;
+    margin-bottom: 20px;
+}
+footer ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+footer li {
+    margin: 0 10px;
+}
+section {
+    transition: opacity 0.5s ease-in-out;
+}
+
+nav a {
+    transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+section iframe {
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* Забезпечте співвідношення сторін 16:9 */
+    position: relative;
+}
+::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 0;
+    background: linear-gradient(90deg, #4CAF50, #45a049);
+    transition: width 0.3s ease-in-out;
+}
+
+window.onscroll = function () {
+    var progress = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    document.querySelector('body::after').style.width = progress + '%';
+};
+@media only screen and (max-width: 600px) {
+    #updates,
+    #news {
+        padding: 20px;
+    }
+}
+nav {
+    transition: background-color 0.3s ease-in-out;
+}
+
+window.onscroll = function () {
+    var nav = document.querySelector('nav');
+    if (window.scrollY > 0) {
+        nav.style.background = 'linear-gradient(90deg, #003366, #005599)';
+    } else {
+        nav.style.background = 'none';
+    }
+};
+#tank-list li {
+    cursor: pointer;
+}
+#about {
+    animation: fadeInUp 1s ease-in-out;
+}
+#about {
+    animation: fadeInUp 1s ease-in-out;
+}
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+body {
+    font-family: 'Roboto', sans-serif;
+}
+footer {
+    transition: background-color 0.3s ease-in-out;
+}
+
+footer:hover {
+    background-color: #005599;
+}
+h1, h2, h3 {
+    font-size: 2em;
+}
+
+@media only screen and (max-width: 600px) {
+    h1, h2, h3 {
+        font-size: 1.5em;
+    }
+}
+#scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#scroll-to-top.show {
+    display: block;
+}
+
+window.onscroll = function () {
+    var scrollToTop = document.getElementById('scroll-to-top');
+    if (window.scrollY > 200) {
+        scrollToTop.classList.add('show');
+    } else {
+        scrollToTop.classList.remove('show');
+    }
+};
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+.mobile-menu-icon {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    .mobile-menu-icon {
+        display: block;
+    }
+
+    nav {
+        display: none;
+    }
+
+    nav.show {
+        display: block;
+    }
+}
+#contact-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #336699;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#contact-form input,
+#contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: #003366;
+    color: #fff;
+}
+
+#contact-form button {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#contact-form button:hover {
+    background-color: #45a049;
+}
+section .video-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 56.25%; /* Забезпечте співвідношення сторін 16:9 */
+}
+
+section iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+section #video {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+section #video .video-container {
+    transition: transform 0.3s ease-in-out;
+}
+
+section #video .video-container:hover {
+    transform: scale(1.1);
+}
+#scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#scroll-to-top.show {
+    display: block;
+}
+.mobile-menu-icon {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    .mobile-menu-icon {
+        display: block;
+    }
+
+    nav {
+        display: none;
+    }
+
+    nav.show {
+        display: block;
+    }
+}
+#contact-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #336699;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#contact-form input,
+#contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: #003366;
+    color: #fff;
+}
+
+#contact-form button {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+#scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+#scroll-to-top.show {
+    display: block;
+}
+
+#scroll-to-top:hover {
+    transform: scale(1.2);
+}
+.mobile-menu-icon {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.mobile-menu-icon:hover {
+    transform: scale(1.2);
+}
+header {
+    background: linear-gradient(90deg, #003366, #005599);
+    /* Решта стилів... */
+}
+
+nav {
+    background: linear-gradient(90deg, #336699, #005599);
+    /* Решта стилів... */
+}
+#scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+#scroll-to-top.show {
+    display: block;
+}
+
+#scroll-to-top:hover {
+    opacity: 0.8;
+    transform: scale(1.2);
+}
+nav.scrolled {
+    background: linear-gradient(90deg, #003366, #005599);
+}
+nav a.transition-color {
+    transition: color 0.3s ease-in-out;
+}
+
+nav a.transition-color:hover {
+    color: #00FF00; /* або інший вибраний колір */
+}
+nav a.current {
+    color: #ff7f50; /* або інший кольор, що виділяється */
+}
+footer:hover {
+    background-color: #005599;
+}
+header.scrolled h1 {
+    color: #ff7f50; /* або інший вибраний колір */
+}
+@media only screen and (max-width: 600px) {
+    nav {
+        background-color: #336699; /* змінити колір на ваш смак */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+}
+.mobile-menu-icon {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #fff; /* колір для іконки */
+}
+
+.mobile-menu-icon:hover {
+    color: #ff7f50; /* колір для іконки при наведенні */
+}
+body {
+    transition: background-color 0.3s ease-in-out;
+}
+
+footer p {
+    text-align: center;
+}
+
+#about {
+    margin-bottom: 50px; /* Зменшити відстань вниз */
+}
+section #video:hover h2 {
+    color: #ff4500; /* або інший кольор, що вам подобається */
+}
+#contact-form:hover {
+    background-color: #004080; /* або інший вибраний колір */
+}
+#gallery img {
+    transition: transform 0.5s ease-in-out;
+}
+
+#gallery img:hover {
+    transform: scale(1.1);
+}
+#news article:hover h3 {
+    color: #336699; /* або інший вибраний колір */
+}
+#tank-list li {
+    transition: transform 0.3s ease-in-out;
+}
+
+#tank-list li:hover {
+    transform: scale(1.1);
+}
+#scroll-to-top:hover {
+    transform: scale(1.2);
+}
+::after {
+    background: linear-gradient(90deg, #ff4500, #336699);
+}
+footer:hover p {
+    color: #ff4500; /* або інший вибраний колір */
+}
+#about.scrolled h2 {
+    color: #ff7f50; /* або інший вибраний колір */
+}
+footer h2 {
+    transition: color 0.3s ease-in-out;
+}
+
+footer h2:hover {
+    color: #ff4500; /* або інший вибраний колір */
+}
+nav a.active,
+nav a:hover {
+    color: #0000FF; /* або інший вибраний колір */
+}
+nav a.current {
+    background-color: #ff4500; /* або інший вибраний колір */
+    color: #fff; /* Колір тексту для підсвіченого пункту */
+}
+#gallery img {
+    transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+#gallery img:hover {
+    transform: scale(1.1);
+    border-color: ##0000FF; /* або інший вибраний колір */
+}
+::after {
+    background: linear-gradient(90deg, #4CAF50, #45a049);
+}
+
+::after:hover {
+    background: linear-gradient(90deg, ##0000FF, #336699);
+}
+#news article p {
+    transition: color 0.3s ease-in-out;
+}
+
+#news article:hover p {
+    color: #0000FF; /* або інший вибраний колір */
+}
+#contact-form button:hover {
+    color: #0000FF; /* або інший вибраний колір */
+}
+.fab.fa-telegram:hover {
+    animation: bounce 0.5s ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+#gallery h2:hover {
+    color: #0000FF; /* або інший вибраний колір */
+}
+#scroll-to-top {
+    color: #fff;
+    background-color: #336699;
+    border: 1px solid #336699;
+}
+
+#scroll-to-top:hover {
+    background-color: #ff4500; /* або інший вибраний колір */
+}
+.mobile-menu-icon:hover {
+    animation: rotate 0.5s ease-in-out;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+#about h2 {
+    animation: fadeInUp 1s ease-in-out, colorChange 0.5s ease-in-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+#about h2 {
+    animation: fadeInUp 1s ease-in-out, colorChange 0.5s ease-in-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+#contact-form button:focus {
+    background-color: #ff4500; /* або інший вибраний колір */
+}
+footer ul li.current {
+    color: #ff4500; /* або інший вибраний колір */
+}
+#scroll-to-top {
+    color: #00FF00;
+    background-color: #336699;
+    border: 1px solid #336699;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+#scroll-to-top:hover {
+    background-color: #ff4500; /* або інший вибраний колір */
+    color: #00FF00;
+}
+#video .video-container {
+    transition: transform 0.3s ease-in-out;
+}
+
+#video .video-container:hover {
+    transform: scale(1.1);
+}
+#contact-form {
+    background-color: #003366;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#contact-form input,
+#contact-form textarea {
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: #003366;
+    color: #fff;
+}
+
+#contact-form button {
+    background-color: #4CAF50;
+    color: white;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+#contact-form button:hover {
+    background-color: #45a049;
+    color: #fff;
+}
+#scroll-to-top:hover {
+    transform: scale(1.2) rotate(360deg);
+    transition: transform 0.3s ease-in-out;
+}
+nav a.current {
+    background-color: #ff7f50; /* або інший вибраний колір */
+    color: #fff;
+}
+#news h2 {
+    color: #ff4500;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#news h3 {
+    color: #336699;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+#tank-list li {
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+#tank-list li:hover {
+    background-color: #ff4500;
+    color: #fff;
+}
+#video {
+    background-color: #000;
+}
+
+#video .video-container {
+    border: 4px solid #fff;
+}
+#news article {
+    opacity: 0;
+    animation: fadeInUp 1s ease-in-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+#contact-form button {
+    background-color: #336699;
+    color: #00ff00;
+    border: 1px solid #336699;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border 0.3s ease-in-out;
+}
+
+#contact-form button:hover {
+    background-color: ##00FF00;
+    color: #336699;
+    border: 1px solid #00ff00;
+}
+#gallery img {
+    transition: transform 0.3s ease-in-out;
+}
+
+#gallery img:hover {
+    transform: scale(1.1);
+}
+#updates {
+    background-color: #003366;
+    color: #00ff00;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+#events {
+    background-color: #003366;
+    color: #00ff00;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+#scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+#scroll-to-top.show {
+    display: block;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+#scroll-to-top.show.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+.hover-bg {
+    transition: background-color 0.3s;
+}
+
+.hover-bg:hover {
+    background-color: #f0f0f0;
+}
+    </style>
+</head>
+<body>
+<div class="video-container"> </div>
+    <div class="play-button" onclick="playVideo('TvzZsmaF9ts')"></div>
+
+
+<style>
+    section #video .video-container {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        padding-top: 56.25%;
+        position: relative;
+    }
+
+    section #video .video-container:hover .play-button {
+        display: block;
+    }
+
+    section #video .video-container .play-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80px;
+        height: 80px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        display: none;
+        cursor: pointer;
+    }
+
+    section #video .video-container .play-button:before {
+        content: '\25BA';
+        font-size: 40px;
+        line-height: 80px;
+        text-align: center;
+        color: #333;
+    }
+</style>
+<div class="mobile-menu-icon" onclick="toggleMobileMenu()">☰</div>
+<script>
+    function playVideo(videoId) {
+        // Додайте код для відтворення відео з ідентифікатором videoId
+    }
+</script>
+
+    <header>
+        <h1>Фан-сайт гри World of Tanks Blitz</h1>
+    </header>
+
+    <nav>
+        <a href="#" onclick="scrollToSection('about')">Про гру</a>
+        <a href="#" onclick="scrollToSection('gameplay')">Геймплей</a>
+        <a href="#" onclick="scrollToSection('download')">Завантажити</a>
+        <a href="#" onclick="scrollToSection('contact')">Контакти</a>
+        <a href="#" onclick="scrollToSection('video')">Відео</a>
+        <a href="#" onclick="scrollToSection('updates')">Останні Оновлення</a>
+        <a href="#" onclick="scrollToSection('community')">Спільнота гравців</a>
+        <a href="#" onclick="scrollToSection('gallery')">Галерея</a>
+        <a href="#" onclick="scrollToSection('events')">Події та Турніри</a>
+        <a href="#" onclick="scrollToSection('news')">Новини</a>
+    </nav>
+
+    <section id="about">
+        <h2>Про гру World of Tanks Blitz</h2>
+        <p>World of Tanks Blitz - це безкоштовна мобільна MMO гра в жанрі екшн, розроблена Wargaming, нагороджений розробник і видавець онлайн ігор.</p>
+    </section>
+
+    <section id="gameplay">
+        <h2>Геймплей World of Tanks Blitz</h2>
+        <p>Випробуйте інтенсивні битви на танках на мобільних пристроях з різноманітними танками та стратегічною грою.</p>
+    </section>
+
+    <section id="download">
+        <h2>Завантажити World of Tanks Blitz</h2>
+        <p>Завантажте гру безкоштовно на свій мобільний пристрій та приєднуйтеся до битви!</p>
+        <a id="download-link" href="https://play.google.com/store/apps/details?id=net.wargaming.wot.blitz&pcampaignid=web_share">Завантажити зараз</a>
+    </section>
+
+    <section id="contact">
+        <h2>Контакти розробника</h2>
+        <p>Для отримання додаткової інформації чи питань ви можете зв'язатися з розробником:</p>
+        <p>Email: developer@example.com</p>
+        <p>Телефон: <a href="tel:+18007654321">+1-800-765-4321</a></p>
+        <p><i class="fab fa-telegram"></i> <a href="https://t.me/ejegeer" target="_blank">Телеграм</a></p>
+    </section>
+
+    <section id="video">
+    <h2>Відео</h2>
+    <div class="video-container">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/BzwZjB-fmVA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+</section>
+
+    <section id="updates">
+        <h2>Останні Оновлення</h2>
+        <p>Дізнайтеся про останні оновлення гри та нові можливості, які вони приносять. Дізнайтесь все про оновлення 1.23, бійці!
+            У цьому оновленні ви зможете опинитися в епіцентрі захоплюючих випадкових подій. Це значуще нововведення буде доступне на чотирьох бойових локаціях: «Хіммельсдорф», «Руінберг», «Прохорівка» та «Стара гавань».
+            Випадкові події зроблять ваш ігровий досвід цікавішим та різноманітнішим:
+            Трансформація бойових локацій: випадкові події призведуть до значних змін кожної з карт.
+            Розширення ігрової варіативності: на вас чекають нові тактичні можливості, наприклад доступ до раніше недоступних позицій, поява нових укриттів або відкриття безпечніших проїздів.
+        </p>
+    </section>
+
+    <section id="community">
+        <h2>Спільнота гравців</h2>
+        <p>Приєднуйтеся до нашої активної спільноти гравців, діліться стратегіями та отримуйте цікаві поради.</p>
+    </section>
+
+    <section id="gallery">
+        <h2>Галерея</h2>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQL3OJBEXHFC2FWv9d_HwfqFgG3mRjFFjf8_w&usqp=CAU" alt="World of Tanks Blitz">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRNtIYcRQA2RtSYp-AdfiGcML4q4DhpzP6xA&usqp=CAU" alt="World of Tanks Blitz">
+        <img src="https://www.iphones.ru/wp-content/uploads/2016/03/WOTMain.jpg" alt="World of Tanks Blitz">
+    </section>
+
+    <section id="events">
+        <h2>Події та Турніри</h2>
+        <p>Долучайтеся до захоплюючих подій та турнірів гри і змагайтеся за цінні призи.</p>
+    </section>
+<section id="contact-form">
+    <h2>Зв'язатися з нами</h2>
+    <form>
+        <input type="text" placeholder="Ім'я" required>
+        <input type="email" placeholder="Електронна пошта" required>
+        <textarea placeholder="Ваше повідомлення" rows="4" required></textarea>
+        <button type="submit">Надіслати</button>
+    </form>
+</section>
+
+    <section id="news">
+        <h2>Новини</h2>
+        <article>
+            <h3>Нове оновлення гри вже доступне!</h3>
+            <p>Дізнайтеся про нові функції та вдосконалення у найсвіжішому оновленні World of Tanks Blitz.</p>
+        </article>
+        <article>
+            <h3>Оголошено новий турнір "Блиц-Чемпіонат 2023"</h3>
+            <p>Готуйтеся до найбільшого турніру року та виборіть свою команду до перемоги!</p>
+        </article>
+    </section>
+
+    <section id="all-tanks">
+        <h2>Всі танки в World of Tanks Blitz</h2>
+        <ul id="tank-list">
+<li onclick="selectTank('Танк 1')">Танк 1: Т-34</li>
+<li onclick="selectTank('Танк 2')">Танк 2: Panther</li>
+<li onclick="selectTank('Танк 3')">Танк 3: IS-3</li>
+<li onclick="selectTank('Танк 4')">Танк 4: M4 Sherman</li>
+<li onclick="selectTank('Танк 5')">Танк 5: Tiger II</li>
+<!-- Додайте інші танки за потребою -->
+
+        </ul>
+    </section>
+
+    
+
+    <script>
+        function scrollToSection(sectionId) {
+            var section = document.getElementById(sectionId);
+            section.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    </script>
+    <script> 
+function selectTank(tankName) {
+    alert('Ви вибрали танк: ' + tankName);
+}
+</script>
+<div id="scroll-to-top" onclick="scrollToTop()">↑</div>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<script>
+    function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+<script>
+    function toggleMobileMenu() {
+    var nav = document.querySelector('nav');
+    nav.classList.toggle('show');
+}
+</script>
+
+<div id="scroll-to-top" onclick="scrollToTop()">↑</div>
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p> P.ss Дата першої версії 25.11.2023</p>
+    </div>
+</div>
+
+<script>
+var modal = document.getElementById('myModal');
+var span = document.getElementsByClassName('close')[0];
+
+span.onclick = function() {
+    modal.style.display = 'none';
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+</script>
+
+</body>
+</html>
