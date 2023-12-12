@@ -554,7 +554,6 @@ section #video .video-container:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-HHHMax33, [11.12.2023 12:10]
 #contact-form input,
 #contact-form textarea {
     width: 100%;
@@ -731,7 +730,6 @@ nav a.current {
     transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
 
-HHHMax33, [11.12.2023 12:10]
 #gallery img:hover {
     transform: scale(1.1);
     border-color: ##0000FF; /* або інший вибраний колір */
@@ -751,9 +749,16 @@ HHHMax33, [11.12.2023 12:10]
 #contact-form button:hover {
     color: #0000FF; /* або інший вибраний колір */
 }
-.fab.fa-telegram:hover {
+.fab.fa-discord {
+    color: black; /* Початковий колір іконки */
+    transition: color 0.3s ease-out;
+}
+
+.fab.fa-discord:hover {
+    color: blue; /* Колір, який ви хочете встановити при наведенні */
     animation: bounce 0.5s ease-in-out;
 }
+
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {
         transform: translateY(0);
@@ -765,6 +770,7 @@ HHHMax33, [11.12.2023 12:10]
         transform: translateY(-5px);
     }
 }
+
 #gallery h2:hover {
     color: #0000FF; /* або інший вибраний колір */
 }
@@ -908,6 +914,28 @@ to {
     border: 1px solid #336699;
     transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border 0.3s ease-in-out;
 }
+.fab.fa-telegram {
+    color: white; /* Початковий колір іконки */
+    transition: color 0.3s ease-out;
+}
+
+.fab.fa-telegram:hover {
+    color: blue; /* Колір, який ви хочете встановити при наведенні */
+    animation: bounce 0.5s ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
 #contact-form button:hover {
     background-color: ##00FF00;
     color: #336699;
@@ -1016,6 +1044,9 @@ body {
 
 background-color: yellow;
 }
+
+
+
 </style>
 <div class="mobile-menu-icon" onclick="toggleMobileMenu()">☰</div>
 <script>
@@ -1110,6 +1141,8 @@ background-color: yellow;
     <section id="community">
         <h2>Спільнота гравців</h2>
         <p>Приєднуйтеся до нашої активної спільноти гравців, діліться стратегіями та отримуйте цікаві поради.</p>
+        <p><i class="fab fa-telegram"></i> <a href="https://t.me/s/BEAST_WB" target="_blank">Телеграм</a></p>
+        <p><i class="fab fa-discord"></i> <a href="https://discord.com/channels/481445776178806785/502018644193181706" target="_blank">discord</a></p>
     </section>
     <section id="gallery">
         <h2>Галерея</h2>
@@ -1146,15 +1179,31 @@ background-color: yellow;
         </article>
     </section>
     <section id="all-tanks">
-        <h2>Всі танки в World of Tanks Blitz</h2>
-        <ul id="tank-list">
-<li onclick="selectTank('Танк 1')">Танк 1: Т-34</li>
-<li onclick="selectTank('Танк 2')">Танк 2: Panther</li>
-<li onclick="selectTank('Танк 3')">Танк 3: IS-3</li>
-<li onclick="selectTank('Танк 4')">Танк 4: M4 Sherman</li>
-<li onclick="selectTank('Танк 5')">Танк 5: Tiger II</li>
-        </ul>
-    </section>
+    <h2>Популярні танки в World of Tanks Blitz</h2>
+    <ul id="tank-list">
+        <li onclick="selectTank('Танк 1')">
+            <p align="center">Танк 1: Т-57 Heavy</p>
+            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBUWFRgWFhYZGRgaHB4fHRwcHBwfHhwkHxwcHiEeHB4hIS4lIx4rJBocJjgnKy8xNTU1HiQ7QDs0Py40NTEBDAwMEA8QHhISHTQrISE0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0MTQ0NDQ0NDQxNDQ0NDQ0MTQ0NDQ0NDQ0NP/AABEIAI8BXwMBIgACEQEDEQH/xAAbAAACAwEBAQAAAAAAAAAAAAADBAIFBgEAB//EAD0QAAIBAgQDBgMHAwMEAwEAAAECEQAhAwQxQRJRYQUicYGRoTKx8AYTQsHR4fEUUmJykrIVI4KiB8LSM//EABgBAQEBAQEAAAAAAAAAAAAAAAABAgME/8QAIREBAQEBAAIDAQEAAwAAAAAAAAERAhIhMUFRA2ETIjL/2gAMAwEAAhEDEQA/AMVlMsQvU/oaErkR0NNf1NgFXvbzp5Uo7X0qoDmWlvSh5duFweRrjmvIKgbxMctrS7Yi1FjQyhOgqGJ4uZJAWwUbDfqTua7hKDeQOhn6/ippkCYkgdNT51NOzyTHEPQ0URMxAvJP1vS7kkmN9qs8p2apkuTwrExAnkATOt77AE9KimNhuSEVQNO7xessTOmtXLmpsLJhxb1P70dsspudfrfWiMqhgpYByJCk3N/2NMYGQxHBKJxARIDLPkJk+QrMq2VVthGeZ+t6NhPBA5G/nUnBDGVg8uXj71HEJO1xoaqD4jzG8fxUcRxzoQeZ2qLuDY0BPvAB5Uiz8pimuGZFrD8vbWhvgCJHSPb01qhbEaa6JEGPOjpgkj9YEVFASICz+oHhNAzh4YIkQTy2+dPZZtJF/wBvoUnlgAxkx0Ovj6mLfnVrhqIB9/f0rUg8EmlszgkxCk8MnTWLQDub6fKmw1cfEYKeHWmJqs7PSXgi4kEEAGxNwB8+a0QdnMCWADm5ImJ6G2vsZ9ZsgWHIhhq07GJkaH66UXExTuJvAgkbGbac9f5KGw4wVKGbC+o06DYDXmDtUuysS7TYD4ZMnaSTaf5ouWw3IWJKkmC0yBFjMaaR7cqLk8qQ7AbRJNzBW15O4+c61RNeJpBk6XFjc2hY0/y6UPHyv9xI/wBJI8usW9PKtHg4AIvS2dwDoR50wVLDlUWozYB2qDYLUAHoZoxwzQ2SgHFR4aJFdTlQLsK6ZMXge9FbDrq4B2oC5Z6U7Uy74hAglReB+ZqyyeUJNxVmcuOGRUVjMpmXbiYkIAI+Ex/NRZsR1DsbQYgCNYrR4uGEnujhNiPzpRERVChe7OlMGVfJsbkiQfqaPl8p3dT486vMxgq0SNDQF4TMaCkg5gEC496DjqBf+ByoaPwiTrtQXcm9ZSBuNK6oOleQ03gJEEjwtaglhZQEAkzzH1rtT2Gi2gADpbn62NCwcdptz3jy2qbmZG/7R+lBxx4TI9v4obsAR40e5/PypeRuNN77/wAe9A4yF8F0WzEW81gfn60NMABWxHTgCrCjTkf/AKgf+VtKA2YuSkjlzva+xpfOfe4oguIG0QJ52/StbMTCefcYmKW0EDyCrE+oq+ySo6ISwDRe/ofMQfOsziZVxIKk+F/3oRZl0JB5Xn0rlY6Sr3+pYM6OQ3CYk3nz3rxdD/j4fpWd42/eipmiKez1V4+V3Uz9cqEcPUdeVJpn6bwGLyQbj3q7+l5/BFyrtcCYG0D5n86FwteCfrnvTuFnmT4kBH+Mj629K5lmV2AJF+dvnv8AW1WYxlLYTmb6HfnMimEwDKlSFka7axf08NKJmMqQ5GxFttrkU1lsrFyZPp6DStyJSL5Vka0mSIa0bjWDA/SnkypIXiPKRp4giLz9dHFERAoqJNXEDXCoi5Sd6IEoiOBVAHyYC7kyNBxbi8Dlr5Uxh4IVAeEssWgHSOYuR4dKmcwIsNeWooqZrXeYsYj0jflUA8HLFkVlIaQCCwsbWNjp4HexNqbwcvxiSvC0n2MWsLWsdxFQwM2wsSWH+V6dXHB2o0EuFwm9FxYIrjmaCVNBNcsmsXoT4KCe7NFE1xqlIrczlhtSzZXnVq6VFcOfb5gVNXFQ2WFCTKEmrzFwqFhrBq6mKvEypWAda9hLGtW2IaXOBO1BPKY6+fPnRGxZtQlwak2HFFLZlZEVUukGrXFakMVaRmq3NYTPEED50rl+8xAE8NjJ1q1io4OUUcR0kyaVZ7UbvJqBvYUTCwuKw85p7J9ms0klVRY4mLATMwFB1YwbCshHBwxIBkDci58qskzgVeHhJk7xoNPYCmUwcv1A597+fanuzMHDI7vCTJ1jiibddIrQpsFCfw7+AogImDIJN43rVvkkdTs3C0X6fvVJiZHvMREd7h8iPOb+1LCUmcO54DNiYIg9elLcJJg28f8ATTWbwwjkI/EBExseX1zqCuXYKFkmwAFzblUCpw4YxcT4zU8NCWIAPOtJk/s1bixDfZV/M/kPWrDC7MVFhRHOr46msmmQYtrXM32c57hZoPIkT4+Vas5KCbVHEyBLjqD+VPE1hcTsJ5YKZjYjXfalcz2HjpqhI5oQ3tr7V9KXJR7/AJfpUMXLX8qeMPKvk5wmBiDI1EGR4imMtjMvw19RGD+9KZrsnCe7opPOIP8AuEH3qeC+TE4HamzLTa4mE+tvGrjMfZJDdHZehHEPyPvVVmPsxjL8ID/6Wg+jR7E1i8NzsTCypsUfymR6aU0madfjQHqtj6G3uKz+Lg4uGe8GT/UCvoTY+VMYPa2KkTcdRNP+0+FzmtFhZ7DNuLhPJu787HyNOAVn8LtjDcQ6QeYAP8UbBdLfc4pQ8pgf7T3as/p+xL/P8XLTXglKJmcVLsiuvNe6fzBPpTeW7RwGsz8B5OOH/wBvh963OpXO82fKQwqmiGrEZW0i4Oh2Pga8mV6b1UDwMGnky4omDgRTeHh0Cowe8PA/Nf1on3NUf2zzT4Iw3VuGJYAtHEVhgsC5B0jQ1f8AZWcXHwUxVIIZQWgghG4QWRr2Kk6G9TfbWB/ciuHDHKm1ZG+Flb/SQfka46UoSKDlQMZY23X/AJCn2SgY2HYf6k/5rUaLMlAbDNWjYNBZCKYiubCNDKMKsxw704r4MXBnpBFNMZsuRS74hrR57L4bcLKsA6xz8P4qtfJ8r1YirZp1oL4BF9RVk+XpYvwmJvyqhEoKDiSNKf8AvVYxEH65Us43qWmKPD0AijA3Fqa7N7POI3JRqfyHWtTkOzUQghe9z1P7VJNTWUw8ByQAjE9FNDx8NkMMpU8iI9K+iJlyYHOmX7LR14XAYcj+XI9RVw1gcDtpwnCVDMJhyTYRuPxevrSyYmLiHhXiafwqPO4Fok71tT9k8uCTLnWF4hr6Sdqt0ymFhrwoiqOg+Z1J8aZVYjJ/Zpj/AP0bhiDwrc32J0m20+NaHJdnphiEULzOpPiTc08yCg5jMqmpnoCJ9KsiUQoK4yilP+pYe5jofqJpHN9p4bQQxHl13va9VFvCztXlCzHKqR+0Q7youAeHnPhST5ohwGkm1htefT62oNFiZhRMX8Pl41BMyjTY23tVPlc0glXkhjdhZgSN943tvRf6hQpVTe94knrpqR7tQWZ4NZ3jz+t64vATE7eV6oMIPZZILc4CyBaSbXE3671cZbDj4isKu44bsTbWG+E366UDwwxQ3w6iubkwACAD8JBsBM8wNPeiYGOr9NtdaBdkmxFVuY7CwH1QKeaSn/GAfOtKcARQHwKDHZj7Hg/A/k4HzWI9DVPmvsvmU0TjHNCG9jDegr6QuBNE/pyN6zeY15V8jGPj4R4SXX/FgR/6tTCdtbOgPlH7V9VbKhxwsFYcmAI9DVVm/sdlX/BwHmhgf7TK+1YvEbndYrLdoIDOE74ROwMAnqPhPmKucH7QZlB8OHiDnBVvbun0pLtz7GLgrxrjAgmyssMfNbew251nAmIkwTbkamdT4q7zflsH+0pcg4gxFCz3ULqDMXYo8kiLbd42oTduoQ6xxI/CGR2d1MXFnYx1jXfasonauIPihvEfnXXz4f8ADwnpTb9p48/S8bHUhVCwuGSyiXhSW4iQCYu1+tc/qomFgHUKWUG0XCkDS3Wq/K5zhF48eVj18a6+eA4oA10196zbW5OcWaZ8qwdURXXR1RQ4tw2YCYg896cb7Q4+7t/uNZ3E7RJmlnzbHem09NUftBif3t/vNL4v2gfd28nasq2MaayuVdzpAjX9OZ6Cpd/Vn+Rpcl9qnRpLM67qxn3N5+r1dYH2uy7gFgyHQiQY56agflVDkPs7xRMT1IH177UfN/YxUQ4nExVfiQOJiblTwiYrP/NJ61u/x6vvH0HC7ODAMDYgEeBEipns2BE25V3sjtjCx0H3fdKqJSbqBa3NetGzebCKWZgBsTz20rrOtjjZlzFHnc9hIeAzPSIHqRP1eksftAqAhUXF3U2IkiV6GN+vKqnNYvE7Nznw8tefOl3eYud4nbpV0WC5oXDSZOpjX9ah/Sox3vSq5gRdQfX9fCpf1IJkW5ydantfQoyon89KOnZnF8LA9DUVzQ0YedFXCJurT4VLasnNcy7jDRUgW9TO/nr6UVcxvH10pdcMGZaI00+eum1M4OGDF45Mel+ftXXHngeJnWPwtB8xf6kedDwu1MSRLWE/OdfrTrUO08qQwgzexEjzjbWkgjATM7m8aXE1Rarn+EEhhJmBeZsZt+GY15nzZy/bneAcW3Knw1HrpVQiSASumugEnz1sTO0WoDOBcWI1O0Ta1BsHzqnDcgDiB4QFEt4ketUmHhIX4WDFiSTDLM3kHqDExVAcZ5JDEdZNC4zzqi6zKMSQVYCbQLGw0JG9jex86TP3YsytJgxobjXr4eFL/wBW3DwTblv660we0GbWCQLyJnxsddIsPAU0EXKrwkgNcC9iLiQOR09TUGcKCrJDE2JEcIgRG+zdNKVbM2KgQJtBYA6QSJgm2sTXGlhPCw170Eg+Lb35+tQPYsGIUqNoDdCTYmx5Ty0pJ8WDa283HzqxTEHBxk8TMLx0sAfCN+vOq3Ea+kdNudTQc5x5BPeOt4Md3ht428YXlUsDMsJHFIP7aTSSG/SjYLQJ96UP/wBUZBFoA16Gx5c/eprmiTxXF9O7wnU6G3OfM0mrhjflfmfKi4L8LQRMAaH5WpBoez8wHEu6yuwIB9Nx6edWeHiq2lZjL5kK10BN/L0ME1Z5DOoLAG88/e9t/rWi4AqXFXExkI1+vGuqwb4SD4UEbVINQ2U1W9sZt8IIQwRSxD4jIXVAFJEqCNSAJNh6VKMv9pO0vvMZ1BlUbgH/AIkhv/afaqPNHh4SBrafET9eNL4eKSOIkSbtGhJuff50XEZWEX0sOe48xf6ms1qRQZkniN6AGM0XMIQT470Asen15VGjav1rj49LgE0VcAk3/X2FTF0RHo+Hl2boOZ8YtzGl9L0fKYA/tvsTDR14dJ6k1YYJCg3g/wB0gueoIsvlepfSyaHgdnBfi13HLx9ra+E1o8gcIJAPejUgGNDtpv4RprVE+aGiwBaB9eutAbNQCJv+dc+trtznK8zObhuFW00239fXnT+QzTMILCCGsdYAuxPITvrfYGsvl8biEtwxBIInisGneOEFQNPxWNoq27H7Z+6IHEBAI7xYI0sGHFwgniEsAY0bUaHl1w78/wBPsLsgYuHmQ68SKhMGJDGCAovDC8E6WO+ulz/bT4yqjgCDJ2Jt+5qiXO8RN24C5CsSDxNwgww1kxMxEsNLmmeEgkWMErz05V6OPh5O/wD0792W4QoJLTHXoKigUmCYPy6UPMKBABBBE2m0k2MgXsPWuK2nOtVmXDv9LIEGaXZIsRR8LK45UMqOVM3A18N6DjBxPGpEXkjrE+E2mkla665vxMeQXEU9lwQK7kMi7AMoVhqe8Jj+2xsfGu4eNwmAFJk8mHlSpyEjzEMPa9o8jTaYRYAevlWKVjzPSnsj2zi4ZF+Ndw2/gdR71vycJGjzLOvDxCeE2PPxO/11pBQSRbny/OrfI5jDzCEpM/iUxKn/APNrHQ+NqHg4YDARczr47D1qyhKe7F55H5+RoL5IkC4j0/mrRcCWJI0GkRTZXh/AJ3tN/LbpVGXfAOgFCbDiZ1n686tsR0lrFm0EWXrfp4UVAjAKVITyJJ9JAj33ouKYSdCT0r33ZZT8IjpB9RVlncmgAZCLEcz5M2gOtrUtjg/hRQTyYNP/AI0MCy7sD3W4GFjA18RHvXMTGeCh4bnimbfOo5nKuDDrB6xItp0PTW45iorl3ZWIJ7l4jbnI5daGBpiNHANDfneNR5R6VJsK2/5V7EQAgg7CbwR0vuKIuaAi4Okgkc5jcfOhhU2MUdMOdxHU0bJ4AdieEkC5gmBOhJGg3npTjPgoJHE7ji7pYX1gyALfQopAoVjr5VPCw2J38Y25jpaqzMu5MlYtrceWtCbEcahrf5vYdO9U1MaDhMQT5UbBeLXms0cRxFmAIN+Jxt4mSNYoGJiODZnI27x/9pPQ6dKnlF8a17Zwp3mEgfhAM+Nvmegpd/tOiRx4bpOk8Akc4LAx5VT5LLYkffBGKLB73EQbxc7yTptsN6s8L7K5zHyzY6zGGsrxAS4USSvEDxabxM9IrN7h40u/2tVWlB3RJPEV4piwWH0MGTeLWNXa/b/LwCFbUzxMoIgW0mSTtWIy2UxCe+xAUxEQbW5aWj6mrLCwgp0m+hH5GrL/AKZit+0OXVXbFy78WA7EiQy8DEmUJIAMEGIJsOYqswsZmHwE+lap4WARA5Cw0+r0liKpJIUAz1q3CKR+JtEaR1Xw5zzpRsNpIKNPKPq1q0WHhguRwAwb6ydbA7Xv10EahpsqG0wwbxoWadAqiQZmegrFsakZZnKg92AegiurjtzHjAmtHmciyFeNCrWYAr43vruKC4jVJ8Eb1jh+XI9aauKUYjkTcj68qG+P51q8r2kyAqEIHLhYAc+QvrRf6suSThJeJ4hOwG/gKlxedZDDd2JCKzQL8MmBpPQSR7Vz7vEmGRxtdSPyrb5fFQBpwVEjVeFRM/igSbVLFzOEg73AP9LudAGvwgjS/K2tZ8p+N+N/WOwcs4JhfVlBjrfltRBl8QkW91/WtZj5jBCB0kyBI1IknYwCLAzxbjWs/me1rwEHT4QfZfkazOtvw1ebJ8tX2Jlcvh4ThwjOqlg4+LEJGihxMLNhadSKfTIB3REeWxF41EGYEg8USAwvv+VYZe1n3SIED5f29KZwe12tIceG357+VPLqfReeL9tdidiMzqqHjBuWCmAJgkxNh+vKgYnZXBHEecQZHt4RtVB/1xlTgV3CFgxXhgcSwQZF5sJiJgTsBf5L7WYOIp/qD/3OKxVCARzbeZm0RpWp1fuMXmT4rSZLGZUCyGCqLGFtYQpjYHQ+opTMqHc4jSGUg4anhg8IBIYAlbtIDTaRpAJUw+0cByAjC50uJ8AaPGytaZvB5TV8k8Q83nsF1PdE7HRtdCBeOlViO4E8MT00E2Hh+dWeFiGdtYH1yruLglhYX8alutSY+fFgPiufAfya8HvqN6QRyTJP1+dFJE/v9b1pwWuRzL4bLiISGE3Gh5g8xb29NJkDgZgEuSXJuCxkeBm4+rVisDGIHP69tKfy2ICOMGGBtBgiOXKrLg1eYwWwFLYeI4C3INx6ftQB20+L3OAywkwQeLe0n2qvwO1sSCCwcHZxPlIg0lks+is7cBYi3CGtH+PKKvkWY1+QyaE3YWuVaQdJuKdwMpgmVYgwRdSu+tiY1G829q7IZo4uEHxEkAwp+JoH93OmMPEwmtwIRbVFtHO1PIDzjpEIykaWDE+cd3i6jlSQSDIMHxirZ8NDosX2BA9orjZccgankquTHCmeFWb/ADlheZkddfM+QMw5ZmYAJIghO6INiI5HerRcurSI8enSoYmVUHenkYqDgnhKlbSD5gED/kaXXKgCOGr10XW9Lq6Rb86eQrFVkkiRaLDXpVdmMDiHG150q4zKcbCLCYBuTzJjlbpHrA8fKjYEsBJuIAiNItTyWRRYWCpbTbwmetP4fZ8EHvAjQAxEbkknvb2GvKg8ZUgREn5ddY/arbLOpET9cqzbVxWnKEmIOkRJ+o+r1JMoYi/yim8TNX7ogDzoCFTM7CTBMGBMePSsfK7i67N7cOBhFOMkAjumDYGeEydLzA5nrUMb/wCRMdV+6QLDHhB4ZZZseG/zFZwFXUlRFo0m4INjtXsuVBEIRGsHfpO/X9Ks4m6nkssftPFZuMnhbe2gIHPTSfXnUcAtcmDe5IF/49poWBj8OqnxnwN/nVllsdLDhIHka36htI5nCZtr+GlTynZzD4hvy+r1f4JSLKxnoP1p/AOEsTPpWL0RWdkZVA7o2ErlwFGx3AbiItd9AQe6DtfS9ndmYGWcZgqOPvcZkmeMz3SbmNJNzvQEzGCsuAs9ZNpECI60j2r2o7ggYiADSOKfcfL9BXO7fhuf6rv/AJB+0WFiniXCVvuu7L8UyxBjuOLHhm/9p8Kwv/W8O4/pcI63DYlotPxHeN7yPOy7VQQSrBjbiWTO4uDbrfwrMvgyxN54tREWOkx4V25k+2b6OP2lhtrgKtvi42MeREfW9GbtJAwBwVtYDibSJgw3n5neaTwcqTvwx3vxbT3bDkJqYyRAEDS9wdPLUW366VciTV3l89gBZ4FUxAIlzxkWBXi+E3hovyE2XXBw1VncOz91oaFI7wmYY6SSB42mKHl8JMM4rAXWeCQWk2AfaD+MTG2utBz+NwQry/3igsOImBJNp/FPuJ3rFn4689fpo5nBWSqKwBYXAMgDVQZnQD+ZpfE7UBsEBsJACxMEMPD9PVXCADMIkjxgQ2o+flRHQF+I3JPKBP1eByqeMjV6tdws0DAKITb8K37hExH90Hy8qdfEwyfgEXjXSdr2tNvCl3K8S373CAREAQIAkamImnfvwXUgQYHEDESN/wBjzNEJ/wDaj4Db/JuWnrXCuFp3t97ehGtvamAAFYgSOHf0+dqWzJkLHW/jAv6VZWa42FhkEI0nqK+gdiYfHlsN7yVgnqO6T7V88yaFSW+rsBb1r6P9nyEwUQGQoJnnxEtpy71OusXnnU2yYXXyof3wRSzuEQasbbwJPiQKt8VkCM7sFRRJY2AA50p2Xk2xj99iJ3BP3WCQJGxxMWbByCQFPwgn8Rtm9ST21Ofb5HmcMAjr63miIRwGfKvKpZj8+VFRAbWubdOtdHjBwCFgMYJmL1Pii2gJ2o+MigBmsZ6GZ0oWaQvAB4S2n70WHsAhvhOg03sBeOXOq9sUoxaBO3X96DhkqwZdVBvzNCdWZwAwkkGAKLa1fZv2ndMPg4VPIQZv1n8qZTtIZhkHCUIYaG5M87WrN5PBViQGllEkQR701kUZyQh3hmH4RvS3Fb/M5cq8cdjcCfX60ryhjMNbnY1S5bNPxqOIkAcNzHdEEidhYVdK6khwCCq6KRab8N7Ez7gVJ1rSbIBoZ87/ADtQm4u8TJ22pg55SPEA/np50tmc8qiSOXlfWqoDZdjN/fn9e1Bfs7/OOk0xmc2gEkgDmbfzQvvuTR5D10+pq6iOFkjxcXGQIMERM2WL26elVvbGWCBSLQSIN9yfz96a/qmDGXtO1uUC+1vH1pLO5gNYwb26WsNdKKrcUwbBZIMbeMyaImIUXqeXIiQRp0350NSoME+v5ctR60POZyIAMW0jzvAF6mJoOZzZm5nXU/p9XoaZor3gddpEnXUfW9KniZokjf8Ae29/emsPs+xE22MWJ/QSR1km8CLhr2AygLGv17bfppVnhAONL7/XLeq9cMlFBiRof157egp3KGYG/P09dfz60QdU5XpjLI02tfSmMDC569KOiQdalWHksLmPDX0pXMZmDbnQcXFPP6B+j50jj2Ouo9PHrWLy1zYPjZl2kmYB1j25DQ+/KlUzZkwQCB+ISNQL2O3FbY+tCxcxAP6+sem2060oc+FkkSSdjFiBMDS9Jy3qszzNxvsZ2m5Nyf8AUZP6TQ0w1VGljJIHCvFOjXmIniBETuInWoZtg0AXJJ6mZ3J12M6Uvg4j8MmYiVsRPMzF7z710jnThzyBSAYYaDUE8toNqnlTwr3mAJvEjnBMcpB1j50m+I5Eqw84n+LfOuYOYYqFAHCJtwju2kwdQZAOvPaqi6wG4lYxMggXPxTBa14Gg5m+wmrxME8YE3sADNtDqepPp4UfLqvELCBHe4RsBp60VsVwO6INwHHdM3+E8xO3Kaxb7dOZsLYjFTAENABA1FhbSoopm5JJHXaB4zoP5sTMoVsCQQBrsBbTnJiBoeLWLeXihT0153kk/X6VnfTdjqoeODJM3k+UW8x+tPqvwkByxBN7zEju8xYDelcJGB4lEa6mN49atcs2KpSLMsKkr/lx38yTUtWclGw2IEADXWBHQna4NqjgITMgwOU63uf0q4xcmWaWYkgHiLmZvuwGrTrA3New8MBVMkMzcIkASIEmbwR+VTyPFX5DLgsQeVvIzf0rb/dphJhliwLABUUFnc8M8KqJJManQakis/jYCcSrhEjFYwsQDPVoso1MyNLEkA6jsjKBG4nl8ZxBxFnjZSZ4ESOFcKdkPdtv3qz1ZfbWXkHsvBbHxf8AujgXDKsuCSGIn4MTEIJDGx4VEqpBJJYADWwir8ShBqxsNoF+sVn85lSXBwBBUMW4pV8OXSXCMAzhoaQbGCQSTeyws1GLhyWXEZXXhmUfhKmVYkCQCSptKs+4gc+ruMz38Pgy5yBBuRINdbNCe7ItqaUILkQAJv0tUszmLjoALC1q9ljx4cXMGOE6TR1Q90qwaNSdB08arMXFEiBV3hAJhBl75mWBt6VJMJFZiM6kyLEn+ab7KZHaDqJYHa3OgcbYh43ICCTwgaV3I5kcQTCHxSWJ10sB0pi4s8vleIhAxHE3egG4+daHCyOGj8aDhOhmb9T5ih5NQCoNyAATzIHWu4vaKh/u8QFS1hoQ3pcedYs1r0O7RcesfX0K5idqKqw3rt571BMSDwmSD8J3B5HmK5mEBViyg+lJF1xc2Huj7agzHlQMxjll4WJIi83ItyFZ3GZR38Fmw3U6ag39KcHabOodgCcNhMWDK1tOYNXKnk52dhvmcbhcnhwlkjQEgwATzrS4gc2i2x/c1m+wM8wx34J4GbiKiAINpO5jlWs+9ViFMgmraSlmy4/uE/XSq7PqJFxp61cuq6SB5Gg42WBGo9DU8lUYxFJv5xPl6W96FiKm2h6607idnMtx8x7VEZN+Q9vfataJ5DKoBxHluJ+vb5Uz9ysWtfQ772+vOh4GBB+dPtggiwE7+lZtVWYeV4iRbnp1/gW/OnE7NCH4gZ3g8uvn7UfLKovpH7fW1TxcWB5x+x6VLRFlKjUCSYnU0ri5hiIXXlp5+H61LMAnQAR6aaH1+dKNmeAFSqkGBMaGZ8vLaRTTDB5sRAN4B+jrSeNjAGzA9dI68t6Txsxf+0HYToBPPrSWecqxGsG/ThsReZ33rSn3YFuHmDBgx773tvVdnMJhqI3AO41nfp60vjYx1mROm17ftTRLx3pEd4Q02A4tD0B8fm+Gs2F27NJBJYCwmdiZIBHULUHyxsqsXgeSmSYXbfw11rwxYYkz4TsYN/WfqKOubTiUmRHFtYzMWkwRc73J5CmmfRJctP4fKaJwSTxKRaDoNQbaXMEmaMM3LNIiZAsLcyIiT46iiHBXi4ZJ5W1H1fzqW4TnQibf2yJtFrAiBtrTpwLKATZZBF2FgwgWEk8+ddfCiIAEaa6Wt5fmdaIjsohdpuDawncaQdIrF6/HSc4liYAZE4TxKlmmbkE3JO19PbWoOjgTHxG4/tuY0JJn6nZkZgqRN7aQI1k+AkbfpUlzfG1wLLBHT9o+t862EmEzkkATbSetz028xT2XxFDFiCT+HoIMz58puJFBGdBWApFzEG4DGBNwDBExbz3s8llMHE7iYhVlGhUxGlyBprpJ8daz1cntrnnUMB1MqSZgdN2OvQx6UfMlAqBAHfj7vCCeGD3izRAgMZ1vGmlCxOzAsEYiv3o+EqpaSQCNTa5byEWiWSyqFm77mIVSNSAJIvpJnWdpmKxe5JrfP87fQuRyq4b8ZYBiQCzJJN7KoBhZMKFWZnUwTVxmsw6A4xRERikkgkzdQWg9yO6pgNMibLceQfAm/EcRl4gzqGhRHCIkDQiQI3vN6D/1TB7qrxEsQcJOFXn42DqrwiN3hMtcTuBXOf08uskb74vM+PRvs/OZl1GIwD4VgjLwvBDEMVdmDAnS8aaA2qn7V7YP3jKysygmEZYxFc8Mm0mOEGJj421tT2X7S7gU90IlkwywixP/AHMUw972wwNLsdKo8/8AaLK4ffTABJjikQvLhVAdOsg90Hcg6558rcjnL4336f/Z" alt="Танк 1">
+        </li>
+        <li onclick="selectTank('Танк 2')">
+            <p>Танк 2: Panther</p>
+            <img src="https://wiki.warthunder.com/images/thumb/0/00/ArtImage_Panther_D.png/800px-ArtImage_Panther_D.png" alt="Танк 2">
+        </li>
+        <li onclick="selectTank('Танк 3')">
+            <p>Танк 3: IS-3</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/IS3.jpg" alt="Танк 3">
+
+        </li>
+        <li onclick="selectTank('Танк 4')">
+            <p>Танк 4: M4 Sherman</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Sherman_Dresden_1.jpg" alt="Танк 4">
+        </li>
+        <li onclick="selectTank('Танк 5')">
+            <p>Танк 5: Tiger II</p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Bovington_Tiger_II_grey_bg.jpg/1200px-Bovington_Tiger_II_grey_bg.jpg" alt="Танк 5">
+        </li>
+    </ul>
+</section>
  
 
 <script>
