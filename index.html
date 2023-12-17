@@ -7,7 +7,7 @@
     <title>Фан-сайт гри World of Tanks Blitz</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <style>
-@media only screen and (max-width: 600px) {
+        @media only screen and (max-width: 600px) {
     .mobile-menu-icon {
         display: block; 
         font-size: 24px;
@@ -1130,6 +1130,221 @@ background-color: yellow;
     #about:hover {
         color: red; 
     }
+    #contact-form button {
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+#contact-form button:hover {
+    background-color: #45a049;
+    color: #fff;
+    transform: scale(1.1);
+}
+window.onscroll = function () {
+    var nav = document.querySelector('nav');
+    if (window.scrollY > 0) {
+        nav.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
+    } else {
+        nav.style.boxShadow = 'none';
+    }
+};
+.fab.fa-telegram {
+    transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.fab.fa-telegram:hover {
+    color: #0088cc;
+    transform: scale(1.2);
+}
+#news h2:hover,
+#news h3:hover {
+    font-size: 2.2em;
+}
+#tank-list li {
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+#tank-list li:hover {
+    background-color: #ff4500;
+    color: #fff;
+}
+section iframe {
+    transition: transform 0.3s ease-in-out;
+}
+
+section iframe:hover {
+    transform: scale(1.1);
+}
+nav a.current {
+    color: #ff7f50;
+}
+::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: linear-gradient(90deg, #4caf50, #0088cc);
+    transition: width 0.3s ease-in-out;
+}
+
+window.onscroll = function () {
+    var progress = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    document.querySelector('::after').style.width = progress + '%';
+};
+section {
+    background: linear-gradient(45deg, #ff7e5f, #feb47b);
+}
+#contact-form input,
+#contact-form textarea {
+    border-radius: 5px;
+}
+a {
+    color: #4caf50;
+    transition: color 0.3s ease-in-out;
+}
+
+a:hover {
+    color: #0088cc;
+}
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+}
+section {
+    transition: transform 0.5s ease-in-out;
+}
+
+section:hover {
+    transform: scale(1.02);
+}
+.animated-element {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.animated-element.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+body.dark-mode {
+    background-color: #121212;
+    color: #fff;
+}
+
+ </style>
+</head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+<style>
+    body {
+        font-family: 'Open Sans', sans-serif;
+    }
+</style>
+
+<body>
+<div class="video-container"> </div>
+    <div class="play-button" onclick="playVideo('TvzZsmaF9ts')"></div>
+<style>
+    section #video .video-container {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        padding-top: 56.25%;
+        position: relative;
+    }
+    section #video .video-container:hover .play-button {
+        display: block;
+    }
+    section #video .video-container .play-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80px;
+        height: 80px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        display: none;
+        cursor: pointer;
+    }
+    section #video .video-container .play-button:before {
+        content: '\25BA';
+        font-size: 40px;
+        line-height: 80px;
+        text-align: center;
+        color: #333;
+    }
+    #scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    font-size: 50px;
+    color: red;
+
+
+background-color: yellow;
+}
+
+    #about {
+        color: white; 
+        transition: color 0.5s ease; 
+    }
+
+    #about:hover {
+        color: red; 
+    }
+    #feedback-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #336699;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#feedback-form input,
+#feedback-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: #003366;
+    color: #fff;
+}
+
+#feedback-form button {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#feedback-form button:hover {
+    background-color: #45a049;
+}
+.mobile-menu {
+    display: none;
+    /* Інші стилі для мобільного меню */
+}
+
+@media only screen and (max-width: 600px) {
+    .mobile-menu {
+        display: block;
+        
+    }
+}
+
 </style>
 <div class="mobile-menu-icon" onclick="toggleMobileMenu()">☰</div>
 <script>
@@ -1379,6 +1594,16 @@ document.getElementById("scroll-to-top").onclick = function() {
     document.documentElement.scrollTop = 0;
 };
 </script>
+<script>
+window.addEventListener('scroll', function() {
+    var element = document.querySelector('.animated-element');
+    var position = element.getBoundingClientRect().top;
+    var windowHeight = window.innerHeight;
 
+    if (position < windowHeight) {
+        element.classList.add('is-visible');
+    }
+});
+</script>
 </body>
 </html>
