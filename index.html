@@ -1452,26 +1452,14 @@ background-color: yellow;
     </section>
 <section id="contact-form">
     <h2>Зв'язатися з нами</h2>
-   <form action="process_form.php" method="post">
-        <input type="text" name="name" placeholder="Ім'я" required>
-        <input type="email" name="email" placeholder="Електронна пошта" required>
-        <textarea name="message" placeholder="Ваше повідомлення" rows="4" required></textarea>
-        <button type="submit">Надіслати</button>
-    </form>
+   <form action="https://formspree.io/f/xjvnbozk" method="POST">
+    <input type="text" name="name" placeholder="Ім'я" required>
+    <input type="email" name="email" placeholder="Електронна пошта" required>
+    <textarea name="message" placeholder="Ваше повідомлення" rows="4" required></textarea>
+    <button type="submit">Надіслати</button>
+</form>
+
 </section>
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST["name"];
-    $email = $_POST["email"];
-    $message = $_POST["message"];
-    
-    $to = "Viberuuu4@gmail.com";
-    $subject = "Нове повідомлення від $name";
-    $headers = "From: $email";
-    
-    mail($to, $subject, $message, $headers);
-}
-?>
 
 <section id="news">
         <h2>Новини</h2>
