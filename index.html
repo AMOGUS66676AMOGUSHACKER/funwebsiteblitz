@@ -1374,6 +1374,41 @@ body {
   background-color: #ddd;
 }
 
+.mobile-menu {
+    position: fixed;  
+    top: 0;          
+    left: 0;         
+    width: 100%;    
+    background-color: #333; 
+    z-index: 1000;   
+}
+
+.toggle-menu {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.slider-nav {
+    display: none; 
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.slider-nav a {
+    display: block;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff; 
+}
+
+.slider-nav a:hover {
+    background-color: #555; 
+
 </style>
 <div class="mobile-menu-icon" onclick="toggleMobileMenu()">☰</div>
 <script>
