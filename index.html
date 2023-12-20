@@ -1335,6 +1335,44 @@ background-color: yellow;
         
     }
 }
+body {
+  font-family: Arial, sans-serif;
+}
+
+.mobile-menu {
+  position: relative;
+}
+
+.toggle-menu {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.slider-nav {
+  display: none; /* Початково слайдер-меню сховане */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  z-index: 1000; /* Щоб меню було над іншими елементами */
+}
+
+.slider-nav a {
+  display: block;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  color: #333;
+}
+
+.slider-nav a:hover {
+  background-color: #ddd;
+}
 
 </style>
 <div class="mobile-menu-icon" onclick="toggleMobileMenu()">☰</div>
@@ -1357,6 +1395,22 @@ background-color: yellow;
         <a href="#" onclick="scrollToSection('events')">Події та Турніри</a>
         <a href="#" onclick="scrollToSection('news')">Новини</a>
     </nav>
+    <div class="mobile-menu">
+    <button class="toggle-menu" onclick="toggleSliderMenu()">☰</button>
+    <nav class="slider-nav">
+        <a href="#" onclick="scrollToSection('about')">Про гру</a>
+        <a href="#" onclick="scrollToSection('gameplay')">Геймплей</a>
+        <a href="#" onclick="scrollToSection('download')">Завантажити</a>
+        <a href="#" onclick="scrollToSection('contact')">Контакти</a>
+        <a href="#" onclick="scrollToSection('video')">Відео</a>
+        <a href="#" onclick="scrollToSection('updates')">Останні Оновлення</a>
+        <a href="#" onclick="scrollToSection('community')">Спільнота гравців</a>
+        <a href="#" onclick="scrollToSection('gallery')">Галерея</a>
+        <a href="#" onclick="scrollToSection('events')">Події та Турніри</a>
+        <a href="#" onclick="scrollToSection('news')">Новини</a>
+    </nav>
+</div>
+
     <section id="about">
         <h2>Про гру World of Tanks Blitz</h2>
         <p>World of Tanks Blitz - це безкоштовна мобільна MMO гра в жанрі екшн, розроблена Wargaming, нагороджений розробник і видавець онлайн ігор. 
@@ -1597,6 +1651,21 @@ window.addEventListener('scroll', function() {
         element.classList.add('is-visible');
     }
 });
+</script>
+<script src="script.js"></script>
+<script>function toggleSliderMenu() {
+  const sliderNav = document.querySelector('.slider-nav');
+  if (sliderNav.style.display === 'block') {
+    sliderNav.style.display = 'none';
+  } else {
+    sliderNav.style.display = 'block';
+  }
+}
+
+function scrollToSection(sectionId) {
+  const section = document.getElementById(sectionId);
+  section.scrollIntoView({ behavior: 'smooth' });
+}
 </script>
 </body>
 </html>
