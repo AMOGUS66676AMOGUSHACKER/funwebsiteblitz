@@ -1004,7 +1004,7 @@ body {
         }
          #gameplay {
         color: white; 
-     transition: color 0.5s ease; 
+     transition: color 1.0s ease; 
     }
 
     #gameplay:hover {
@@ -1192,7 +1192,7 @@ section {
 }
 a {
     color: #4caf50;
-    transition: color 0.3s ease-in-out;
+    transition: color 1.0s ease-in-out;
 }
 
 a:hover {
@@ -1284,7 +1284,7 @@ background-color: yellow;
 
     #about {
         color: white; 
-        transition: color 0.5s ease; 
+        transition: color 1.0s ease; 
     }
 
     #about:hover {
@@ -1318,7 +1318,7 @@ background-color: yellow;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.5s ease-in-out;
 }
 
 #feedback-form button:hover {
@@ -1326,7 +1326,6 @@ background-color: yellow;
 }
 .mobile-menu {
     display: none;
-    /* Інші стилі для мобільного меню */
 }
 
 @media only screen and (max-width: 600px) {
@@ -1352,14 +1351,14 @@ body {
 }
 
 .slider-nav {
-  display: none; /* Початково слайдер-меню сховане */
+  display: none; 
   position: absolute;
   top: 100%;
   left: 0;
   width: 100%;
   background-color: #f9f9f9;
   border: 1px solid #ccc;
-  z-index: 1000; /* Щоб меню було над іншими елементами */
+  z-index: 1000; 
 }
 
 .slider-nav a {
@@ -1544,7 +1543,7 @@ body {
    <form action="https://formspree.io/f/xjvnbozk" method="POST">
     <input type="text" name="name" placeholder="Ім'я" required>
     <input type="email" name="email" placeholder="Електронна пошта" required>
-    <textarea name="message" placeholder="Ваше повідомлення" rows="4" required></textarea>
+    <textarea name="message" placeholder="Ваше повідомлення" rows="10" required></textarea>
     <button type="submit">Надіслати</button>
 </form>
 
