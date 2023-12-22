@@ -1069,7 +1069,7 @@ footer:hover {
 
     </style>
 </head>
-<body>
+
     
  
     <div class="play-button" onclick="playVideo('TvzZsmaF9ts')"></div>
@@ -1081,6 +1081,7 @@ footer:hover {
         padding-top: 56.25%;
         position: relative;
     }
+
     section #video .video-container:hover .play-button {
         display: block;
     }
@@ -1231,7 +1232,6 @@ body.dark-mode {
 }
 
  </style>
-</head>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
 <style>
     body {
@@ -1425,19 +1425,19 @@ body {
     }
 
     #rating option {
-        color: #ddd;
+        color: red;
     }
 
    
     #rating option:checked {
-        color: #f7d208; 
+        color: yellow; 
     }
 
 
     #rating option:checked:before {
-        content: "\2605"; /* символ зірки */
-        font-size: 28px; /* більший розмір шрифту для активної зірки */
-        transition: all 0.9s ease-in-out; /* плавний перехід для ефекту */
+        content: "\2605"; 
+        font-size: 29px; 
+        transition: all 0.9s ease-in-out; 
     }
 </style>
 <div class="mobile-menu-icon" onclick="toggleMobileMenu()">☰</div>
@@ -1686,21 +1686,10 @@ function selectTank(tankName) {
     <div class="modal-content">
         <span class="close">&times;</span>
         <p> P.ss Дата першої версії 25.11.2023</p>
-         <p> Останнє оновлення 21.12.2023 17:29 </p>
+   
     </div>
 </div>
-<script>
-var modal = document.getElementById('myModal');
-var span = document.getElementsByClassName('close')[0];
-span.onclick = function() {
-    modal.style.display = 'none';
-}
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = 'none';
-    }
-}
-</script>
+
 <div id="scroll-to-top">
     <a href="#top">↑</a>
 </div>
