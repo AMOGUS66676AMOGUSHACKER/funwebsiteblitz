@@ -1066,10 +1066,12 @@ footer:hover {
     background-color: #ff4500;
 }
 
+
     </style>
 </head>
 <body>
-<div class="video-container"> </div>
+    
+ 
     <div class="play-button" onclick="playVideo('TvzZsmaF9ts')"></div>
 <style>
     section #video .video-container {
@@ -1407,7 +1409,36 @@ body {
 
 .slider-nav a:hover {
     background-color: #555; 
+}
+.discord-link {
+    font-family: Arial, sans-serif;
+    font-size: 16px; 
+    color: #7289da; 
+    text-decoration: none; 
+}
 
+.discord-link i {
+    margin-right: 5px;
+}
+ #rating {
+        font-size: 24px; 
+    }
+
+    #rating option {
+        color: #ddd;
+    }
+
+   
+    #rating option:checked {
+        color: #f7d208; 
+    }
+
+
+    #rating option:checked:before {
+        content: "\2605"; /* символ зірки */
+        font-size: 28px; /* більший розмір шрифту для активної зірки */
+        transition: all 0.9s ease-in-out; /* плавний перехід для ефекту */
+    }
 </style>
 <div class="mobile-menu-icon" onclick="toggleMobileMenu()">☰</div>
 <script>
@@ -1540,14 +1571,23 @@ body {
     </section>
 <section id="contact-form">
     <h2>Зв'язатися з нами</h2>
-   <form action="https://formspree.io/f/xjvnbozk" method="POST">
-    <input type="text" name="name" placeholder="Ім'я" required>
-    <input type="email" name="email" placeholder="Електронна пошта" required>
-    <textarea name="message" placeholder="Ваше повідомлення" rows="10" required></textarea>
-    <button type="submit">Надіслати</button>
-</form>
+    <form action="https://formspree.io/f/xjvnbozk" method="POST">
+        <input type="text" name="name" placeholder="Ім'я" required>
+        <input type="email" name="email" placeholder="Електронна пошта" required>
+        <label for="rating">Оцінка (в зірках):</label>
+        <select name="rating" id="rating" required>
+            <option value="1">&#9733;</option>
+            <option value="2">&#9733;&#9733;</option>
+            <option value="3">&#9733;&#9733;&#9733;</option>
+            <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
+            <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+        </select>
 
+        <textarea name="message" placeholder="Ваше повідомлення" rows="10" required></textarea>
+        <button type="submit">Надіслати</button>
+    </form>
 </section>
+
 
 <section id="news">
         <h2>Новини</h2>
@@ -1629,6 +1669,11 @@ function selectTank(tankName) {
     function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+</script>
+<script>
+    document.getElementById("darkModeToggle").addEventListener("click", function() {
+    document.body.classList.toggle("dark-mode");
+});
 </script>
 <script>
     function toggleMobileMenu() {
