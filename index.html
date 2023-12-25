@@ -106,6 +106,37 @@ section img:hover {
 #download-link:hover {
     background-color: #45a049;
 }
+#download {
+    text-align: center; 
+    padding: 50px 0; 
+}
+
+#download h2 {
+    color: black; 
+    transition: color 0.7s;
+}
+
+#download p {
+    color: black; 
+    transition: color 0.7s; 
+}
+
+#download a#download-link {
+    background-color: #007bff; 
+    color: white; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    text-decoration: none;
+    transition: background-color 0.3s; 
+     display: inline-block; 
+    transition: all 0.3s;
+}
+#download a#download-link:hover {
+    transform: scale(1.1); 
+}
+#download a#download-link:hover {
+    background-color: #0056b3;
+}
 
 footer {
     background-color: #336699;
@@ -265,22 +296,7 @@ window.onscroll = function () {
         nav.style.boxShadow = 'none';
     }
 };
-#download-link {
-    display: inline-block;
-    background-color: #4CAF50;
-    color: white;
-    padding: 15px 30px;
-    text-decoration: none;
-    font-size: 18px;
-    margin-top: 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-}
 
-#download-link:hover {
-    background-color: #45a049;
-    transform: scale(1.1);
-}
 section h2 {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     margin-top: 1; 
