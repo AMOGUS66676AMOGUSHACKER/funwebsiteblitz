@@ -1427,61 +1427,10 @@ body {
         font-size: 29px; 
         transition: all 0.9s ease-in-out; 
     }
-body {
-  overflow: hidden;
-}
-
-.snowflake {
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  background: #fff;
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-@keyframes snowflake-fall {
-  0% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(100vh);
-  }
-}
-
-.snowflake {
-  animation: snowflake-fall linear infinite;
-}
-
-overflow: hidden;
-  }
-  .snowflake {
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    background: #fff;
-    border-radius: 50%;
-  }
-body, html {
-  height: 100%; 
-  margin: 0;
-  padding: 0;
-  overflow: hidden; 
-}
-
-#snow-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%; 
-  height: 100%; 
-  pointer-events: none; 
-}
 body, html {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
 }
 
 #snow-container {
@@ -1491,16 +1440,26 @@ body, html {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 9999; 
+  z-index: 9999;
 }
 
 .snowflake {
   position: absolute;
-  z-index: 9999; 
+  z-index: 9999;
   width: 5px;
   height: 5px;
   background: #fff;
   border-radius: 50%;
+  animation: snowflake-fall linear infinite;
+}
+
+@keyframes snowflake-fall {
+  0% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
 }
 
 </style>
