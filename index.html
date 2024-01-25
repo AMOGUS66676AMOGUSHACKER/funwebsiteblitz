@@ -2486,7 +2486,15 @@ body {
 
   .fab.fa-instagram:hover {
     transform: scale(1.2); /
-    color: blue;
+    color: blue
+      .fab.fa-instagram {
+    transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out; 
+  }
+
+  .fab.fa-instagram:hover {
+    transform: scale(1.2); 
+    filter: brightness(120%); 
+  };
 </style>
 <div class="mobile-menu-icon" onclick="toggleMobileMenu()">☰</div>
 <script>
