@@ -1065,11 +1065,34 @@ footer:hover {
     background-color: #ff4500;
 }
 
+#search-form {
+    display: inline-block;
+    position: relative;
+}
 
+#search-form input {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #fff;
+}
+
+#search-form button {
+    background: none;
+    border: none;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #fff;
+}
     </style>
 </head>
 
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
  
     <div class="play-button" onclick="playVideo('TvzZsmaF9ts')"></div>
 <style>
@@ -1267,6 +1290,22 @@ h1, h2, h3 {
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
 
 <body>
+    <div id="carousel" class="owl-carousel owl-theme">
+    <div class="item"><img src="image1.jpg" alt="Зображення 1"></div>
+    <div class="item"><img src="image2.jpg" alt="Зображення 2"></div>
+    <div class="item"><img src="image3.jpg" alt="Зображення 3"></div>
+</div>
+    <script>
+$(document).ready(function() {
+    $("#carousel").owlCarousel({
+        items: 1,
+        loop: true,
+        nav: true,
+        autoplay: true,
+        autoplayTimeout: 3000,
+    });
+});
+</script>
 <div class="video-container"> </div>
     <div class="play-button" onclick="playVideo('TvzZsmaF9ts')"></div>
 <style>
@@ -2500,6 +2539,10 @@ body {
         <h1>Фан-сайт гри World of Tanks Blitz</h1>
     </header>
     <nav>
+        <form id="search-form" action="/search" method="get">
+    <input type="text" name="q" placeholder="Пошук...">
+    <button type="submit"><i class="fas fa-search"></i></button>
+</form>
         <a href="#" onclick="scrollToSection('about')">Про гру</a>
         <a href="#" onclick="scrollToSection('gameplay')">Геймплей</a>
         <a href="#" onclick="scrollToSection('download')">Завантажити</a>
