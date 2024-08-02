@@ -9,7 +9,24 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=FontName&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gunny+Rewritten&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap">
+<div class="register-form">
+    <h2>Реєстрація</h2>
+    <form action="/register" method="post">
+        <label for="username">Ім'я користувача:</label>
+        <input type="text" id="username" name="username" required>
 
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="confirm_password">Підтвердіть пароль:</label>
+        <input type="password" id="confirm_password" name="confirm_password" required>
+
+        <button type="submit">Реєстрація</button>
+    </form>
+</div>
     <title>Фан-сайт гри World of Tanks Blitz</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <style>
@@ -2527,6 +2544,43 @@ body {
     transform: scale(1.2); 
     filter: brightness(120%); 
   };
+    register-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1em;
+    background: #f9f9f9;
+    border-radius: 5px;
+}
+
+.register-form h2 {
+    margin-bottom: 1em;
+}
+
+.register-form label {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+.register-form input {
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.register-form button {
+    padding: 0.7em 2em;
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.register-form button:hover {
+    background: #555;
+}
 </style>
 <div class="mobile-menu-icon" onclick="toggleMobileMenu()">☰</div>
 <script>
