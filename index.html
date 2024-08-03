@@ -2651,11 +2651,56 @@ body {
 .register-form button:hover {
     background: #555;
 }
+    body {
+    font-family: 'Roboto', sans-serif;
+    background: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Забороняємо прокручування сторінки під час завантаження */
+}
+
+#preloader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.hidden {
+    display: none;
+}
+
 </style>
 <div class="mobile-menu-icon" onclick="toggleMobileMenu()">☰</div>
 <script>
     function playVideo(videoId) {
         }
+</script>
+<script>
+window.addEventListener('load', function () {
+    document.getElementById('preloader').classList.add('hidden');
+    document.body.style.overflow = 'auto'; // Дозволяємо прокручування сторінки після завантаження
+});
 </script>
 
 
@@ -2694,6 +2739,9 @@ body {
         <a href="#" onclick="scrollToSection('news')">Новини</a>
         
     </nav>
+</div>
+<div id="preloader">
+    <div class="loader"></div>
 </div>
 
 <div id="snow-container"></div>
