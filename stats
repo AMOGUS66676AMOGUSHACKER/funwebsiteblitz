@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пошук Гравця</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .search-bar {
+            margin-bottom: 20px;
+        }
+        .player-stats {
+            display: none;
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Пошук Гравця</h1>
+    <div class="search-bar">
+        <label for="player-nick">Введіть нік гравця:</label>
+        <input type="text" id="player-nick">
+        <button onclick="searchPlayer()">Пошук</button>
+    </div>
+    <div class="player-stats" id="player-stats">
+        <h2>Статистика Гравця</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Характеристика</th>
+                    <th>Значення</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Ім'я гравця</td>
+                    <td id="player-name"></td>
+                </tr>
+                <tr>
+                    <td>Кількість боїв</td>
+                    <td id="battles-count"></td>
+                </tr>
+                <tr>
+                    <td>Перемоги</td>
+                    <td id="wins-count"></td>
+                </tr>
+                <tr>
+                    <td>Рейтинг</td>
+                    <td id="player-rating"></td>
+                </tr>
+                <!-- Додайте більше характеристик тут -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        async function searchPlayer() {
+            const playerNick = document.getElementById('player-nick').value;
+            if (!playerNick) {
+                alert('Введіть нік гравця!');
+                return;
+            }
+
+            // Замість `YOUR_API_KEY` вставте ваш ключ API
+            const apiKey = 'YOUR_API_KEY';
+            const apiUrl = `https://api.worldoftanks.com/wot/account/list/?application_id=${apiKey}&search=${playerNick}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (data.status === 'ok' && data.meta.count > 0) {
+                    const playerId = data.data[0].account_id;
+                    const playerStatsUrl = `https://api.worldoftanks.com/wot/account/info/?application_id=${apiKey}&account_id=${playerId}`;
+
+                    const statsResponse = await fetch(playerStatsUrl);
+                    const statsData = await statsResponse.json();
+
+                    if (statsData.status === 'ok') {
+                        const playerStats = statsData.data[playerId];
+                        displayPlayerStats(playerStats);
+                    } else {
+                        alert('Не вдалося отримати статистику гравця.');
+                    }
+                } else {
+                    alert('Гравця не знайдено.');
+                }
+            } catch (error) {
+                console.error('Error fetching player data:', error);
+                alert('Виникла помилка при пошуку гравця.');
+            }
+        }
+
+        function displayPlayerStats(stats) {
+            document.getElementById('player-name').textContent = stats.nickname;
+            document.getElementById('battles-count').textContent = stats.statistics.all.battles;
+            document.getElementById('wins-count').textContent = stats.statistics.all.wins;
+            document.getElementById('player-rating').textContent = stats.global_rating;
+
+            document.getElementById('player-stats').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
