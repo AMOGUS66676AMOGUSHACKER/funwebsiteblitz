@@ -16,6 +16,9 @@
             display: none;
             margin-top: 20px;
         }
+        .loading {
+            display: none;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -36,6 +39,7 @@
         <input type="text" id="player-nick">
         <button onclick="searchPlayer()">Пошук</button>
     </div>
+    <div class="loading" id="loading">Пошук гравця, зачекайте...</div>
     <div class="player-stats" id="player-stats">
         <h2>Статистика Гравця</h2>
         <table>
@@ -70,8 +74,15 @@
     <script>
         async function searchPlayer() {
             const playerNick = document.getElementById('player-nick').value;
+            const loading = document.getElementById('loading');
+            const playerStats = document.getElementById('player-stats');
+            
+            playerStats.style.display = 'none';
+            loading.style.display = 'block';
+
             if (!playerNick) {
                 alert('Введіть нік гравця!');
+                loading.style.display = 'none';
                 return;
             }
 
@@ -81,7 +92,6 @@
             try {
                 const response = await fetch(apiUrl);
                 const data = await response.json();
-                console.log('Response from list API:', data);
 
                 if (data.status === 'ok' && data.meta.count > 0) {
                     const playerId = data.data[0].account_id;
@@ -89,7 +99,6 @@
 
                     const statsResponse = await fetch(playerStatsUrl);
                     const statsData = await statsResponse.json();
-                    console.log('Response from info API:', statsData);
 
                     if (statsData.status === 'ok') {
                         const playerStats = statsData.data[playerId];
@@ -103,6 +112,8 @@
             } catch (error) {
                 console.error('Error fetching player data:', error);
                 alert('Виникла помилка при пошуку гравця.');
+            } finally {
+                loading.style.display = 'none';
             }
         }
 
