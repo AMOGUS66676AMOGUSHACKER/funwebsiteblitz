@@ -2,6 +2,12 @@
 <head>
     <meta charset="UTF-8">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<label for="language">Мова:</label>
+<select id="language" name="language" onchange="changeLanguage(this.value)">
+    <option value="uk">Українська</option>
+    <option value="en">English</option>
+    <option value="ru">Русский</option>
+</select>
 
     <link rel="icon" type="image/png" href="https://images.unian.net/photos/2023_02/thumb_files/1200_0_1676463072-6614.jfif">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -2898,6 +2904,56 @@ function selectTank(tankName) {
     alert('Ви вибрали танк: ' + tankName);
 }
 </script>
+    <script>
+function changeLanguage(language) {
+    const labels = {
+        uk: {
+            username: "Ім'я користувача:",
+            email: "Email:",
+            password: "Пароль:",
+            confirm_password: "Підтвердіть пароль:",
+            phone: "Номер телефону:",
+            address: "Адреса:",
+            country: "Країна:",
+            terms: "Я погоджуюсь з умовами користування та політикою конфіденційності",
+            submit: "Реєстрація"
+        },
+        en: {
+            username: "Username:",
+            email: "Email:",
+            password: "Password:",
+            confirm_password: "Confirm Password:",
+            phone: "Phone Number:",
+            address: "Address:",
+            country: "Country:",
+            terms: "I agree to the terms and conditions and privacy policy",
+            submit: "Register"
+        },
+        ru: {
+            username: "Имя пользователя:",
+            email: "Email:",
+            password: "Пароль:",
+            confirm_password: "Подтвердите пароль:",
+            phone: "Номер телефона:",
+            address: "Адрес:",
+            country: "Страна:",
+            terms: "Я согласен с условиями использования и политикой конфиденциальности",
+            submit: "Регистрация"
+        }
+    };
+
+    document.querySelector('label[for="username"]').textContent = labels[language].username;
+    document.querySelector('label[for="email"]').textContent = labels[language].email;
+    document.querySelector('label[for="password"]').textContent = labels[language].password;
+    document.querySelector('label[for="confirm_password"]').textContent = labels[language].confirm_password;
+    document.querySelector('label[for="phone"]').textContent = labels[language].phone;
+    document.querySelector('label[for="address"]').textContent = labels[language].address;
+    document.querySelector('label[for="country"]').textContent = labels[language].country;
+    document.querySelector('label[for="terms"]').textContent = labels[language].terms;
+    document.querySelector('button[type="submit"]').textContent = labels[language].submit;
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <script>
