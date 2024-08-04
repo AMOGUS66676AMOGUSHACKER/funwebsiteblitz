@@ -163,11 +163,7 @@
                     const awards = achievementsData.data[playerId];
                     if (Object.keys(awards).length > 0) {
                         for (let award in awards) {
-                            if (typeof awards[award] === 'object') {
-                                awardsHtml += `<li>${award}: ${JSON.stringify(awards[award])}</li>`;
-                            } else {
-                                awardsHtml += `<li>${award}: ${awards[award]}</li>`;
-                            }
+                            awardsHtml += `<li>${award}: ${awards[award]}</li>`;
                         }
                     } else {
                         awardsHtml += '<li>Немає нагород</li>';
