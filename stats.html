@@ -5,9 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Пошук Гравця</title>
     <style>
-        body { font-family: Arial, sans-serif; }
-        #result { margin-top: 20px; }
-        .error { color: red; }
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #f0f8ff; 
+            color: #333; 
+            margin: 0;
+            padding: 20px;
+        }
+        h1 { 
+            color: #004080; 
+        }
+        label, button {
+            font-size: 1.2em;
+        }
+        input, select {
+            font-size: 1.2em;
+            padding: 5px;
+            margin: 5px 0;
+        }
+        button {
+            background-color: #004080;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0059b3;
+        }
+        #result {
+            margin-top: 20px; 
+            padding: 20px; 
+            background-color: #e6f2ff; 
+            border-radius: 10px; 
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .error { 
+            color: red; 
+        }
+        .stats {
+            margin-top: 20px;
+        }
+        .stats p {
+            font-size: 1.1em;
+        }
     </style>
 </head>
 <body>
@@ -27,7 +68,7 @@
     <div id="result"></div>
 
     <script>
-        const APP_ID = '337a69597cd1a9343e68ec5173bbe27d'; // Замініть на свій ID
+        const APP_ID = '337a69597cd1a9343e68ec5173bbe27d';
 
         async function searchPlayer() {
             const playerNick = document.getElementById('player-nick').value;
@@ -53,7 +94,7 @@
                 const playerResponse = await fetch(`${apiUrl}/wotb/account/list/?application_id=${APP_ID}&search=${playerNick}`);
                 const playerData = await playerResponse.json();
 
-                console.log('Player list response:', playerData); // Логування відповіді
+                console.log('Player list response:', playerData);
 
                 if (playerData.status !== 'ok' || playerData.data.length === 0) {
                     resultDiv.innerHTML = '<span class="error">Гравця не знайдено або виникла помилка.</span>';
@@ -65,7 +106,7 @@
                 const statsResponse = await fetch(`${apiUrl}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}`);
                 const statsData = await statsResponse.json();
 
-                console.log('Player stats response:', statsData); // Логування відповіді
+                console.log('Player stats response:', statsData);
 
                 if (statsData.status !== 'ok') {
                     resultDiv.innerHTML = '<span class="error">Не вдалося отримати інформацію про гравця</span>';
@@ -73,11 +114,22 @@
                 }
 
                 const playerStats = statsData.data[playerId];
+                const awards = playerStats.achievements;
+
+                let awardsHtml = '<h3>Нагороди:</h3><ul>';
+                for (let award in awards) {
+                    awardsHtml += `<li>${award}: ${awards[award]}</li>`;
+                }
+                awardsHtml += '</ul>';
+
                 resultDiv.innerHTML = `
                     <h2>Статистика для ${playerStats.nickname}</h2>
-                    <p>Бої: ${playerStats.statistics.all.battles}</p>
-                    <p>Перемоги: ${playerStats.statistics.all.wins}</p>
-                    <p>Процент перемог: ${(playerStats.statistics.all.wins / playerStats.statistics.all.battles * 100).toFixed(2)}%</p>
+                    <div class="stats">
+                        <p>Бої: ${playerStats.statistics.all.battles}</p>
+                        <p>Перемоги: ${playerStats.statistics.all.wins}</p>
+                        <p>Процент перемог: ${(playerStats.statistics.all.wins / playerStats.statistics.all.battles * 100).toFixed(2)}%</p>
+                    </div>
+                    ${awardsHtml}
                 `;
             } catch (error) {
                 console.error('Error fetching player data:', error);
