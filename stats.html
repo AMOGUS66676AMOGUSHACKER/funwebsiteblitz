@@ -7,14 +7,26 @@
     <style>
         body { 
             font-family: Arial, sans-serif; 
-            background-color: #f0f8ff; 
+            background: linear-gradient(to right, #0066cc, #0099ff); 
             color: #333; 
             margin: 0;
             padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            max-width: 500px;
+            width: 100%;
         }
         h1 { 
             color: #004080; 
-            text-align: center;
         }
         label, button {
             font-size: 1.2em;
@@ -49,6 +61,7 @@
             background-color: #e6f2ff; 
             border-radius: 10px; 
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: left;
         }
         .error { 
             color: red; 
@@ -71,23 +84,28 @@
             border-radius: 5px;
             text-align: left;
         }
+        .awards h3 {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
-    <h1>Пошук Гравця</h1>
-    <label for="player-nick">Введіть нік гравця:</label>
-    <input type="text" id="player-nick" />
-    
-    <label for="server">Виберіть сервер:</label>
-    <select id="server">
-        <option value="ru">RU</option>
-        <option value="eu">EU</option>
-        <option value="na">NA</option>
-        <option value="asia">ASIA</option>
-    </select>
-    
-    <button onclick="searchPlayer()">Пошук</button>
-    <div id="result"></div>
+    <div class="container">
+        <h1>Пошук Гравця</h1>
+        <label for="player-nick">Введіть нік гравця:</label>
+        <input type="text" id="player-nick" />
+        
+        <label for="server">Виберіть сервер:</label>
+        <select id="server">
+            <option value="ru">RU</option>
+            <option value="eu">EU</option>
+            <option value="na">NA</option>
+            <option value="asia">ASIA</option>
+        </select>
+        
+        <button onclick="searchPlayer()">Пошук</button>
+        <div id="result"></div>
+    </div>
 
     <script>
         const APP_ID = '337a69597cd1a9343e68ec5173bbe27d';
@@ -132,15 +150,21 @@
                 }
 
                 const playerStats = statsData.data[playerId];
-                const awards = playerStats.achievements || {};
+                const achievementsResponse = await fetch(`${apiUrl}/wotb/account/achievements/?application_id=${APP_ID}&account_id=${playerId}`);
+                const achievementsData = await achievementsResponse.json();
 
                 let awardsHtml = '<div class="awards"><h3>Нагороди:</h3><ul>';
-                if (Object.keys(awards).length > 0) {
-                    for (let award in awards) {
-                        awardsHtml += `<li>${award}: ${awards[award]}</li>`;
+                if (achievementsData.status === 'ok') {
+                    const awards = achievementsData.data[playerId];
+                    if (Object.keys(awards).length > 0) {
+                        for (let award in awards) {
+                            awardsHtml += `<li>${award}: ${awards[award]}</li>`;
+                        }
+                    } else {
+                        awardsHtml += '<li>Немає нагород</li>';
                     }
                 } else {
-                    awardsHtml += '<li>Немає нагород</li>';
+                    awardsHtml += '<li>Не вдалося отримати нагороди</li>';
                 }
                 awardsHtml += '</ul></div>';
 
