@@ -2728,6 +2728,31 @@ body {
             transform: translateY(-1px); /* Зменшення підйому при натисканні */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Відновлення тіні при натисканні */
         }
+      #stats {
+            display: inline-block;
+            background-color: #28a745; /* Зелений фон */
+            color: white; /* Білий текст */
+            text-decoration: none; /* Без підкреслення */
+            padding: 15px 30px; /* Відступи */
+            font-size: 18px; /* Розмір шрифту */
+            cursor: pointer; /* Зміна курсору на указівник */
+            border-radius: 25px; /* Закруглені кути */
+            text-transform: uppercase; /* Великі літери */
+            font-weight: bold; /* Жирний текст */
+            transition: all 0.3s ease; /* Плавний перехід для всіх змін */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тінь кнопки */
+        }
+
+        #stats:hover {
+            background-color: #218838; /* Темніший зелений при наведенні */
+            transform: translateY(-5px); /* Піднімання кнопки при наведенні */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Зміна тіні при наведенні */
+        }
+
+        #stats:active {
+            transform: translateY(-1px); /* Зменшення підйому при натисканні */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Відновлення тіні при натисканні */
+        }
 </style>
 <div class="mobile-menu-icon" onclick="toggleMobileMenu()">☰</div>
 <script>
@@ -2835,7 +2860,10 @@ window.addEventListener('load', function () {
         <p>Завантажте гру безкоштовно на свій мобільний пристрій та приєднуйтеся до битви!</p>
         <a id="download-link" href="https://play.google.com/store/apps/details?id=net.wargaming.wot.blitz&pcampaignid=web_share">Завантажити зараз</a>
         <div class="button-wrapper">
-        <a href="https://www.example.com" target="_blank" class="stylish-button">Перевірити свою статистику</a>
+           <div class="button-wrapper">
+        <a id="stats" href="https://amogus66676amogushacker.github.io/funwebsiteblitz/stats" target="_blank">
+            Перевірити свою статистику
+        </a>
     </section>
 
     <section id="contact">
