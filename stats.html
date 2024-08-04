@@ -6,10 +6,10 @@
     <title>Пошук Гравця</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        body { 
-            font-family: 'Roboto', sans-serif; 
-            background: linear-gradient(to right, #1c92d2, #f2fcfe); 
-            color: #333; 
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #1c92d2, #f2fcfe);
+            color: #333;
             margin: 0;
             display: flex;
             justify-content: center;
@@ -21,12 +21,12 @@
             background-color: #fff;
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            max-width: 500px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
             width: 100%;
         }
-        h1 { 
-            color: #004080; 
+        h1 {
+            color: #004080;
             margin-bottom: 20px;
         }
         label, button {
@@ -61,15 +61,15 @@
             background-color: #004080;
         }
         #result {
-            margin-top: 20px; 
-            padding: 20px; 
-            background-color: #e6f2ff; 
-            border-radius: 10px; 
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e6f2ff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: left;
         }
-        .error { 
-            color: red; 
+        .error {
+            color: red;
             font-weight: bold;
         }
         .stats, .awards {
@@ -88,6 +88,12 @@
             padding: 10px;
             border-radius: 5px;
             text-align: left;
+            display: flex;
+            align-items: center;
+        }
+        .awards li i {
+            margin-right: 10px;
+            color: #004080;
         }
         .awards h3 {
             margin-bottom: 10px;
@@ -173,10 +179,10 @@
 
                 let awardsHtml = '<div class="awards"><h3>Нагороди:</h3><ul>';
                 if (achievementsData.status === 'ok') {
-                    const awards = achievementsData.data[playerId];
+                    const awards = achievementsData.data[playerId].achievements;
                     for (let award in awards) {
                         if (awards[award] > 0) {
-                            awardsHtml += `<li>${award}: ${awards[award]}</li>`;
+                            awardsHtml += `<li><i class="fas fa-medal"></i> ${award}: ${awards[award]}</li>`;
                         }
                     }
                 } else {
