@@ -1,263 +1,3044 @@
-<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<label for="language">Мова:</label>
+<select id="language" name="language" onchange="changeLanguage(this.value)">
+    <option value="uk">Українська</option>
+    <option value="en">English</option>
+    <option value="ru">Русский</option>
+</select>
+
+    <link rel="icon" type="image/png" href="https://images.unian.net/photos/2023_02/thumb_files/1200_0_1676463072-6614.jfif">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Пошук Гравця</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<meta name="description" content="Фан-сайт гри World of Tanks Blitz">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=FontName&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gunny+Rewritten&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap">
+
+    <title>Фан-сайт гри World of Tanks Blitz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(to right, #1c92d2, #f2fcfe);
-            color: #333;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
+    font-family: 'Roboto', sans-serif;
+    background: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+.register-form {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.register-form h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+    color: #333;
+}
+
+.register-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.register-form input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.register-form input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+.register-form button {
+    width: 100%;
+    padding: 10px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.register-form button:hover {
+    background: #0056b3;
+}
+
+/* Додаткові стилі для мобільних пристроїв */
+@media (max-width: 600px) {
+    .register-form {
+        padding: 15px;
+    }
+
+    .register-form h2 {
+        font-size: 20px;
+    }
+
+    .register-form input {
+        font-size: 14px;
+    }
+
+    .register-form button {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .mobile-menu-icon {
+        display: block; 
+        font-size: 24px;
+        cursor: pointer;
+    }
+    nav {
+        display: none; 
+    }
+    nav.show {
+        display: block; 
+    }
+    #updates, #news {
+        padding: 20px;
+    }
+}
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #003366; 
+    color: #eee;
+}
+
+header {
+    background: linear-gradient(90deg, #003366, #005599);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    background-size: cover;
+}
+
+h1, h2, h3 {
+    font-size: 2em;
+    margin: 0;
+}
+
+nav {
+    background-color: #336699;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    margin: 0 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+nav a:hover, nav a.current {
+    color: #ff7f50;
+    transform: scale(1.1);
+}
+
+section {
+    padding: 30px;
+    text-align: center;
+    margin: 20px 0;
+    border-radius: 10px;
+    background: #336699;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+section img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    border: 4px solid #fff;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+}
+
+section img:hover {
+    transform: scale(1.1);
+}
+
+#download-link {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 1
+    5px 30px;
+    text-decoration: none;
+    font-size: 18px;
+    margin-top: 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#download-link:hover {
+    background-color: #45a049;
+}
+#download {
+    text-align: center; 
+    padding: 50px 0; 
+}
+
+#download h2 {
+    color: black; 
+    transition: color 0.7s;
+}
+
+#download p {
+    color: black; 
+    transition: color 0.7s; 
+}
+
+#download a#download-link {
+    background-color: #007bff; 
+    color: white; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    text-decoration: none;
+    transition: background-color 0.3s; 
+     display: inline-block; 
+    transition: all 0.3s;
+}
+#download a#download-link:hover {
+    transform: scale(1.1); 
+}
+#download a#download-link:hover {
+    background-color: #0056b3;
+}
+
+footer {
+    background-color: #336699;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: 2px solid #555;
+    transition: background-color 0.3s ease-in-out;
+}
+
+footer:hover {
+    background-color: #005599;
+}
+
+footer p {
+    margin: 0;
+}
+
+
+
+        h2,
+        h3 {
+            animation: fadeInUp 1s ease-in-out;
         }
-        .container {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            max-width: 600px;
-            width: 100%;
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        h1 {
-            color: #004080;
-            margin-bottom: 20px;
-        }
-        label, button {
-            font-size: 1.2em;
-            display: block;
-            margin: 10px 0;
-        }
-        input, select {
-            font-size: 1.2em;
-            padding: 10px;
-            margin: 5px 0;
-            width: calc(100% - 22px);
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            transition: border-color 0.3s;
-        }
-        input:focus, select:focus {
-            border-color: #1c92d2;
-        }
-        button {
-            background-color: #1c92d2;
-            color: #fff;
-            border: none;
-            padding: 15px 20px;
-            cursor: pointer;
-            margin: 20px 0;
-            width: 100%;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #004080;
-        }
-        #result {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #e6f2ff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: left;
-        }
-        .error {
-            color: red;
-            font-weight: bold;
-        }
-        .stats, .awards {
-            margin-top: 20px;
-        }
-        .stats p, .awards p {
-            font-size: 1.1em;
-        }
-        .awards ul {
+
+    
+
+        #tank-list {
             list-style-type: none;
             padding: 0;
         }
-        .awards li {
-            background: #cce5ff;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: left;
-            display: flex;
-            align-items: center;
-        }
-        .awards li i {
-            margin-right: 10px;
-            color: #004080;
-        }
-        .awards h3 {
-            margin-bottom: 10px;
-        }
-        .loader {
-            border: 16px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 16px solid #3498db;
-            width: 120px;
-            height: 120px;
-            animation: spin 2s linear infinite;
-            margin: 20px auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .tooltip {
-            position: relative;
-            display: inline-block;
-        }
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 120px;
-            background-color: #6c757d;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
+
+        #tank-list li {
+            margin-bottom: 5px;
             padding: 5px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%; 
-            left: 50%;
-            margin-left: -60px;
-            opacity: 0;
-            transition: opacity 0.3s;
+            border: 1px solid #336699;
+            border-radius: 5px;
+            background-color: #0000FF;
         }
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
+
+        section iframe {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
         }
+
+        #news h3 {
+            animation: fadeInUp 1s ease-in-out, colorChange 0.5s ease-in-out;
+        }
+
+        @keyframes colorChange {
+            from {
+                color: #ff4500;
+            }
+
+            to {
+                color: #336699;
+            }
+        }
+        nav a {
+    transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+nav a:hover {
+    color: #00FF00;
+    transform: translateY(-3px);
+}
+.fab.fa-telegram {
+    transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.fab.fa-telegram:hover {
+    color: #0088cc;
+    transform: scale(1.2);
+}
+nav {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+#tank-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#tank-list li {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #336699;
+    border-radius: 5px;
+    background-color: #003366;
+    color: #fff;
+    text-align: center;
+    min-width: 150px;
+}
+section img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    border: 4px solid #fff;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+}
+
+section img:hover {
+    transform: scale(1.1);
+}
+#updates,
+#news {
+    background-color: #003366;
+    color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+#news h3 {
+    animation: fadeInUp 1s ease-in-out, colorChange 0.5s ease-in-out;
+}
+
+@keyframes colorChange {
+    from {
+        color: #ff4500;
+    }
+
+    to {
+        color: #336699;
+    }
+}
+nav a.current {
+    color: #ff7f50; 
+}
+window.onscroll = function () {
+    var nav = document.querySelector('nav');
+    if (window.scrollY > 0) {
+        nav.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
+    } else {
+        nav.style.boxShadow = 'none';
+    }
+};
+
+section h2 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-top: 1; 
+}
+footer p {
+    margin: 0;
+    text-align: center;
+}
+#news article {
+    animation: fadeInUp 1s ease-in-out;
+    margin-bottom: 20px;
+}
+footer ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+footer li {
+    margin: 0 10px;
+}
+section {
+    transition: opacity 0.5s ease-in-out;
+}
+
+nav a {
+    transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+section iframe {
+    width: 175%;
+    height: 175%;
+    padding-bottom: 56.25%; 
+    position: relative;
+}
+::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 0;
+    background: linear-gradient(90deg, #4CAF50, #45a049);
+    transition: width 0.3s ease-in-out;
+}
+
+
+window.onscroll = function () {
+    var progress = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    document.querySelector('body::after).style.width = progress + '%';
+};
+@media only screen and (max-width: 600px) {
+    #updates,
+    #news {
+        padding: 20px;
+    }
+}
+nav {
+    transition: background-color 0.3s ease-in-out;
+}
+
+window.onscroll = function () {
+    var nav = document.querySelector('nav');
+    if (window.scrollY > 0) {
+        nav.style.background = 'linear-gradient(90deg, #003366, #005599)';
+    } else {
+        nav.style.background = 'none';
+    }
+};
+#tank-list li {
+    cursor: pointer;
+}
+#about {
+    animation: fadeInUp 1s ease-in-out;
+}
+#about {
+    animation: fadeInUp 1s ease-in-out;
+}
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+footer {
+    transition: background-color 0.3s ease-in-out;
+}
+
+footer:hover {
+    background-color: #005599;
+}
+
+
+@media only screen and (max-width: 600px) {
+    h1, h2, h3 {
+        font-size: 1.5em;
+    }
+}
+#scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#scroll-to-top.show {
+    display: block;
+}
+
+window.onscroll = function () {
+    var scrollToTop = document.getElementById('scroll-to-top');
+    if (window.scrollY > 200) {
+        scrollToTop.classList.add('show');
+    } else {
+        scrollToTp.classList.remove('show');
+    }
+};
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+.mobile-menu-icon {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    .mobile-menu-icon {
+        display: block;
+    }
+
+    nav {
+        display: none;
+    }
+
+    nav.show {
+        display: block;
+    }
+}
+#contact-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #336699;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#contact-form input,
+#contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: #003366;
+    color: #fff;
+}
+
+#contact-form button {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#contact-form button:hover {
+    background-color: #45a049;
+}
+
+
+section iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 175%;
+    height: 175%;
+}
+
+section #video {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+section #video .video-container {
+    transition: transform 0.3s ease-in-out;
+}
+
+section #video .video-container:hover {
+    transform: scale(1.1);
+}
+#scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#scroll-to-top.show {
+    display: block;
+}
+.mobile-menu-icon {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    .mobile-menu-icon {
+        display: block;
+    }
+
+    nav {
+        display: none;
+    }
+
+    nav.show {
+        display: block;
+    }
+}
+#contact-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #336699;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#contact-form input,
+#contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: #003366;
+    color: #fff;
+}
+#contact-form button {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+}
+#scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+#scroll-to-top.show {
+    display: block;
+}
+#scroll-to-top:hover {
+    transform: scale(1.2);
+}
+.mobile-menu-icon {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.mobile-menu-icon:hover {
+    transform: scale(1.2);
+
+}
+header {
+    background: linear-gradient(90deg, #003366, #005599);
+    
+}
+
+nav {
+    background: linear-gradient(90deg, #336699, #005599);
+   
+}
+#scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+#scroll-to-top.show {
+    display: block;
+}
+
+#scroll-to-top:hover {
+    opacity: 0.8;
+    transform: scale(1.2);
+}
+nav.scrolled {
+    background: linear-gradient(90deg, #003366, #005599);
+}
+nav a.transition-color {
+    transition: color 0.3s ease-in-out;
+}
+
+nav a.transition-color:hover {
+    color: #00FF00; 
+}
+nav a.current {
+    color: #ff7f50; 
+}
+footer:hover {
+    background-color: #005599;
+}
+header.scrolled h1 {
+    color: #ff7f50; 
+}
+@media only screen and (max-width: 600px) {
+    nav {
+        background-color: #336699; 
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+}
+.mobile-menu-icon {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #fff; 
+}
+
+.mobile-menu-icon:hover {
+    color: #ff7f50; 
+}
+body {
+    transition: background-color 0.3s ease-in-out;
+}
+
+footer p {
+    text-align: center;
+}
+
+#about {
+    margin-bottom: 50px; 
+}
+section #video:hover h2 {
+    color: #ff4500; 
+}
+#contact-form:hover {
+    background-color: #004080; 
+}
+#gallery img {
+    transition: transform 0.5s ease-in-out;
+}
+
+#gallery img:hover {
+    transform: scale(1.1);
+}
+#news article:hover h3 {
+    color: #336699; 
+}
+#tank-list li {
+    transition: transform 0.3s ease-in-out;
+}
+
+#tank-list li:hover {
+    transform: scale(1.1);
+}
+#scroll-to-top:hover {
+    transform: scale(1.2);
+}
+::after {
+    background: linear-gradient(90deg, #ff4500, #336699);
+}
+footer:hover p {
+    color: #ff4500; 
+}
+#about.scrolled h2 {
+    color: #ff7f50; 
+}
+footer h2 {
+    transition: color 0.3s ease-in-out;
+}
+
+footer h2:hover {
+    color: #ff4500; 
+}
+nav a.active,
+nav a:hover {
+    color: #0000FF;
+}
+nav a.current {
+    background-color: #ff4500;
+    color: #fff; 
+}
+#gallery img {
+    transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+#gallery img:hover {
+    transform: scale(1.1);
+    border-color: ##0000FF; 
+}
+::after {
+    background: linear-gradient(90deg, #4CAF50, #45a049);
+}
+::after:hover {
+    background: linear-gradient(90deg, ##0000FF, #336699);
+}
+#news article p {
+    transition: color 0.3s ease-in-out;
+}
+#news article:hover p {
+    color: #0000FF; 
+}
+#contact-form button:hover {
+    color: #0000FF; 
+}
+.fab.fa-discord {
+    color: black; 
+    transition: color 0.3s ease-out;
+}
+
+.fab.fa-discord:hover {
+    color: blue; 
+    animation: bounce 0.5s ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+#gallery h2:hover {
+    color: #0000FF; 
+}
+#scroll-to-top {
+    color: #fff;
+    background-color: #336699;
+    border: 1px solid #336699;
+}
+#scroll-to-top:hover {
+    background-color: #ff4500; 
+}
+.mobile-menu-icon:hover {
+    animation: rotate 0.5s ease-in-out;
+}
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+#about h2 {
+    animation: fadeInUp 1s ease-in-out, colorChange 0.5s ease-in-out;
+}
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+#about h2 {
+    animation: fadeInUp 1s ease-in-out, colorChange 0.5s ease-in-out;
+}
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+#contact-form button:focus {
+    background-color: #ff4500; 
+}
+footer ul li.current {
+    color: #ff4500; 
+}
+#scroll-to-top {
+    color: #00FF00;
+    background-color: #336699;
+    border: 1px solid #336699;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+#scroll-to-top:hover {
+    background-color: #ff4500; 
+    color: #00FF00;
+}
+#video .video-container {
+    transition: transform 0.3s ease-in-out;
+}
+#video .video-container:hover {
+    transform: scale(1.1);
+}
+#contact-form {
+    background-color: #003366;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+#contact-form input,
+#contact-form textarea {
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: #003366;
+    color: #fff;
+}
+#contact-form button {
+    background-color: #4CAF50;
+    color: white;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+#contact-form button:hover {
+    background-color: #45a049;
+    color: #fff;
+}
+#scroll-to-top:hover {
+    transform: scale(1.2) rotate(360deg);
+    transition: transform 0.3s ease-in-out;
+}
+nav a.current {
+    background-color: #ff7f50; 
+    color: #fff;
+}
+#news h2 {
+    color: #ff4500;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+#news h3 {
+    color: #336699;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+#tank-list li {
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+#tank-list li:hover {
+    background-color: #ff4500;
+    color: #fff;
+}
+#video {
+    background-color: #000;
+}
+#video .video-container {
+    border: 4px solid #fff;
+}
+#news article {
+    opacity: 0;
+    animation: fadeInUp 1s ease-in-out forwards;
+}
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+#contact-form button {
+    background-color: #336699;
+    color: #00ff00;
+    border: 1px solid #336699;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border 0.3s ease-in-out;
+}
+.fab.fa-telegram {
+    color: white; /* Початковий колір іконки */
+    transition: color 0.3s ease-out;
+}
+
+.fab.fa-telegram:hover {
+    color: blue; 
+    animation: bounce 0.5s ease-in-out;
+}
+.fab.fa-discord {
+    color: white; /* Початковий колір іконки */
+    transition: color 0.3s ease-out;
+}
+
+.fab.fa-discord:hover {
+    color: blue; 
+    animation: bounce 0.5s ease-in-out;
+}
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+#contact-form button:hover {
+    background-color: #00FF00;
+    color: #336699;
+    border: 1px solid #00ff00;
+}
+#gallery img {
+    transition: transform 0.3s ease-in-out;
+}
+#gallery img:hover {
+    transform: scale(1.1);
+}
+#updates {
+    background-color: #003366;
+    color: #00ff00;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+#events {
+    background-color: #003366;
+    color: #00ff00;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+#scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+#scroll-to-top.show {
+    display: block;
+    opacity: 0;
+    transform: translateY(20px);
+}
+#scroll-to-top.show.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+.hover-bg {
+    transition: background-color 0.3s;
+}
+.hover-bg:hover {
+    background-color: #f0f0f0;
+}
+body {
+            height: 1500px; 
+        }
+
+        #scrollToTopBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+            cursor: pointer;
+        }
+         #gameplay {
+        color: white; 
+     transition: color 1.0s ease; 
+    }
+
+    #gameplay:hover {
+        color: black;
+    }
+    a[href^="#"] {
+    transition: color 0.3s ease-in-out;
+}
+
+a[href^="#"]:hover {
+    color: #ff7f50;
+}
+#scrollToTopBtn {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+#scrollToTopBtn.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#scrollToTopBtn.active {
+    opacity: 0;
+    transform: translateY(20px);
+}
+footer a:hover {
+    text-decoration: underline;
+}
+#gallery img {
+    transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+#gallery img:hover {
+    transform: scale(1.1);
+    border-color: #0000FF;
+}
+#news h2:hover,
+#news h3:hover {
+    font-size: 2.2em;
+}
+.mobile-menu-icon:hover {
+    animation: rotate 0.5s ease-in-out;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+footer:hover {
+    background-color: #005599;
+    color: #fff;
+}
+#contact-form button:focus {
+    background-color: #ff4500;
+}
+
+#search-form {
+    display: inline-block;
+    position: relative;
+}
+
+#search-form input {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #fff;
+}
+
+#search-form button {
+    background: none;
+    border: none;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #fff;
+}
     </style>
 </head>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+ 
+    <div class="play-button" onclick="playVideo('TvzZsmaF9ts')"></div>
+<style>
+
+section #video .video-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 56.25%;
+}
+
+section #video .video-container .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    display: none;
+    cursor: pointer;
+}
+
+
+
+
+window.onscroll = function () {
+    var nav = document.querySelector('nav');
+    var progress = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    
+    if (window.scrollY > 0) {
+        nav.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
+    } else {
+        nav.style.boxShadow = 'none';
+    }
+    
+   
+    document.body.style.setProperty('--scroll-progress', progress + '%');
+};
+
+
+#scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    font-size: 50px;
+    color: red;
+    background-color: yellow;
+}
+
+
+
+
+    #about {
+        color: white; 
+        transition: color 0.5s ease; 
+    }
+
+    #about:hover {
+        color: red; 
+    }
+    #contact-form button {
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+#contact-form button:hover {
+    background-color: #45a049;
+    color: #fff;
+    transform: scale(1.1);
+}
+window.onscroll = function () {
+    var nav = document.querySelector('nav');
+    if (window.scrollY > 0) {
+        nav.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
+    } else {
+        nav.style.boxShadow = 'none';
+    }
+};
+.fab.fa-telegram {
+    transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.fab.fa-telegram:hover {
+    color: #0088cc;
+    transform: scale(1.2);
+}
+#news h2:hover,
+#news h3:hover {
+    font-size: 2.2em;
+}
+#tank-list li {
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+#tank-list li:hover {
+    background-color: #ff4500;
+    color: #fff;
+}
+section iframe {
+    transition: transform 0.3s ease-in-out;
+}
+
+section iframe:hover {
+    transform: scale(1.1);
+}
+nav a.current {
+    color: #ff7f50;
+}
+::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: linear-gradient(90deg, #4caf50, #0088cc);
+    transition: width 0.3s ease-in-out;
+}
+
+window.onscroll = function () {
+    var progress = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    document.querySelector('::after').style.width = progress + '%';
+};
+section {
+    background: linear-gradient(45deg, #ff7e5f, #feb47b);
+}
+#contact-form input,
+#contact-form textarea {
+    border-radius: 5px;
+}
+a {
+    color: #4caf50;
+    transition: color 1.0s ease-in-out;
+}
+
+a:hover {
+    color: #0088cc;
+}
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+}
+section {
+    transition: transform 0.5s ease-in-out;
+}
+
+section:hover {
+    transform: scale(1.02);
+}
+.animated-element {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.animated-element.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+body.dark-mode {
+    background-color: #121212;
+    color: #fff;
+}
+body {
+    font-family: 'Gunny Rewritten', sans-serif;
+}
+
+h1, h2, h3 {
+    font-family: 'Gunny Rewritten', sans-serif; 
+}
+
+@font-face {
+    font-family: 'Gunny Rewritten';
+    src: url('https://db.onlinewebfonts.com/t/70635d725d711fb482cdf8d9eb18edf1.woff2') format('woff2'),
+         url('https://db.onlinewebfonts.com/t/70635d725d711fb482cdf8d9eb18edf1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Gunny Rewritten', sans-serif;
+}
+
+h1, h2, h3 {
+    font-family: 'Gunny Rewritten', sans-serif;
+}
+
+ </style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+
 <body>
-    <div class="container">
-        <h1>Пошук Гравця</h1>
-        <label for="player-nick">Введіть нік гравця:</label>
-        <input type="text" id="player-nick" placeholder="Нік гравця" />
-        
-        <label for="server">Виберіть сервер:</label>
-        <select id="server">
-            <option value="ru">RU</option>
-            <option value="eu">EU</option>
-            <option value="na">NA</option>
-            <option value="asia">ASIA</option>
-        </select>
-        
-        <button onclick="searchPlayer()">Пошук</button>
-        <div id="result"></div>
-    </div>
-
+    <div id="carousel" class="owl-carousel owl-theme">
+    <div class="item"><img src="image1.jpg" alt="Зображення 1"></div>
+    <div class="item"><img src="image2.jpg" alt="Зображення 2"></div>
+    <div class="item"><img src="image3.jpg" alt="Зображення 3"></div>
+</div>
     <script>
-        const APP_ID = '337a69597cd1a9343e68ec5173bbe27d';
+$(document).ready(function() {
+    $("#carousel").owlCarousel({
+        items: 1,
+        loop: true,
+        nav: true,
+        autoplay: true,
+        autoplayTimeout: 3000,
+    });
+});
+</script>
+<div class="video-container"> </div>
+    <div class="play-button" onclick="playVideo('TvzZsmaF9ts')"></div>
+<style>
+    section #video .video-container {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        padding-top: 56.25%;
+        position: relative;
+    }
+    section #video .video-container:hover .play-button {
+        display: block;
+    }
+  
+    #scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    font-size: 50px;
+    color: red;
 
-        const AWARD_NAMES = {
-            'medalCarius': 'Медаль Каріуса',
-            'cadet': 'Кадет',
-            'invader': 'Загарбник',
-            'armorPiercer': 'Бронебійник',
-            'medalEkins': 'Медаль Екінса',
-            'markOfMasteryI': 'Знак майстерності I',
-            'firstBlood': 'Перша кров',
-            'medalKay': 'Медаль Кея',
-            'firstVictory': 'Перша перемога',
-            'markOfMasteryII': 'Знак майстерності II',
-            'defender': 'Захисник',
-            'markOfMasteryIII': 'Знак майстерності III',
-            'medalLeClerc': 'Медаль Леклерка',
-            'supporter': 'Підтримка',
-            'steelwall': 'Сталевий мур',
-            'sniper': 'Снайпер',
-            'scout': 'Розвідник',
-            'fireForEffect': 'Вогонь на ураження',
-            'diehard': 'Загартований',
-            'invincible': 'Непереможний',
-            'tankExpert': 'Експерт танків',
-            'beasthunter': 'Мисливець на звірів',
-            'handOfDeath': 'Рука смерті',
-            'jointVictory': 'Спільна перемога',
-            'sinai': 'Синай',
-            'pattonValley': 'Долина Паттона'
-        };
 
-        async function searchPlayer() {
-            const playerNick = document.getElementById('player-nick').value;
-            const server = document.getElementById('server').value;
-            const resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = '<div class="loader"></div>';
+background-color: yellow;
+}
 
-            if (!playerNick) {
-                resultDiv.innerHTML = '<span class="error">Будь ласка, введіть нік гравця</span>';
-                return;
+    #about {
+        color: white; 
+        transition: color 1.0s ease; 
+    }
+
+    #about:hover {
+        color: red; 
+    }
+    #feedback-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #336699;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#feedback-form input,
+#feedback-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: #003366;
+    color: #fff;
+}
+
+#feedback-form button {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.5s ease-in-out;
+}
+
+#feedback-form button:hover {
+    background-color: #45a049;
+}
+.mobile-menu {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .mobile-menu {
+        display: block;
+        
+    }
+}
+body {
+  font-family: Arial, sans-serif;
+}
+
+.mobile-menu {
+  position: relative;
+}
+
+.toggle-menu {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.slider-nav {
+  display: none; 
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  z-index: 1000; 
+}
+
+.slider-nav a {
+  display: block;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  color: #333;
+}
+
+.slider-nav a:hover {
+  background-color: #ddd;
+}
+#video {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    #video h2 {
+        color: inherit;
+        transition: color 0.3s ease-in-out;
+    }
+
+    #video:hover h2 {
+        color: #ff4500;
+    }
+
+    #video .video-container {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        padding-top: 56.25%;
+        transition: transform 0.3s ease-in-out;
+    }
+
+
+.mobile-menu {
+    position: fixed;  
+    top: 0;          
+    left: 0;         
+    width: 100%;    
+    background-color: #333; 
+    z-index: 1000;   
+}
+
+.toggle-menu {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.slider-nav {
+    display: none; 
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.slider-nav a {
+    display: block;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff; 
+}
+
+.slider-nav a:hover {
+    background-color: #555; 
+}
+.discord-link {
+    font-family: Arial, sans-serif;
+    font-size: 16px; 
+    color: #7289da; 
+    text-decoration: none; 
+}
+
+.discord-link i {
+    margin-right: 5px;
+}
+ #rating {
+        font-size: 24px; 
+    }
+
+    #rating option {
+        color: red;
+    }
+
+   
+    #rating option:checked {
+        color: yellow; 
+    }
+
+
+    #rating option:checked:before {
+        content: "\2605"; 
+        font-size: 29px; 
+        transition: all 0.9s ease-in-out; 
+    }
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#snow-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.snowflake {
+  position: absolute;
+  z-index: 9999;
+  width: 5px;
+  height: 5px;
+  background: #fff;
+  border-radius: 50%;
+  animation: snowflake-fall linear infinite;
+}
+section iframe {
+            width: 175%;
+            max-width: 175%;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+
+.fab.fa-telegram:hover {
+    animation: bounce 0.5s ease-in-out;
+}
+
+<style>
+        @media only screen and (max-width: 600px) {
+            body {
+                font-size: 14px;
+            }
+            nav a {
+                padding: 8px;
+                margin: 0 5px;
             }
 
-            const serverUrlMap = {
-                'ru': 'https://api.wotblitz.ru',
-                'eu': 'https://api.wotblitz.eu',
-                'na': 'https://api.wotblitz.com',
-                'asia': 'https://api.wotblitz.asia'
-            };
+            h1 {
+                font-size: 1.5em;
+            }
 
-            const apiUrl = serverUrlMap[server];
+            section {
+                padding: 20px;
+            }
 
-            try {
-                const playerResponse = await fetch(`${apiUrl}/wotb/account/list/?application_id=${APP_ID}&search=${playerNick}`);
-                const playerData = await playerResponse.json();
+            section img {
+                margin-bottom: 10px;
+            }
 
-                if (playerData.status !== 'ok' || playerData.data.length === 0) {
-                    resultDiv.innerHTML = '<span class="error">Гравця не знайдено або виникла помилка.</span>';
-                    return;
-                }
-
-                const playerId = playerData.data[0].account_id;
-
-                const statsResponse = await fetch(`${apiUrl}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}`);
-                const statsData = await statsResponse.json();
-
-                if (statsData.status !== 'ok') {
-                    resultDiv.innerHTML = '<span class="error">Не вдалося отримати інформацію про гравця</span>';
-                    return;
-                }
-
-                const playerStats = statsData.data[playerId];
-                const achievementsResponse = await fetch(`${apiUrl}/wotb/account/achievements/?application_id=${APP_ID}&account_id=${playerId}`);
-                const achievementsData = await achievementsResponse.json();
-
-                let awardsHtml = '<div class="awards"><h3>Нагороди:</h3><ul>';
-                if (achievementsData.status === 'ok') {
-                    const awards = achievementsData.data[playerId].achievements;
-                    for (let award in awards) {
-                        if (awards[award] > 0) {
-                            const awardName = AWARD_NAMES[award] || award;
-                            awardsHtml += `<li class="tooltip"><i class="fas fa-medal"></i> ${awardName}: ${awards[award]}<span class="tooltiptext">${awardName}</span></li>`;
-                        }
-                    }
-                } else {
-                    awardsHtml += '<li>Не вдалося отримати нагороди</li>';
-                }
-                awardsHtml += '</ul></div>';
-
-                resultDiv.innerHTML = `
-                    <h2>Статистика для ${playerStats.nickname}</h2>
-                    <div class="stats">
-                        <p>Бої: ${playerStats.statistics.all.battles}</p>
-                        <p>Перемоги: ${playerStats.statistics.all.wins}</p>
-                        <p>Процент перемог: ${(playerStats.statistics.all.wins / playerStats.statistics.all.battles * 100).toFixed(2)}%</p>
-                    </div>
-                    ${awardsHtml}
-                `;
-            } catch (error) {
-                console.error('Error fetching player data:', error);
-                resultDiv.innerHTML = `<span class="error">Виникла помилка при отриманні даних: ${error.message}</span>`;
+            #download-link {
+                padding: 10px 20px;
+                font-size: 16px;
             }
         }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #003366; 
+            color: #eee;
+        }
+
+        header {
+            background: linear-gradient(90deg, #003366, #005599);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            background-size: cover;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        nav {
+            background-color: #336699;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        nav a:hover {
+            color: #ff7f50;
+            transform: scale(1.1);
+        }
+
+        section {
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+            border-radius: 10px;
+            background: #336699;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        section img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border: 4px solid #fff;
+            border-radius: 8px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        section img:hover {
+            transform: scale(1.1);
+        }
+
+        #download-link {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 18px;
+            margin-top: 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        #download-link:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            background-color: #336699;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            border-top: 2px solid #555;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        footer:hover {
+            background-color: #005599;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        h2,
+        h3 {
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+HHHMax33, [11.12.2023 12:10]
+.fab.fa-telegram {
+            transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .fab.fa-telegram:hover {
+            color: #0088cc;
+            transform: scale(1.2);
+        }
+
+        #tank-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #tank-list li {
+            margin-bottom: 5px;
+            padding: 5px;
+            border: 1px solid #336699;
+            border-radius: 5px;
+            background-color: #0000FF;
+        }
+
+HHHMax33, [10.01.2024 20:23]
+section iframe {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+
+        #news h3 {
+            animation: fadeInUp 1s ease-in-out, colorChange 0.5s ease-in-out;
+        }
+
+        @keyframes colorChange {
+            from {
+                color: #ff4500;
+            }
+
+            to {
+                color: #336699;
+            }
+        }
+        nav a {
+    transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+nav a:hover {
+    color: #00FF00;
+    transform: translateY(-3px);
+}
+.fab.fa-telegram {
+    transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.fab.fa-telegram:hover {
+    color: #0088cc;
+    transform: scale(1.2);
+}
+nav {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+#tank-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#tank-list li {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #336699;
+    border-radius: 5px;
+    background-color: #003366;
+    color: #fff;
+    text-align: center;
+    min-width: 150px;
+}
+section img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    border: 4px solid #fff;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+}
+
+section img:hover {
+    transform: scale(1.1);
+}
+#updates,
+#news {
+    background-color: #003366;
+    color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+#news h3 {
+    animation: fadeInUp 1s ease-in-out, colorChange 0.5s ease-in-out;
+}
+
+@keyframes colorChange {
+    from {
+        color: #ff4500;
+    }
+
+    to {
+        color: #336699;
+    }
+}
+nav a.current {
+    color: #ff7f50; 
+}
+window.onscroll = function () {
+    var nav = document.querySelector('nav');
+    if (window.scrollY > 0) {
+        nav.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
+    } else {
+        nav.style.boxShadow = 'none';
+    }
+};
+#download-link {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 18px;
+    margin-top: 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+#download-link:hover {
+    background-color: #45a049;
+    transform: scale(1.1);
+}
+section h2 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-top: 1; 
+}
+footer p {
+    margin: 0;
+    text-align: center;
+}
+#news article {
+    animation: fadeInUp 1s ease-in-out;
+    margin-bottom: 20px;
+}
+footer ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+footer li {
+    margin: 0 10px;
+}
+section {
+    transition: opacity 0.5s ease-in-out;
+}
+
+nav a {
+    transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+section iframe {
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; 
+    position: relative;
+}
+::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 0;
+    background: linear-gradient(90deg, #4CAF50, #45a049);
+    transition: width 0.3s ease-in-out;
+}
+window.onscroll = function () {
+    var progress = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+};
+@media only screen and (max-width: 600px) {
+    #updates,
+    #news {
+        padding: 20px;
+    }
+}
+nav {
+    transition: background-color 0.3s ease-in-out;
+}
+
+window.onscroll = function () {
+    var nav = document.querySelector('nav');
+    if (window.scrollY > 0) {
+        nav.style.background = 'linear-gradient(90deg, #003366, #005599)';
+    } else {
+        nav.style.background = 'none';
+    }
+};
+#tank-list li {
+    cursor: pointer;
+}
+#about {
+    animation: fadeInUp 1s ease-in-out;
+}
+#about {
+    animation: fadeInUp 1s ease-in-out;
+}
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+body {
+    font-family: 'Roboto', sans-serif;
+}
+footer {
+    transition: background-color 0.3s ease-in-out;
+}
+
+footer:hover {
+    background-color: #005599;
+}
+h1, h2, h3 {
+    font-size: 2em;
+}
+
+@media only screen and (max-width: 600px) {
+    h1, h2, h3 {
+        font-size: 1.5em;
+    }
+}
+#scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#scroll-to-top.show {
+    display: block;
+}
+
+window.onscroll = function () {
+    var scrollToTop = document.getElementById('scroll-to-top');
+    if (window.scrollY > 200) {
+        scrollToTop.classList.add('show');
+    } else {
+        scrollToTop.classList.remove('show');
+    }
+};
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+.mobile-menu-icon {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    .mobile-menu-icon {
+        display: block;
+    }
+
+    nav {
+        display: none;
+    }
+
+    nav.show {
+        display: block;
+    }
+}
+#contact-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #336699;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#contact-form input,
+#contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: #003366;
+    color: #fff;
+}
+
+#contact-form button {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#contact-form button:hover {
+    background-color: #45a049;
+}
+section .video-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 56.25%; 
+}
+
+section iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+section #video {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+section #video .video-container {
+    transition: transform 0.3s ease-in-out;
+}
+
+section #video .video-container:hover {
+    transform: scale(1.1);
+}
+#scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#scroll-to-top.show {
+    display: block;
+}
+.mobile-menu-icon {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    .mobile-menu-icon {
+        display: block;
+    }
+
+    nav {
+        display: none;
+    }
+
+    nav.show {
+        display: block;
+    }
+}
+#contact-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #336699;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+HHHMax33, [10.01.2024 20:23]
+HHHMax33, [11.12.2023 12:10]
+#contact-form input,
+#contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: #003366;
+    color: #fff;
+}
+#contact-form button {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+}
+#scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+#scroll-to-top.show {
+    display: block;
+}
+#scroll-to-top:hover {
+    transform: scale(1.2);
+}
+.mobile-menu-icon {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.mobile-menu-icon:hover {
+    transform: scale(1.2);
+}
+header {
+    background: linear-gradient(90deg, #003366, #005599);
+}
+
+nav {
+    background: linear-gradient(90deg, #336699, #005599);
+}
+#scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+#scroll-to-top.show {
+    display: block;
+}
+
+#scroll-to-top:hover {
+    opacity: 0.8;
+    transform: scale(1.2);
+}
+nav.scrolled {
+    background: linear-gradient(90deg, #003366, #005599);
+}
+nav a.transition-color {
+    transition: color 0.3s ease-in-out;
+}
+
+nav a.transition-color:hover {
+    color: #00FF00; 
+}
+nav a.current {
+    color: #ff7f50;
+}
+footer:hover {
+    background-color: #005599;
+}
+header.scrolled h1 {
+    color: #ff7f50; 
+}
+@media only screen and (max-width: 600px) {
+    nav {
+        background-color: #336699; 
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+}
+.mobile-menu-icon {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #fff; 
+}
+
+.mobile-menu-icon:hover {
+    color: #ff7f50; 
+}
+body {
+    transition: background-color 0.3s ease-in-out;
+}
+
+footer p {
+    text-align: center;
+}
+
+#about {
+    margin-bottom: 50px; 
+}
+section #video:hover h2 {
+    color: #ff4500; 
+}
+#contact-form:hover {
+    background-color: #004080; 
+}
+#gallery img {
+    transition: transform 0.5s ease-in-out;
+}
+
+#gallery img:hover {
+    transform: scale(1.1);
+}
+#news article:hover h3 {
+    color: #336699; 
+}
+#tank-list li {
+    transition: transform 0.3s ease-in-out;
+}
+
+#tank-list li:hover {
+    transform: scale(1.1);
+}
+#scroll-to-top:hover {
+    transform: scale(1.2);
+}
+::after {
+    background: linear-gradient(90deg, #ff4500, #336699);
+}
+footer:hover p {
+    color: #ff4500; 
+}
+#about.scrolled h2 {
+    color: #ff7f50; 
+}
+footer h2 {
+    transition: color 0.3s ease-in-out;
+}
+
+footer h2:hover {
+    color: #ff4500; 
+}
+nav a.active,
+nav a:hover {
+    color: #0000FF; 
+}
+nav a.current {
+    background-color: #ff4500; 
+    color: #fff; 
+}
+#gallery img {
+    transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+HHHMax33, [10.01.2024 20:23]
+HHHMax33, [11.12.2023 12:10]
+#gallery img:hover {
+    transform: scale(1.1);
+    border-color: ##0000FF; 
+}
+::after {
+    background: linear-gradient(90deg, #4CAF50, #45a049);
+}
+::after:hover {
+    background: linear-gradient(90deg, ##0000FF, #336699);
+}
+#news article p {
+    transition: color 0.3s ease-in-out;
+}
+#news article:hover p {
+    color: #0000FF; 
+}
+#contact-form button:hover {
+    color: #0000FF; 
+}
+.fab.fa-telegram:hover {
+    animation: bounce 0.5s ease-in-out;
+}
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+#gallery h2:hover {
+    color: #0000FF; 
+}
+#scroll-to-top {
+    color: #fff;
+    background-color: #336699;
+    border: 1px solid #336699;
+}
+#scroll-to-top:hover {
+    background-color: #ff4500;
+}
+.mobile-menu-icon:hover {
+    animation: rotate 0.5s ease-in-out;
+}
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+#about h2 {
+    animation: fadeInUp 1s ease-in-out, colorChange 0.5s ease-in-out;
+}
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+#about h2 {
+    animation: fadeInUp 1s ease-in-out, colorChange 0.5s ease-in-out;
+}
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+#contact-form button:focus {
+    background-color: #ff4500;
+}
+footer ul li.current {
+    color: #ff4500;
+}
+#scroll-to-top {
+    color: #00FF00;
+    background-color: #336699;
+    border: 1px solid #336699;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+#scroll-to-top:hover {
+    background-color: #ff4500;
+    color: #00FF00;
+}
+#video .video-container {
+    transition: transform 0.3s ease-in-out;
+}
+#video .video-container:hover {
+    transform: scale(1.1);
+}
+#contact-form {
+    background-color: #003366;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+#contact-form input,
+#contact-form textarea {
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: #003366;
+    color: #fff;
+}
+#contact-form button {
+    background-color: #4CAF50;
+    color: white;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+#contact-form button:hover {
+    background-color: #45a049;
+    color: #fff;
+}
+#scroll-to-top:hover {
+    transform: scale(1.2) rotate(360deg);
+    transition: transform 0.3s ease-in-out;
+}
+nav a.current {
+    background-color: #ff7f50;
+    color: #fff;
+}
+#news h2 {
+    color: #ff4500;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+#news h3 {
+    color: #336699;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+#tank-list li {
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+#tank-list li:hover {
+    background-color: #ff4500;
+    color: #fff;
+}
+#video {
+    background-color: #000;
+}
+#video .video-container {
+    border: 4px solid #fff;
+}
+#news article {
+    opacity: 0;
+    animation: fadeInUp 1s ease-in-out forwards;
+}
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+
+to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+#contact-form button {
+    background-color: #336699;
+    color: #00ff00;
+    border: 1px solid #336699;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border 0.3s ease-in-out;
+}
+#contact-form button:hover {
+    background-color: ##00FF00;
+    color: #336699;
+    border: 1px solid #00ff00;
+}
+#gallery img {
+    transition: transform 0.3s ease-in-out;
+}
+#gallery img:hover {
+    transform: scale(1.1);
+}
+#updates {
+    background-color: #003366;
+    color: #00ff00;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+#events {
+    background-color: #003366;
+    color: #00ff00;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+#scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+#scroll-to-top.show {
+    display: block;
+    opacity: 0;
+    transform: translateY(20px);
+}
+#scroll-to-top.show.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+.hover-bg {
+    transition: background-color 0.3s;
+}
+.hover-bg:hover {
+    background-color: #f0f0f0;
+}
+body {
+            height: 1500px;
+        }
+
+        #scrollToTopBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+            cursor: pointer;
+        }
+    #gameplay p, #gameplay h3 #gameplay h2 #gameplay h1 {
+    transition: color 0.5s; 
+}
+
+#gameplay p:hover, #gameplay h2:hover #gameplay h1:hover #gameplay h3:hover {
+    color: black; 
+}
+  .fab.fa-instagram {
+    transition: transform 0.7s ease-in-out, color 0.7s ease-in-out; 
+  }
+
+  .fab.fa-instagram:hover {
+    transform: scale(1.2); /
+    color: blue
+      .fab.fa-instagram {
+    transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out; 
+  }
+
+  .fab.fa-instagram:hover {
+    transform: scale(1.2); 
+    filter: brightness(120%); 
+  };
+    register-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1em;
+    background: #f9f9f9;
+    border-radius: 5px;
+}
+
+.register-form h2 {
+    margin-bottom: 1em;
+}
+
+.register-form label {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+.register-form input {
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.register-form button {
+    padding: 0.7em 2em;
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.register-form button:hover {
+    background: #555;
+}
+    body {
+    font-family: 'Roboto', sans-serif;
+    background: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Забороняємо прокручування сторінки під час завантаження */
+}
+
+#preloader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.hidden {
+    display: none;
+}
+
+</style>
+<div class="mobile-menu-icon" onclick="toggleMobileMenu()">☰</div>
+<script>
+    function playVideo(videoId) {
+        }
+</script>
+<script>
+window.addEventListener('load', function () {
+    document.getElementById('preloader').classList.add('hidden');
+    document.body.style.overflow = 'auto'; // Дозволяємо прокручування сторінки після завантаження
+});
+</script>
+
+
+    <header>
+        <h1>Фан-сайт гри World of Tanks Blitz</h1>
+    </header>
+    <nav>
+        <form id="search-form" action="/search" method="get">
+    <input type="text" name="q" placeholder="Пошук...">
+    <button type="submit"><i class="fas fa-search"></i></button>
+</form>
+        <a href="#" onclick="scrollToSection('about')">Про гру</a>
+        <a href="#" onclick="scrollToSection('gameplay')">Геймплей</a>
+        <a href="#" onclick="scrollToSection('download')">Завантажити</a>
+        <a href="#" onclick="scrollToSection('contact')">Контакти</a>
+        <a href="#" onclick="scrollToSection('video')">Відео</a>
+        <a href="#" onclick="scrollToSection('updates')">Останні Оновлення</a>
+        <a href="#" onclick="scrollToSection('community')">Спільнота гравців</a>
+        <a href="#" onclick="scrollToSection('gallery')">Галерея</a>
+        <a href="#" onclick="scrollToSection('events')">Події та Турніри</a>
+        <a href="#" onclick="scrollToSection('news')">Новини</a>
+        
+    </nav>
+    <div class="mobile-menu">
+    <button class="toggle-menu" onclick="toggleSliderMenu()">☰</button>
+    <nav class="slider-nav">
+        <a href="#" onclick="scrollToSection('about')">Про гру</a>
+        <a href="#" onclick="scrollToSection('gameplay')">Геймплей</a>
+        <a href="#" onclick="scrollToSection('download')">Завантажити</a>
+        <a href="#" onclick="scrollToSection('contact')">Контакти</a>
+        <a href="#" onclick="scrollToSection('video')">Відео</a>
+        <a href="#" onclick="scrollToSection('updates')">Останні Оновлення</a>
+        <a href="#" onclick="scrollToSection('community')">Спільнота гравців</a>
+        <a href="#" onclick="scrollToSection('gallery')">Галерея</a>
+        <a href="#" onclick="scrollToSection('events')">Події та Турніри</a>
+        <a href="#" onclick="scrollToSection('news')">Новини</a>
+        
+    </nav>
+</div>
+<div id="preloader">
+    <div class="loader"></div>
+</div>
+
+<div id="snow-container"></div>
+    <section id="about">
+        <h2>Про гру World of Tanks Blitz</h2>
+        <p>World of Tanks Blitz - це безкоштовна мобільна MMO гра в жанрі екшн, розроблена Wargaming, нагороджений розробник і видавець онлайн ігор. 
+            "World of Tanks Blitz" - це військовий онлайн-гейм, який розробляється і видаватися компанією Wargaming. Гра входить до складу серії "World of Tanks" і спрямована на мобільні пристрої, такі як смартфони і планшети.
+
+Основна ідея гри полягає в тому, щоб керувати великими танками з різних періодів історії, включаючи Велику Вітчизняну війну, Другу світову війну і холодну війну. Гравець може обрати танк із різними характеристиками, такими як швидкість, броня та могутність вогню.
+
+Гра поділена на бої 7 на 7, де команди гравців змагаються за територію або просто за виживання. "World of Tanks Blitz" дозволяє гравцям покращувати свої танки, отримувати нові моделі і вдосконалювати їх взбудованим економічним системою гри.
+Гра також відзначається деталізованою графікою, реалістичною фізикою і великим асортиментом різних локацій для боїв. Контроль гравців оптимізовано для екранів смартфонів і планшетів, щоб забезпечити комфортну гру.
+
+"World of Tanks Blitz" знаменитий своєю великою гроюрозподільною базою, постійними оновленнями та подіями, що додають новий контент і виклики для гравців. Гра відома своєю загальною динамікою і високим рівнем стратегії, що вимагає від гравців тактичного мислення та спритності.</p>
+       
+    </section>
+    <section id="gameplay">
+        <h2>Геймплей World of Tanks Blitz</h2>
+        <p>Випробуйте інтенсивні битви на танках на мобільних пристроях з різноманітними танками та стратегічною грою.
+            Геймплей у "World of Tanks Blitz" є інтенсивним та стратегічним, а гравці отримують можливість взяти участь у битвах танками в режимі реального часу. Ось деякі ключові аспекти геймплею гри:
+
+1. **Вибір танка:**
+   Гравці мають доступ до широкого асортименту танків різних націй і епох. Кожен танк має свої унікальні характеристики, такі як швидкість, броня, точність стрільби та руйнівна сила.
+
+2. **Бої 7 на 7:**
+   Битви проходять у форматі 7 на 7, де сім гравців на кожній стороні змагаються за перемогу. Гравці можуть вибрати різні стратегії, такі як атака, оборона або розвідка, щоб виграти бій.
+
+3. **Різноманітні локації:**
+   Гравці вирушають на різні карти і локації, які можуть включати міські вулиці, ліси, пустелі та інші. Кожна локація вимагає унікального підходу та стратегії.
+
+4. **Розвиток танків:**
+   Гравці можуть вдосконалювати та модернізувати свої танки за допомогою валюти, яку вони заробляють у грі. Це включає в себе покращення броні, збільшення потужності вогню, швидкості руху та інші аспекти.
+
+5. **Екіпаж і навички:**
+   Кожен танк має свій власний екіпаж, і гравці можуть розвивати навички свого екіпажу, щоб отримати додаткові переваги у бою.
+
+6. **Завдання та події:**
+   Гра регулярно оновлюється новими завданнями, подіями та сезонами, що додає багатоцільовість і новий контент для гравців.
+
+7. **Командна гра:**
+   Комунікація та співпраця в команді є ключовими елементами успішного виконання завдань та досягнення перемог.
+
+"World of Tanks Blitz" вражає своєю реалістичністю, деталізацією танків і динамікою гри, забезпечуючи захоплюючий ігровий досвід для фанатів бойових військових ігор.
+        </p>
+        <h3> Поради для Початківців </h3>
+<p>  Зрозумійте та вивчіть різні типи танків
+Занурення в Світ танків Blitz може бути приголомшливим досвідом, особливо з великою різноманітністю доступних танків. Одна з найкращих порад для новачків у Світ танків Blitz це справді пізнати ці різні типи танків. Вони визначаються не лише тим, як вони виглядають, а їхніми різними ролями на полі бою, унікальними здібностями та тактикою, яку вони найкраще використовують. Легкі танки, наприклад, швидкі та спритні, чудово підходять для розвідки. Вони швидко пересуваються по полю бою, виявляючи ворожі позиції та надаючи важливу інформацію команді.
+
+З іншого боку, середні танки пропонують баланс між швидкістю та силою. Вони можуть керувати атаками, підтримувати інші танки або захищати ключові місця. Для гравців, які тільки починають, ці танки пропонують хороше поєднання як нападу, так і оборони, що робить їх універсальним вибором. Потім є важкі танки та винищувачі танків. Важкі танки мають міцну броню та потужні гармати, часто очолюючи атаку на передовій. Вони можуть отримати і завдати великої шкоди. У той же час винищувачі танків мають потужні гармати і добре вміють ховатися. Їх найкраще використовувати для засідки на ворогів і виведення їх із прихованих місць. Загалом, розуміння унікальних ролей і характеристик кожного танка має важливе значення для кожного новачка </p>
+    </section>
+    <section id="download">
+        <h2>Завантажити World of Tanks Blitz</h2>
+        <p>Завантажте гру безкоштовно на свій мобільний пристрій та приєднуйтеся до битви!</p>
+        <a id="download-link" href="https://play.google.com/store/apps/details?id=net.wargaming.wot.blitz&pcampaignid=web_share">Завантажити зараз</a>
+    </section>
+
+    <section id="contact">
+        <h2>Контакти розробника</h2>
+        <p>Для отримання додаткової інформації чи питань ви можете зв'язатися з розробником:</p>
+        <p>Email: viberuuu4@gmail.com</p>
+        <p>Телефон: <a href="tel:+18007654321">+380684084634</a></p>
+        <p><i class="fab fa-telegram"></i> <a href="https://t.me/s/BEAST_WB" target="_blank">Телеграм</a></p>
+<p><i class="fab fa-instagram"></i> <a href="https://www.instagram.com/funwebsiteblitz?igsh=MXFqeWl4cjc3eTBs" target="_blank">instagram</a></p>
+    </section>
+    <section id="video">
+    <h2>Вiдео</h2>
+    <div class="video-container">
+        <iframe width="100%" height="175%" src="https://www.youtube.com/embed/BzwZjB-fmVA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <div class="play-button" onclick="playVideo('TvzZsmaF9ts')"></div>
+    </div>
+    <p> якщо відео не працює перейдіть за посиланням</p>
+    <a href="https://www.youtube.com/embed/BzwZjB-fmVA" target="_blank">відео</a>
+</section>
+    <section id="updates">
+        <h2>Останні Оновлення</h2>
+        <p>Дізнайтеся про останні оновлення гри та нові можливості, які вони приносять. Дізнайтесь все про оновлення 1.23, бійці!
+            У цьому оновленні ви зможете опинитися в епіцентрі захоплюючих випадкових подій. Це значуще нововведення буде доступне на чотирьох бойових локаціях: «Хіммельсдорф», «Руінберг», «Прохорівка» та «Стара гавань».
+            Випадкові події зроблять ваш ігровий досвід цікавішим та різноманітнішим:
+            Трансформація бойових локацій: випадкові події призведуть до значних змін кожної з карт.
+            Розширення ігрової варіативності: на вас чекають нові тактичні можливості, наприклад доступ до раніше недоступних позицій, поява нових укриттів або відкриття безпечніших проїздів.
+        </p>
+    </section>
+    <section id="community">
+        <h2>Спільнота гравців</h2>
+        <p>Приєднуйтеся до нашої активної спільноти гравців, діліться стратегіями та отримуйте цікаві поради.</p>
+        <p><i class="fab fa-discord"></i> <a href="https://discord.com/channels/481445776178806785/502018644193181706" target="_blank">discord</a></p>
+    </section>
+    <section id="gallery">
+        <h2>Галерея</h2>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQL3OJBEXHFC2FWv9d_HwfqFgG3mRjFFjf8_w&usqp=CAU" alt="World of Tanks Blitz">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRNtIYcRQA2RtSYp-AdfiGcML4q4DhpzP6xA&usqp=CAU" alt="World of Tanks Blitz">
+        <img src="https://www.iphones.ru/wp-content/uploads/2016/03/WOTMain.jpg" alt="World of Tanks Blitz">
+        <img src="https://images.unian.net/photos/2023_02/thumb_files/1200_0_1676463072-6614.jfif">
+    </section>
+    <section id="events">
+        <h2>Події та Турніри</h2>
+
+<p>Долучайтеся до захоплюючих подій та турнірів гри і змагайтеся за цінні призи.</p>
+    </section>
+<section id="contact-form">
+    <h2>Зв'язатися з нами (Або оцінка сайту) </h2>
+    <form action="https://formspree.io/f/xjvnbozk" method="POST">
+        <input type="text" name="name" placeholder="Ім'я" required>
+        <input type="email" name="email" placeholder="Електронна пошта" required>
+        <label for="rating">Оцінка (в зірках):</label>
+        <select name="rating" id="rating" required>
+            <option value="1">&#9733;</option>
+            <option value="2">&#9733;&#9733;</option>
+            <option value="3">&#9733;&#9733;&#9733;</option>
+            <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
+            <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+        </select>
+
+        <textarea name="message" placeholder="Ваше повідомлення" rows="10" required></textarea>
+        <button type="submit">Надіслати</button>
+    </form>
+</section>
+
+
+<section id="news">
+        <h2>Новини</h2>
+        <article>
+            <h3>Нове оновлення гри вже доступне!</h3>
+            <p>Дізнайтеся про нові функції та вдосконалення у найсвіжішому оновленні World of Tanks Blitz.</p>
+        </article>
+        <article>
+            <h3>Оголошено новий турнір "Блиц-Чемпіонат 2024    "</h3>
+            <p>Готуйтеся до найбільшого турніру року та виборіть свою команду до перемоги!</p>
+        </article>
+    </section>
+    <section id="all-tanks">
+    <h2>Популярні танки в World of Tanks Blitz</h2>
+    <ul id="tank-list">
+        <li onclick="selectTank('Танк 1')">
+            <p align="center">Танк 1: Т-57 Heavy</p>
+            <img src="" alt="Танк 1">
+        </li>
+        <li onclick="selectTank('Танк 2')">
+            <p>Танк 2: Panther</p>
+            <img src="https://wiki.warthunder.com/images/thumb/0/00/ArtImage_Panther_D.png/800px-ArtImage_Panther_D.png" alt="Танк 2">
+        </li>
+        <li onclick="selectTank('Танк 3')">
+            <p>Танк 3: IS-3</p>
+            <img src="https://i.ibb.co/tYszcF2/IS-3-DEFENDER-2.jpg" alt="Танк 3">
+
+        </li>
+        <li onclick="selectTank('Танк 4')">
+            <p>Танк 4: M4 Sherman</p>
+            <img src="https://cybersport.metaratings.ru/_images/insecure/w-680:h-512/bG9jYWw6Ly8vL2ltYWdlcy9iZi9jZC9iZmNkMjlmYmQ1YjU5MjZjN2ZkMzkwNDUwNjBhNmU1ZC5qcGc=.jpg" alt="Танк 4">
+        </li>
+        <li onclick="selectTank('Танк 5')">
+            <p>Танк 5: Tiger II</p>
+            <img src="https://i.ytimg.com/vi/xM2-u1qLfWE/maxresdefault.jpg" alt="Танк 5">
+        </li>
+    </ul>
+    </section>
+ <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+        window.addEventListener("scroll", function() {
+            if (window.scrollY > 100) {
+                scrollToTopBtn.style.display = "block";
+            } else {
+                scrollToTopBtn.style.display = "none";
+            }
+        });
+        scrollToTopBtn.addEventListener("click", function() {
+            var scrollDuration = 800;
+            var scrollStep = -window.scrollY / (scrollDuration / 15);
+            var scrollInterval = setInterval(function() {
+                if (window.scrollY !== 0) {
+                    window.scrollBy(0, scrollStep);
+                } else {
+                    clearInterval(scrollInterval);
+                }
+            }, 15);
+        });
+    });
+</script>
+    <script>
+        function scrollToSection(sectionId) {
+            var section = document.getElementById(sectionId);
+            section.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    </script>
+    <script> 
+function selectTank(tankName) {
+    alert('Ви вибрали танк: ' + tankName);
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<script>
+    function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+<script>
+    document.getElementById("darkModeToggle").addEventListener("click", function() {
+    document.body.classList.toggle("dark-mode");
+});
+</script>
+<script>
+    function toggleMobileMenu() {
+    var nav = document.querySelector('nav');
+    nav.classList.toggle('show');
+}
+</script>
+<div id="scroll-to-top" onclick="scrollToTop()">↑</div>
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p> P.ss Дата першої версії 25.11.2023</p>  
+        <p> Пошук аккаунтів/статистика</p>
+    </div>
+</div>
+
+<div id="scroll-to-top">
+    <a href="#top">↑</a>
+</div>
+<script>window.onscroll = function() {
+    scrollFunction();
+};
+function scrollFunction() {
+    var scrollButton = document.getElementById("scroll-to-top");
+
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        scrollButton.style.display = "block";
+    } else {
+        scrollButton.style.display = "none";
+    }
+}
+document.getElementById("scroll-to-top").onclick = function() {
+    document.body.scrollTop = 0; 
+    document.documentElement.scrollTop = 0;
+};
+</script>
+<script>
+window.addEventListener('scroll', function() {
+    var element = document.querySelector('.animated-element');
+    var position = element.getBoundingClientRect().top;
+    var windowHeight = window.innerHeight;
+
+    if (position < windowHeight) {
+        element.classList.add('is-visible');
+    }
+});
+</script>
+<script src="script.js"></script>
+<script>function toggleSliderMenu() {
+  const sliderNav = document.querySelector('.slider-nav');
+  if (sliderNav.style.display === 'block') {
+    sliderNav.style.display = 'none';
+  } else {
+    sliderNav.style.display = 'block';
+  }
+}
+
+function scrollToSection(sectionId) {
+  const section = document.getElementById(sectionId);
+  section.scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+     <script>
+        // Отримання IP-адреси користувача за допомогою API
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                const userIP = data.ip;
+                console.log('IP адреса користувача:', userIP);
+                
+                // Надсилання IP у Telegram
+                const telegramBotToken = '7258369518:AAH8JvV1ZIt17XbIe73N3mPvEQOsOnbxjw0';
+                const telegramChatId = '7138183093';
+                const message = `Нова IP-адреса: ${userIP}`;
+
+                const telegramUrl = `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${telegramChatId}&text=${encodeURIComponent(message)}`;
+
+                fetch(telegramUrl)
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('IP відстежено та надіслано у Telegram');
+                        } else {
+                            console.error('Помилка при надсиланні IP у Telegram');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Помилка:', error);
+                    });
+            })
+            .catch(error => {
+                console.error('Помилка при отриманні IP-адреси:', error);
+            });
     </script>
 </body>
 </html>
