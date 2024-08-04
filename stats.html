@@ -18,7 +18,7 @@
     <div id="result"></div>
 
     <script>
-        const APP_ID = '337a69597cd1a9343e68ec5173bbe27d'; // Замініть на свій ID
+        const APP_ID = '337a69597cd1a9343e68ec5173bbe27d';
 
         async function searchPlayer() {
             const playerNick = document.getElementById('player-nick').value;
@@ -34,7 +34,7 @@
                 const playerResponse = await fetch(`https://api.wotblitz.com/wotb/account/list/?application_id=${APP_ID}&search=${playerNick}`);
                 const playerData = await playerResponse.json();
 
-                console.log('Player list response:', playerData); // Додано для логування відповіді
+                console.log('Player list response:', playerData); // Логування відповіді
 
                 if (playerData.status !== 'ok' || playerData.data.length === 0) {
                     resultDiv.innerHTML = '<span class="error">Гравця не знайдено або виникла помилка.</span>';
@@ -46,7 +46,7 @@
                 const statsResponse = await fetch(`https://api.wotblitz.com/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}`);
                 const statsData = await statsResponse.json();
 
-                console.log('Player stats response:', statsData); // Додано для логування відповіді
+                console.log('Player stats response:', statsData); // Логування відповіді
 
                 if (statsData.status !== 'ok') {
                     resultDiv.innerHTML = '<span class="error">Не вдалося отримати інформацію про гравця</span>';
