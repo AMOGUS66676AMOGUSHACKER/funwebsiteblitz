@@ -111,6 +111,30 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #6c757d;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; 
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -133,6 +157,35 @@
 
     <script>
         const APP_ID = '337a69597cd1a9343e68ec5173bbe27d';
+
+        const AWARD_NAMES = {
+            'medalCarius': 'Медаль Каріуса',
+            'cadet': 'Кадет',
+            'invader': 'Загарбник',
+            'armorPiercer': 'Бронебійник',
+            'medalEkins': 'Медаль Екінса',
+            'markOfMasteryI': 'Знак майстерності I',
+            'firstBlood': 'Перша кров',
+            'medalKay': 'Медаль Кея',
+            'firstVictory': 'Перша перемога',
+            'markOfMasteryII': 'Знак майстерності II',
+            'defender': 'Захисник',
+            'markOfMasteryIII': 'Знак майстерності III',
+            'medalLeClerc': 'Медаль Леклерка',
+            'supporter': 'Підтримка',
+            'steelwall': 'Сталевий мур',
+            'sniper': 'Снайпер',
+            'scout': 'Розвідник',
+            'fireForEffect': 'Вогонь на ураження',
+            'diehard': 'Загартований',
+            'invincible': 'Непереможний',
+            'tankExpert': 'Експерт танків',
+            'beasthunter': 'Мисливець на звірів',
+            'handOfDeath': 'Рука смерті',
+            'jointVictory': 'Спільна перемога',
+            'sinai': 'Синай',
+            'pattonValley': 'Долина Паттона'
+        };
 
         async function searchPlayer() {
             const playerNick = document.getElementById('player-nick').value;
@@ -182,7 +235,8 @@
                     const awards = achievementsData.data[playerId].achievements;
                     for (let award in awards) {
                         if (awards[award] > 0) {
-                            awardsHtml += `<li><i class="fas fa-medal"></i> ${award}: ${awards[award]}</li>`;
+                            const awardName = AWARD_NAMES[award] || award;
+                            awardsHtml += `<li class="tooltip"><i class="fas fa-medal"></i> ${awardName}: ${awards[award]}<span class="tooltiptext">${awardName}</span></li>`;
                         }
                     }
                 } else {
