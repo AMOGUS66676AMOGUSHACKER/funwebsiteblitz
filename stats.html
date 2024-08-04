@@ -135,9 +135,51 @@
             visibility: visible;
             opacity: 1;
         }
+              body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .button-wrapper {
+            display: inline-block;
+            position: relative;
+        }
+
+        .stylish-button {
+            background-color: #3498db; /* Синій фон */
+            color: white; /* Білий текст */
+            border: none; /* Без бордюру */
+            padding: 15px 30px; /* Відступи */
+            font-size: 18px; /* Розмір шрифту */
+            cursor: pointer; /* Зміна курсору на указівник */
+            border-radius: 25px; /* Закруглені кути */
+            text-transform: uppercase; /* Великі літери */
+            font-weight: bold; /* Жирний текст */
+            transition: all 0.3s ease; /* Плавний перехід для всіх змін */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тінь кнопки */
+        }
+
+        .stylish-button:hover {
+            background-color: #2980b9; /* Темніший синій при наведенні */
+            transform: translateY(-5px); /* Піднімання кнопки при наведенні */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Зміна тіні при наведенні */
+        }
+
+        .stylish-button:active {
+            transform: translateY(-1px); /* Зменшення підйому при натисканні */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Відновлення тіні при натисканні */
+        }
     </style>
 </head>
 <body>
+       <div class="button-wrapper">
+        <a href="" target="_blank" class="stylish-button">Назад</a>
+    </div>
     <div class="container">
         <h1>Пошук Гравця</h1>
         <label for="player-nick">Введіть нік гравця:</label>
