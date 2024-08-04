@@ -7,148 +7,54 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
-            color: #333;
         }
-        .search-bar {
-            margin-bottom: 20px;
-        }
-        .player-stats {
-            display: none;
+        #result {
             margin-top: 20px;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-        td {
-            background-color: #fff;
-        }
-        #loading-message {
-            color: #007bff;
-            font-weight: bold;
-        }
-        .error-message {
+        .error {
             color: red;
-            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <h1>Пошук Гравця</h1>
-    <div class="search-bar">
-        <label for="player-nick">Введіть нік гравця:</label>
-        <input type="text" id="player-nick">
-        <button onclick="searchPlayer()">Пошук</button>
-    </div>
-    <div id="loading-message" style="display: none;">Пошук гравця, зачекайте...</div>
-    <div class="error-message" id="error-message" style="display: none;">Гравця не знайдено або виникла помилка.</div>
-    <div class="player-stats" id="player-stats">
-        <h2>Статистика Гравця: <span id="player-name"></span></h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Характеристика</th>
-                    <th>Значення</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Кількість боїв</td>
-                    <td id="battles-count"></td>
-                </tr>
-                <tr>
-                    <td>Перемоги</td>
-                    <td id="wins-count"></td>
-                </tr>
-                <tr>
-                    <td>Процент перемог</td>
-                    <td id="win-rate"></td>
-                </tr>
-                <tr>
-                    <td>Знищено танків</td>
-                    <td id="frags"></td>
-                </tr>
-                <tr>
-                    <td>Рейтинг</td>
-                    <td id="player-rating"></td>
-                </tr>
-                <tr>
-                    <td>Середній урон</td>
-                    <td id="average-damage"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <input type="text" id="playerName" placeholder="Введіть нік гравця">
+    <button onclick="searchPlayer()">Пошук</button>
+    <div id="result"></div>
 
-    <script>
-        async function searchPlayer() {
-            const playerNick = document.getElementById('player-nick').value;
-            if (!playerNick) {
-                alert('Введіть нік гравця!');
-                return;
-            }
+  <script> const APP_ID = 'b118cd808f667b4d0206098771ce6d07'; 
 
-            document.getElementById('loading-message').style.display = 'block';
-            document.getElementById('error-message').style.display = 'none';
+async function searchPlayer() {
+    const playerName = document.getElementById('playerName').value;
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = 'Пошук гравця, зачекайте...';
 
-            const apiKey = '337a69597cd1a9343e68ec5173bbe27d';
-            const apiUrl = `https://api.worldoftanks.com/wot/account/list/?application_id=${apiKey}&search=${playerNick}`;
+    try {
+        const playerResponse = await fetch(`https://api.wotblitz.com/wotb/account/list/?application_id=${APP_ID}&search=${playerName}`);
+        const playerData = await playerResponse.json();
 
-            try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-
-                console.log('Player list response:', data);
-
-                if (data.status === 'ok' && data.meta.count > 0) {
-                    const playerId = data.data[0].account_id;
-                    const playerStatsUrl = `https://api.worldoftanks.com/wot/account/info/?application_id=${apiKey}&account_id=${playerId}`;
-
-                    const statsResponse = await fetch(playerStatsUrl);
-                    const statsData = await statsResponse.json();
-
-                    console.log('Player stats response:', statsData);
-
-                    if (statsData.status === 'ok') {
-                        const playerStats = statsData.data[playerId];
-                        displayPlayerStats(playerStats);
-                    } else {
-                        document.getElementById('error-message').style.display = 'block';
-                    }
-                } else {
-                    document.getElementById('error-message').style.display = 'block';
-                }
-            } catch (error) {
-                console.error('Error fetching player data:', error);
-                document.getElementById('error-message').style.display = 'block';
-            } finally {
-                document.getElementById('loading-message').style.display = 'none';
-            }
+        if (playerData.data.length === 0) {
+            resultDiv.innerHTML = '<span class="error">Гравця не знайдено</span>';
+            return;
         }
 
-        function displayPlayerStats(stats) {
-            document.getElementById('player-name').textContent = stats.nickname;
-            document.getElementById('battles-count').textContent = stats.statistics.all.battles;
-            document.getElementById('wins-count').textContent = stats.statistics.all.wins;
-            document.getElementById('win-rate').textContent = ((stats.statistics.all.wins / stats.statistics.all.battles) * 100).toFixed(2) + '%';
-            document.getElementById('frags').textContent = stats.statistics.all.frags;
-            document.getElementById('player-rating').textContent = stats.global_rating;
-            document.getElementById('average-damage').textContent = (stats.statistics.all.damage_dealt / stats.statistics.all.battles).toFixed(2);
+        const playerId = playerData.data[0].account_id;
 
-            document.getElementById('player-stats').style.display = 'block';
-        }
-    </script>
+        const statsResponse = await fetch(`https://api.wotblitz.com/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}`);
+        const statsData = await statsResponse.json();
+        const playerStats = statsData.data[playerId];
+
+        resultDiv.innerHTML = `
+            <h2>Статистика гравця: ${playerName}</h2>
+            <p>Бої: ${playerStats.statistics.all.battles}</p>
+            <p>Перемоги: ${playerStats.statistics.all.wins}</p>
+            <p>Процент перемог: ${(playerStats.statistics.all.wins / playerStats.statistics.all.battles * 100).toFixed(2)}%</p>
+        `;
+    } catch (error) {
+        console.error('Error fetching player data:', error);
+        resultDiv.innerHTML = '<span class="error">Виникла помилка при отриманні даних</span>';
+    }
+}
+</script>
 </body>
 </html>
