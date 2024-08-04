@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Пошук Гравця</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body { 
             font-family: 'Roboto', sans-serif; 
             background: linear-gradient(to right, #1c92d2, #f2fcfe); 
             color: #333; 
             margin: 0;
-            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -92,6 +92,19 @@
         .awards h3 {
             margin-bottom: 10px;
         }
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -119,7 +132,7 @@
             const playerNick = document.getElementById('player-nick').value;
             const server = document.getElementById('server').value;
             const resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = 'Пошук гравця, зачекайте...';
+            resultDiv.innerHTML = '<div class="loader"></div>';
 
             if (!playerNick) {
                 resultDiv.innerHTML = '<span class="error">Будь ласка, введіть нік гравця</span>';
@@ -161,12 +174,10 @@
                 let awardsHtml = '<div class="awards"><h3>Нагороди:</h3><ul>';
                 if (achievementsData.status === 'ok') {
                     const awards = achievementsData.data[playerId];
-                    if (Object.keys(awards).length > 0) {
-                        for (let award in awards) {
+                    for (let award in awards) {
+                        if (awards[award] > 0) {
                             awardsHtml += `<li>${award}: ${awards[award]}</li>`;
                         }
-                    } else {
-                        awardsHtml += '<li>Немає нагород</li>';
                     }
                 } else {
                     awardsHtml += '<li>Не вдалося отримати нагороди</li>';
