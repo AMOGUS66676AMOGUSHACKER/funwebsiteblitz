@@ -18,19 +18,24 @@
     <div id="result"></div>
 
     <script>
-        const APP_ID = 'b118cd808f667b4d0206098771ce6d07'; // Замініть на свій ID
+        const APP_ID = '337a69597cd1a9343e68ec5173bbe27d'; // Замініть на свій ID
 
         async function searchPlayer() {
             const playerNick = document.getElementById('player-nick').value;
             const resultDiv = document.getElementById('result');
             resultDiv.innerHTML = 'Пошук гравця, зачекайте...';
 
+            if (!playerNick) {
+                resultDiv.innerHTML = '<span class="error">Будь ласка, введіть нік гравця</span>';
+                return;
+            }
+
             try {
                 const playerResponse = await fetch(`https://api.wotblitz.com/wotb/account/list/?application_id=${APP_ID}&search=${playerNick}`);
                 const playerData = await playerResponse.json();
 
-                if (playerData.data.length === 0) {
-                    resultDiv.innerHTML = '<span class="error">Гравця не знайдено</span>';
+                if (playerData.status !== 'ok' || playerData.data.length === 0) {
+                    resultDiv.innerHTML = '<span class="error">Гравця не знайдено або виникла помилка.</span>';
                     return;
                 }
 
@@ -38,8 +43,13 @@
 
                 const statsResponse = await fetch(`https://api.wotblitz.com/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}`);
                 const statsData = await statsResponse.json();
-                const playerStats = statsData.data[playerId];
 
+                if (statsData.status !== 'ok') {
+                    resultDiv.innerHTML = '<span class="error">Не вдалося отримати інформацію про гравця</span>';
+                    return;
+                }
+
+                const playerStats = statsData.data[playerId];
                 resultDiv.innerHTML = `
                     <h2>Статистика для ${playerStats.nickname}</h2>
                     <p>Бої: ${playerStats.statistics.all.battles}</p>
@@ -48,7 +58,7 @@
                 `;
             } catch (error) {
                 console.error('Error fetching player data:', error);
-                resultDiv.innerHTML = '<span class="error">Виникла помилка при отриманні даних</span>';
+                resultDiv.innerHTML = `<span class="error">Виникла помилка при отриманні даних: ${error.message}</span>`;
             }
         }
     </script>
