@@ -14,6 +14,7 @@
         }
         h1 { 
             color: #004080; 
+            text-align: center;
         }
         label, button {
             font-size: 1.2em;
@@ -29,6 +30,8 @@
             border: none;
             padding: 10px 20px;
             cursor: pointer;
+            display: block;
+            margin: 20px auto;
         }
         button:hover {
             background-color: #0059b3;
@@ -39,15 +42,26 @@
             background-color: #e6f2ff; 
             border-radius: 10px; 
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
         }
         .error { 
             color: red; 
         }
-        .stats {
+        .stats, .awards {
             margin-top: 20px;
         }
-        .stats p {
+        .stats p, .awards p {
             font-size: 1.1em;
+        }
+        .awards ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .awards li {
+            background: #cce5ff;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -114,13 +128,13 @@
                 }
 
                 const playerStats = statsData.data[playerId];
-                const awards = playerStats.achievements;
+                const awards = playerStats.achievements || {};
 
-                let awardsHtml = '<h3>Нагороди:</h3><ul>';
+                let awardsHtml = '<div class="awards"><h3>Нагороди:</h3><ul>';
                 for (let award in awards) {
                     awardsHtml += `<li>${award}: ${awards[award]}</li>`;
                 }
-                awardsHtml += '</ul>';
+                awardsHtml += '</ul></div>';
 
                 resultDiv.innerHTML = `
                     <h2>Статистика для ${playerStats.nickname}</h2>
