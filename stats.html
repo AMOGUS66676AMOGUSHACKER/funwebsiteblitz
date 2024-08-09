@@ -169,11 +169,15 @@
             visibility: visible;
             opacity: 1;
         }
+
+        canvas {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="button-wrapper">
-        <a href="" target="_blank" class="stylish-button">Назад</a>
+        <a href="#" class="stylish-button">Назад</a>
     </div>
     <div class="container">
         <h1>Пошук Гравця</h1>
@@ -288,6 +292,9 @@
                         <p>Середній досвід за бій: ${playerStats.statistics.all.battle_avg_xp}</p>
                         <p>Захоплені бази: ${playerStats.statistics.all.capture_points}</p>
                         <p>Захищені бази: ${playerStats.statistics.all.dropped_capture_points}</p>
+                        <p>Медалі: ${Object.keys(playerStats.achievements).length}</p>
+                        <p>Знищені танки за бій: ${(playerStats.statistics.all.frags / playerStats.statistics.all.battles).toFixed(2)}</p>
+                        <p>Середній урон за бій: ${(playerStats.statistics.all.damage_dealt / playerStats.statistics.all.battles).toFixed(2)}</p>
                     </div>
                     ${awardsHtml}
                 `;
