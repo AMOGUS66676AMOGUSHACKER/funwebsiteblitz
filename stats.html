@@ -372,5 +372,71 @@
             }
         }
     </script>
+    <script> async function searchPlayer() {
+    const playerNick = document.getElementById('player-nick').value;
+    const server = document.getElementById('server').value;
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = '<div class="loader"></div>';
+
+    if (!playerNick) {
+        resultDiv.innerHTML = '<span class="error">Будь ласка, введіть нік гравця</span>';
+        return;
+    }
+
+    const serverUrlMap = {
+        'ru': 'https://api.worldoftanks.ru',
+        'eu': 'https://api.worldoftanks.eu',
+        'na': 'https://api.worldoftanks.com',
+        'asia': 'https://api.worldoftanks.asia'
+    };
+
+    const apiUrl = `${serverUrlMap[server]}/wot/account/list/?application_id=${APP_ID}&search=${playerNick}`;
+
+    try {
+        console.log('Fetching data from:', apiUrl);
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        console.log('Response Status:', response.status);
+        console.log('Response Data:', data);
+
+        if (data.status !== 'ok' || data.data.length === 0) {
+            resultDiv.innerHTML = '<span class="error">Гравця не знайдено або виникла помилка</span>';
+            return;
+        }
+
+        const playerId = data.data[0].account_id;
+        console.log('Player ID:', playerId);
+
+        const playerInfoUrl = `${serverUrlMap[server]}/wot/account/info/?application_id=${APP_ID}&account_id=${playerId}`;
+        const playerInfoResponse = await fetch(playerInfoUrl);
+        const playerInfoData = await playerInfoResponse.json();
+
+        console.log('Player Info Data:', playerInfoData);
+
+        const playerStats = playerInfoData.data[playerId];
+
+        if (!playerStats || !playerStats.statistics) {
+            resultDiv.innerHTML = '<span class="error">Не вдалося отримати дані про статистику гравця</span>';
+            return;
+        }
+
+        resultDiv.innerHTML = `
+            <div class="stats">
+                <p><strong>Нік:</strong> ${playerNick}</p>
+                <p><strong>Кількість боїв:</strong> ${playerStats.statistics.all.battles}</p>
+                <p><strong>Виграші:</strong> ${playerStats.statistics.all.wins}</p>
+                <p><strong>Процент перемог:</strong> ${(playerStats.statistics.all.wins / playerStats.statistics.all.battles * 100).toFixed(2)}%</p>
+            </div>
+        `;
+
+        // ... код для відображення нагород і графіка ...
+
+    } catch (error) {
+        console.error('Помилка при отриманні даних:', error);
+        resultDiv.innerHTML = '<span class="error">Сталася помилка при отриманні даних</span>';
+    }
+}
+</script>
 </body>
 </html>
