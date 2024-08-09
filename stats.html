@@ -7,184 +7,178 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(to right, #1c92d2, #f2fcfe);
-            color: #333;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            text-align: center;
+            min-height: 100vh;
         }
+
         .container {
             background-color: #fff;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            max-width: 600px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
             width: 100%;
+            text-align: center;
         }
+
         h1 {
-            color: #004080;
+            font-size: 24px;
             margin-bottom: 20px;
         }
-        label, button {
-            font-size: 1.2em;
+
+        label {
             display: block;
-            margin: 10px 0;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-align: left;
         }
-        input, select {
-            font-size: 1.2em;
+
+        input[type="text"],
+        select {
+            width: 100%;
             padding: 10px;
-            margin: 5px 0;
-            width: calc(100% - 22px);
+            margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            transition: border-color 0.3s;
+            box-sizing: border-box;
+            font-size: 16px;
         }
-        input:focus, select:focus {
-            border-color: #1c92d2;
-        }
+
         button {
-            background-color: #1c92d2;
-            color: #fff;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
             border: none;
-            padding: 15px 20px;
+            border-radius: 5px;
             cursor: pointer;
-            margin: 20px 0;
-            width: 100%;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            font-size: 16px;
         }
+
         button:hover {
-            background-color: #004080;
+            background-color: #0056b3;
         }
-        #result {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #e6f2ff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: left;
+
+        .button-wrapper {
+            margin-bottom: 20px;
         }
-        .error {
-            color: red;
-            font-weight: bold;
-        }
-        .stats, .awards {
-            margin-top: 20px;
-        }
-        .stats p, .awards p {
-            font-size: 1.1em;
-        }
-        .awards ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .awards li {
-            background: #cce5ff;
-            margin: 5px 0;
-            padding: 10px;
+
+        .stylish-button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
             border-radius: 5px;
-            text-align: left;
-            display: flex;
-            align-items: center;
+            text-decoration: none;
+            font-size: 16px;
+            display: inline-block;
+            margin-bottom: 20px;
         }
-        .awards li i {
-            margin-right: 10px;
-            color: #004080;
+
+        .stylish-button:hover {
+            background-color: #0056b3;
         }
-        .awards h3 {
-            margin-bottom: 10px;
-        }
+
         .loader {
-            border: 16px solid #f3f3f3;
+            border: 5px solid #f3f3f3;
             border-radius: 50%;
-            border-top: 16px solid #3498db;
-            width: 120px;
-            height: 120px;
-            animation: spin 2s linear infinite;
-            margin: 20px auto;
+            border-top: 5px solid #3498db;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
         }
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        .tooltip {
-            position: relative;
-            display: inline-block;
+
+        .error {
+            color: red;
+            font-weight: bold;
         }
+
+        .stats {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .stats p {
+            margin: 5px 0;
+        }
+
+        .awards {
+            text-align: left;
+        }
+
+        .awards h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .awards ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .awards li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .tooltip {
+            display: inline-block;
+            position: relative;
+        }
+
         .tooltip .tooltiptext {
             visibility: hidden;
             width: 120px;
-            background-color: #6c757d;
+            background-color: #555;
             color: #fff;
             text-align: center;
             border-radius: 6px;
             padding: 5px;
             position: absolute;
             z-index: 1;
-            bottom: 125%; 
+            bottom: 125%; /* Position above the tooltip */
             left: 50%;
             margin-left: -60px;
             opacity: 0;
             transition: opacity 0.3s;
         }
+
+        .tooltip .tooltiptext::after {
+            content: '';
+            position: absolute;
+            top: 100%; /* At the bottom of the tooltip */
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
         .tooltip:hover .tooltiptext {
             visibility: visible;
             opacity: 1;
         }
-              body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-        }
-
-        .button-wrapper {
-            display: inline-block;
-            position: relative;
-        }
-
-        .stylish-button {
-            background-color: #3498db; /* Синій фон */
-            color: white; /* Білий текст */
-            border: none; /* Без бордюру */
-            padding: 15px 30px; /* Відступи */
-            font-size: 18px; /* Розмір шрифту */
-            cursor: pointer; /* Зміна курсору на указівник */
-            border-radius: 25px; /* Закруглені кути */
-            text-transform: uppercase; /* Великі літери */
-            font-weight: bold; /* Жирний текст */
-            transition: all 0.3s ease; /* Плавний перехід для всіх змін */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тінь кнопки */
-        }
-
-        .stylish-button:hover {
-            background-color: #2980b9; /* Темніший синій при наведенні */
-            transform: translateY(-5px); /* Піднімання кнопки при наведенні */
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Зміна тіні при наведенні */
-        }
-
-        .stylish-button:active {
-            transform: translateY(-1px); /* Зменшення підйому при натисканні */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Відновлення тіні при натисканні */
-        }
     </style>
 </head>
 <body>
-       <div class="button-wrapper">
+    <div class="button-wrapper">
         <a href="" target="_blank" class="stylish-button">Назад</a>
     </div>
     <div class="container">
         <h1>Пошук Гравця</h1>
         <label for="player-nick">Введіть нік гравця:</label>
         <input type="text" id="player-nick" placeholder="Нік гравця" />
-        
+
         <label for="server">Виберіть сервер:</label>
         <select id="server">
             <option value="ru">RU</option>
@@ -192,7 +186,7 @@
             <option value="na">NA</option>
             <option value="asia">ASIA</option>
         </select>
-        
+
         <button onclick="searchPlayer()">Пошук</button>
         <div id="result"></div>
     </div>
@@ -206,13 +200,13 @@
             'invader': 'Загарбник',
             'armorPiercer': 'Бронебійник',
             'medalEkins': 'Медаль Екінса',
-            'markOfMasteryI': 'Знак майстерності I',
+            'markOfMasteryI': 'Знак майстерності I ступеня',
             'firstBlood': 'Перша кров',
             'medalKay': 'Медаль Кея',
             'firstVictory': 'Перша перемога',
-            'markOfMasteryII': 'Знак майстерності II',
+            'markOfMasteryII': 'Знак майстерності II ступеня',
             'defender': 'Захисник',
-            'markOfMasteryIII': 'Знак майстерності III',
+            'markOfMasteryIII': 'Знак майстерності III ступеня',
             'medalLeClerc': 'Медаль Леклерка',
             'supporter': 'Підтримка',
             'steelwall': 'Сталевий мур',
