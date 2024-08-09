@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Пошук Гравця</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -22,7 +23,7 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
+            max-width: 600px;
             width: 100%;
             text-align: center;
         }
@@ -189,6 +190,7 @@
 
         <button onclick="searchPlayer()">Пошук</button>
         <div id="result"></div>
+        <canvas id="statsChart" width="400" height="400"></canvas>
     </div>
 
     <script>
@@ -241,34 +243,28 @@
                 'asia': 'https://api.wotblitz.asia'
             };
 
-            const apiUrl = serverUrlMap[server];
+            const apiUrl = `${serverUrlMap[server]}/wotb/account/list/?application_id=${APP_ID}&search=${playerNick}`;
 
             try {
-                const playerResponse = await fetch(`${apiUrl}/wotb/account/list/?application_id=${APP_ID}&search=${playerNick}`);
-                const playerData = await playerResponse.json();
+                const response = await fetch(apiUrl);
+                const data = await response.json();
 
-                if (playerData.status !== 'ok' || playerData.data.length === 0) {
-                    resultDiv.innerHTML = '<span class="error">Гравця не знайдено або виникла помилка.</span>';
+                if (data.status !== 'ok' || data.meta.count === 0) {
+                    resultDiv.innerHTML = '<span class="error">Гравця не знайдено</span>';
                     return;
                 }
 
-                const playerId = playerData.data[0].account_id;
+                const playerId = data.data[0].account_id;
 
-                const statsResponse = await fetch(`${apiUrl}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}`);
-                const statsData = await statsResponse.json();
-
-                if (statsData.status !== 'ok') {
-                    resultDiv.innerHTML = '<span class="error">Не вдалося отримати інформацію про гравця</span>';
-                    return;
-                }
-
-                const playerStats = statsData.data[playerId];
-                const achievementsResponse = await fetch(`${apiUrl}/wotb/account/achievements/?application_id=${APP_ID}&account_id=${playerId}`);
-                const achievementsData = await achievementsResponse.json();
+                const playerStatsUrl = `${serverUrlMap[server]}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}`;
+                const playerStatsResponse = await fetch(playerStatsUrl);
+                const playerStatsData = await playerStatsResponse.json();
+                const playerStats = playerStatsData.data[playerId];
 
                 let awardsHtml = '<div class="awards"><h3>Нагороди:</h3><ul>';
-                if (achievementsData.status === 'ok') {
-                    const awards = achievementsData.data[playerId].achievements;
+                const awards = playerStats.achievements;
+
+                if (awards) {
                     for (let award in awards) {
                         if (awards[award] > 0) {
                             const awardName = AWARD_NAMES[award] || award;
@@ -286,9 +282,56 @@
                         <p>Бої: ${playerStats.statistics.all.battles}</p>
                         <p>Перемоги: ${playerStats.statistics.all.wins}</p>
                         <p>Процент перемог: ${(playerStats.statistics.all.wins / playerStats.statistics.all.battles * 100).toFixed(2)}%</p>
+                        <p>Знищені танки: ${playerStats.statistics.all.frags}</p>
+                        <p>Середній урон: ${playerStats.statistics.all.damage_dealt}</p>
+                        <p>Максимальний урон за бій: ${playerStats.statistics.all.max_damage}</p>
+                        <p>Середній досвід за бій: ${playerStats.statistics.all.battle_avg_xp}</p>
+                        <p>Захоплені бази: ${playerStats.statistics.all.capture_points}</p>
+                        <p>Захищені бази: ${playerStats.statistics.all.dropped_capture_points}</p>
                     </div>
                     ${awardsHtml}
                 `;
+
+                // Відображення діаграми
+                const ctx = document.getElementById('statsChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Перемоги', 'Знищені танки', 'Середній урон', 'Захоплені бази', 'Захищені бази'],
+                        datasets: [{
+                            label: 'Показники гравця',
+                            data: [
+                                playerStats.statistics.all.wins,
+                                playerStats.statistics.all.frags,
+                                playerStats.statistics.all.damage_dealt,
+                                playerStats.statistics.all.capture_points,
+                                playerStats.statistics.all.dropped_capture_points
+                            ],
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
             } catch (error) {
                 console.error('Error fetching player data:', error);
                 resultDiv.innerHTML = `<span class="error">Виникла помилка при отриманні даних: ${error.message}</span>`;
