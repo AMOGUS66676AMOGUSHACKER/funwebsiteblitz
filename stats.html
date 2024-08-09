@@ -8,90 +8,107 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Roboto', sans-serif;
+            background-color: #1e1e1e;
+            color: #ffffff;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            overflow: hidden;
         }
 
         .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #2c2c2c;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             max-width: 600px;
             width: 100%;
             text-align: center;
         }
 
         h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: #00d4ff;
+            font-weight: bold;
         }
 
         label {
             display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
+            font-weight: 500;
+            margin-bottom: 10px;
             text-align: left;
+            color: #cccccc;
         }
 
         input[type="text"],
         select {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #555;
+            border-radius: 6px;
             box-sizing: border-box;
-            font-size: 16px;
+            font-size: 18px;
+            background-color: #3c3c3c;
+            color: #ffffff;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #00d4ff;
         }
 
         button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
+            background-color: #00d4ff;
+            color: #1e1e1e;
+            padding: 12px 24px;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
         }
 
         button:hover {
-            background-color: #0056b3;
+            background-color: #00a9cc;
         }
 
         .button-wrapper {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .stylish-button {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
+            background-color: #00d4ff;
+            color: #1e1e1e;
+            padding: 12px 24px;
+            border-radius: 6px;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 18px;
             display: inline-block;
             margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
         }
 
         .stylish-button:hover {
-            background-color: #0056b3;
+            background-color: #00a9cc;
         }
 
         .loader {
             border: 5px solid #f3f3f3;
             border-radius: 50%;
             border-top: 5px solid #3498db;
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             animation: spin 1s linear infinite;
-            margin: 0 auto;
+            margin: 20px auto;
         }
 
         @keyframes spin {
@@ -100,17 +117,28 @@
         }
 
         .error {
-            color: red;
+            color: #ff4f4f;
             font-weight: bold;
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
 
         .stats {
             text-align: left;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            background-color: #333333;
+            padding: 15px;
+            border-radius: 6px;
         }
 
         .stats p {
-            margin: 5px 0;
+            margin: 8px 0;
+            font-size: 16px;
         }
 
         .awards {
@@ -118,38 +146,43 @@
         }
 
         .awards h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #00d4ff;
         }
 
         .awards ul {
             list-style-type: none;
             padding: 0;
+            margin: 0;
         }
 
         .awards li {
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             position: relative;
+            font-size: 16px;
         }
 
         .tooltip {
             display: inline-block;
             position: relative;
+            color: #f0f0f0;
+            cursor: pointer;
         }
 
         .tooltip .tooltiptext {
             visibility: hidden;
-            width: 120px;
+            width: 140px;
             background-color: #555;
             color: #fff;
             text-align: center;
             border-radius: 6px;
-            padding: 5px;
+            padding: 8px;
             position: absolute;
             z-index: 1;
             bottom: 125%; /* Position above the tooltip */
             left: 50%;
-            margin-left: -60px;
+            margin-left: -70px;
             opacity: 0;
             transition: opacity 0.3s;
         }
@@ -171,7 +204,7 @@
         }
 
         canvas {
-            margin-top: 20px;
+            margin-top: 30px;
         }
     </style>
 </head>
@@ -241,35 +274,31 @@
             }
 
             const serverUrlMap = {
-                'ru': 'https://api.wotblitz.ru',
-                'eu': 'https://api.wotblitz.eu',
-                'na': 'https://api.wotblitz.com',
-                'asia': 'https://api.wotblitz.asia'
+                'ru': 'https://api.worldoftanks.ru',
+                'eu': 'https://api.worldoftanks.eu',
+                'na': 'https://api.worldoftanks.com',
+                'asia': 'https://api.worldoftanks.asia'
             };
 
-            const apiUrl = `${serverUrlMap[server]}/wotb/account/list/?application_id=${APP_ID}&search=${playerNick}`;
+            const apiUrl = `${serverUrlMap[server]}/wot/account/list/?application_id=${APP_ID}&search=${playerNick}`;
 
             try {
                 const response = await fetch(apiUrl);
                 const data = await response.json();
 
-                if (!data || data.status !== 'ok' || data.meta.count === 0) {
-                    resultDiv.innerHTML = '<span class="error">Гравця не знайдено</span>';
+                if (data.status !== 'ok' || data.data.length === 0) {
+                    resultDiv.innerHTML = '<span class="error">Гравця не знайдено або виникла помилка</span>';
                     return;
                 }
 
-                const playerId = data.data[0]?.account_id;
-                if (!playerId) {
-                    resultDiv.innerHTML = '<span class="error">Не вдалося отримати дані про гравця</span>';
-                    return;
-                }
+                const playerId = data.data[0].account_id;
+                const playerInfoUrl = `${serverUrlMap[server]}/wot/account/info/?application_id=${APP_ID}&account_id=${playerId}`;
+                const playerInfoResponse = await fetch(playerInfoUrl);
+                const playerInfoData = await playerInfoResponse.json();
 
-                const playerStatsUrl = `${serverUrlMap[server]}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}`;
-                const playerStatsResponse = await fetch(playerStatsUrl);
-                const playerStatsData = await playerStatsResponse.json();
+                const playerStats = playerInfoData.data[playerId];
 
-                const playerStats = playerStatsData.data?.[playerId];
-                if (!playerStats) {
+                if (!playerStats || !playerStats.statistics) {
                     resultDiv.innerHTML = '<span class="error">Не вдалося отримати дані про статистику гравця</span>';
                     return;
                 }
