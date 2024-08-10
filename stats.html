@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1e1e2f;
+            color: #ffffff;
             margin: 0;
             padding: 0;
             display: flex;
@@ -18,79 +19,81 @@
         }
 
         .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
+            background-color: #282846;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
             width: 100%;
             text-align: center;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
         }
 
         h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: #66e0ff;
         }
 
         label {
             display: block;
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             text-align: left;
+            color: #dddddd;
         }
 
         input[type="text"],
         select {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #444;
+            border-radius: 6px;
+            background-color: #1e1e2f;
+            color: #ffffff;
             font-size: 16px;
+            box-sizing: border-box;
+            transition: border 0.3s;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            border-color: #66e0ff;
         }
 
         button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
+            background-color: #66e0ff;
+            color: #1e1e2f;
+            padding: 12px 25px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+            transition: background-color 0.3s;
         }
 
         button:hover {
-            background-color: #0056b3;
+            background-color: #33d1ff;
         }
 
         .button-wrapper {
             margin-bottom: 20px;
         }
 
-        .stylish-button {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 16px;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-
-        .stylish-button:hover {
-            background-color: #0056b3;
-        }
-
         .loader {
-            border: 5px solid #f3f3f3;
+            border: 6px solid #f3f3f3;
             border-radius: 50%;
-            border-top: 5px solid #3498db;
-            width: 30px;
-            height: 30px;
+            border-top: 6px solid #66e0ff;
+            width: 40px;
+            height: 40px;
             animation: spin 1s linear infinite;
-            margin: 0 auto;
+            margin: 20px auto;
         }
 
         @keyframes spin {
@@ -99,17 +102,18 @@
         }
 
         .error {
-            color: red;
+            color: #ff4d4d;
             font-weight: bold;
         }
 
         .stats {
             text-align: left;
             margin-bottom: 20px;
+            color: #dddddd;
         }
 
         .stats p {
-            margin: 5px 0;
+            margin: 8px 0;
         }
 
         .awards {
@@ -117,7 +121,7 @@
         }
 
         .awards h3 {
-            font-size: 18px;
+            font-size: 20px;
             margin-bottom: 10px;
         }
 
@@ -127,8 +131,10 @@
         }
 
         .awards li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             position: relative;
+            font-size: 16px;
+            color: #66e0ff;
         }
 
         .tooltip {
@@ -138,7 +144,7 @@
 
         .tooltip .tooltiptext {
             visibility: hidden;
-            width: 120px;
+            width: 150px;
             background-color: #555;
             color: #fff;
             text-align: center;
@@ -146,9 +152,9 @@
             padding: 5px;
             position: absolute;
             z-index: 1;
-            bottom: 125%; /* Position above the tooltip */
+            bottom: 150%; /* Position above the tooltip */
             left: 50%;
-            margin-left: -60px;
+            margin-left: -75px;
             opacity: 0;
             transition: opacity 0.3s;
         }
@@ -167,6 +173,12 @@
         .tooltip:hover .tooltiptext {
             visibility: visible;
             opacity: 1;
+        }
+        
+        .chart-container {
+            width: 100%;
+            height: 400px;
+            margin: 20px 0;
         }
     </style>
 </head>
@@ -191,6 +203,7 @@
         <div id="result"></div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const APP_ID = '337a69597cd1a9343e68ec5173bbe27d';
 
@@ -254,44 +267,71 @@
 
                 const playerId = playerData.data[0].account_id;
 
-                const statsResponse = await fetch(`${apiUrl}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}`);
+                const statsResponse = await fetch(`${apiUrl}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}&extra=statistics.all`);
                 const statsData = await statsResponse.json();
 
                 if (statsData.status !== 'ok') {
-                    resultDiv.innerHTML = '<span class="error">Не вдалося отримати інформацію про гравця</span>';
+                    resultDiv.innerHTML = '<span class="error">Не вдалося отримати статистику гравця.</span>';
                     return;
                 }
 
-                const playerStats = statsData.data[playerId];
-                const achievementsResponse = await fetch(`${apiUrl}/wotb/account/achievements/?application_id=${APP_ID}&account_id=${playerId}`);
-                const achievementsData = await achievementsResponse.json();
+                const playerStats = statsData.data[playerId].statistics.all;
+                const awardsResponse = await fetch(`${apiUrl}/wotb/account/achievements/?application_id=${APP_ID}&account_id=${playerId}`);
+                const awardsData = await awardsResponse.json();
 
-                let awardsHtml = '<div class="awards"><h3>Нагороди:</h3><ul>';
-                if (achievementsData.status === 'ok') {
-                    const awards = achievementsData.data[playerId].achievements;
-                    for (let award in awards) {
-                        if (awards[award] > 0) {
-                            const awardName = AWARD_NAMES[award] || award;
-                            awardsHtml += `<li class="tooltip"><i class="fas fa-medal"></i> ${awardName}: ${awards[award]}<span class="tooltiptext">${awardName}</span></li>`;
-                        }
-                    }
-                } else {
-                    awardsHtml += '<li>Не вдалося отримати нагороди</li>';
-                }
-                awardsHtml += '</ul></div>';
+                const awards = awardsData.data[playerId].achievements;
 
                 resultDiv.innerHTML = `
-                    <h2>Статистика для ${playerStats.nickname}</h2>
                     <div class="stats">
-                        <p>Бої: ${playerStats.statistics.all.battles}</p>
-                        <p>Перемоги: ${playerStats.statistics.all.wins}</p>
-                        <p>Процент перемог: ${(playerStats.statistics.all.wins / playerStats.statistics.all.battles * 100).toFixed(2)}%</p>
+                        <p><strong>Бої:</strong> ${playerStats.battles}</p>
+                        <p><strong>Перемоги:</strong> ${playerStats.wins} (${(playerStats.wins / playerStats.battles * 100).toFixed(2)}%)</p>
+                        <p><strong>Ураження:</strong> ${playerStats.losses}</p>
+                        <p><strong>Середній урон:</strong> ${playerStats.damage_dealt / playerStats.battles}</p>
+                        <p><strong>Фрагів:</strong> ${playerStats.frags}</p>
                     </div>
-                    ${awardsHtml}
+                    <div class="chart-container">
+                        <canvas id="winRateChart"></canvas>
+                    </div>
+                    <div class="awards">
+                        <h3>Нагороди</h3>
+                        <ul>
+                            ${Object.keys(awards).map(award => `
+                                <li>
+                                    <span class="tooltip">${AWARD_NAMES[award] || award}
+                                        <span class="tooltiptext">Кількість: ${awards[award]}</span>
+                                    </span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
                 `;
+
+                const ctx = document.getElementById('winRateChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Бої', 'Перемоги', 'Ураження', 'Фраги'],
+                        datasets: [{
+                            label: 'Статистика гравця',
+                            data: [playerStats.battles, playerStats.wins, playerStats.losses, playerStats.frags],
+                            backgroundColor: 'rgba(102, 224, 255, 0.5)',
+                            borderColor: '#66e0ff',
+                            borderWidth: 1,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
             } catch (error) {
-                console.error('Error fetching player data:', error);
-                resultDiv.innerHTML = `<span class="error">Виникла помилка при отриманні даних: ${error.message}</span>`;
+                console.error(error);
+                resultDiv.innerHTML = '<span class="error">Сталася помилка при завантаженні даних.</span>';
             }
         }
     </script>
