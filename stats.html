@@ -140,6 +140,37 @@
             visibility: visible;
             opacity: 1;
         }
+        .history {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .history h3 {
+            margin-bottom: 10px;
+        }
+        .history ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .history li {
+            background: #f0f0f0;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .history li button {
+            background: #ff4d4d;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .history li button:hover {
+            background: #cc0000;
+        }
 
         /* Media Queries for Responsive Design */
         @media (max-width: 768px) {
@@ -200,6 +231,10 @@
         
         <button onclick="searchPlayer()">Пошук</button>
         <div id="result"></div>
+        <div class="history">
+            <h3>Історія Ніків:</h3>
+            <ul id="history-list"></ul>
+        </div>
     </div>
 
     <script>
@@ -234,6 +269,24 @@
             'pattonValley': 'Долина Паттона'
         };
 
+        function updateHistoryList() {
+            const historyList = document.getElementById('history-list');
+            historyList.innerHTML = '';
+            const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+            history.forEach((nick, index) => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `${nick} <button onclick="removeHistoryItem(${index})">Видалити</button>`;
+                historyList.appendChild(listItem);
+            });
+        }
+
+        function removeHistoryItem(index) {
+            const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+            history.splice(index, 1);
+            localStorage.setItem('searchHistory', JSON.stringify(history));
+            updateHistoryList();
+        }
+
         async function searchPlayer() {
             const playerNick = document.getElementById('player-nick').value;
             const server = document.getElementById('server').value;
@@ -265,6 +318,14 @@
 
                 const playerId = playerData.data[0].account_id;
                 const playerNickname = playerData.data[0].nickname;
+
+                // Save to history
+                const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+                if (!history.includes(playerNick)) {
+                    history.push(playerNick);
+                    localStorage.setItem('searchHistory', JSON.stringify(history));
+                    updateHistoryList();
+                }
 
                 const statsResponse = await fetch(`${apiUrl}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}`);
                 const statsData = await statsResponse.json();
@@ -301,7 +362,6 @@
                         <p>Поразки: ${playerStats.statistics.all.losses}</p>
                         <p>Середній урон: ${(playerStats.statistics.all.damage_dealt / playerStats.statistics.all.battles).toFixed(2)}</p>
                         <p>Фрагів: ${playerStats.statistics.all.frags}</p>
-                        <p>Історія Ніків: ${playerData.data.map(player => player.nickname).join(', ')}</p>
                     </div>
                     ${awardsHtml}
                 `;
@@ -315,6 +375,9 @@
             const awardsDiv = document.querySelector('.awards');
             awardsDiv.classList.toggle('active');
         }
+
+        // Initialize history list
+        document.addEventListener('DOMContentLoaded', updateHistoryList);
     </script>
 </body>
 </html>
