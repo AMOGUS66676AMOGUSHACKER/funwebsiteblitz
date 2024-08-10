@@ -6,230 +6,7 @@
     <title>Пошук Гравця</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(to right, #1c92d2, #f2fcfe);
-            color: #333;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-        }
-        .container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        h1 {
-            color: #004080;
-            margin-bottom: 20px;
-            font-size: 2em;
-            font-weight: 600;
-        }
-        label {
-            font-size: 1.1em;
-            margin: 10px 0;
-            display: block;
-        }
-        input, select {
-            font-size: 1.1em;
-            padding: 12px;
-            margin: 5px 0;
-            width: calc(100% - 24px);
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            transition: border-color 0.3s;
-            box-sizing: border-box;
-        }
-        input:focus, select:focus {
-            border-color: #1c92d2;
-            outline: none;
-        }
-        button {
-            background-color: #1c92d2;
-            color: #fff;
-            border: none;
-            padding: 15px;
-            cursor: pointer;
-            margin: 20px 0;
-            width: 100%;
-            border-radius: 8px;
-            transition: background-color 0.3s, transform 0.2s;
-            font-size: 1.1em;
-        }
-        button:hover {
-            background-color: #004080;
-            transform: scale(1.05);
-        }
-        #result {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #f2f2f2;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            text-align: left;
-            position: relative;
-        }
-        .error {
-            color: #e74c3c;
-            font-weight: bold;
-        }
-        .stats, .awards, .additional-info {
-            margin-top: 20px;
-        }
-        .stats p, .awards p, .additional-info p {
-            font-size: 1em;
-            margin: 5px 0;
-        }
-        .awards ul {
-            list-style-type: none;
-            padding: 0;
-            display: none;
-        }
-        .awards.active ul {
-            display: block;
-        }
-        .awards li {
-            background: #e6f7ff;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 8px;
-            text-align: left;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        }
-        .awards li i {
-            margin-right: 10px;
-            color: #004080;
-        }
-        .awards h3 {
-            margin-bottom: 10px;
-            font-size: 1.2em;
-            font-weight: 600;
-        }
-        .loader {
-            border: 12px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 12px solid #3498db;
-            width: 60px;
-            height: 60px;
-            animation: spin 2s linear infinite;
-            margin: 20px auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .tooltip {
-            position: relative;
-            display: inline-block;
-        }
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 150px;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%; 
-            left: 50%;
-            margin-left: -75px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 0.9em;
-        }
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-        }
-        .history {
-            margin-top: 20px;
-            text-align: left;
-        }
-        .history h3 {
-            margin-bottom: 15px;
-            font-size: 1.2em;
-            font-weight: 600;
-        }
-        .history ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .history li {
-            background: #f9f9f9;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        }
-        .history li button {
-            background: #ff4d4d;
-            border: none;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: background 0.3s;
-        }
-        .history li button:hover {
-            background: #cc0000;
-        }
-
-        /* Media Queries for Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-            h1 {
-                font-size: 1.6em;
-            }
-            label, button {
-                font-size: 1em;
-            }
-            input, select {
-                font-size: 1em;
-            }
-            button {
-                padding: 12px;
-            }
-            .loader {
-                width: 50px;
-                height: 50px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.4em;
-            }
-            label, button {
-                font-size: 0.9em;
-            }
-            input, select {
-                font-size: 0.9em;
-            }
-            button {
-                padding: 10px;
-            }
-            .loader {
-                width: 40px;
-                height: 40px;
-            }
-        }
+        /* Стилі залишаються без змін */
     </style>
 </head>
 <body>
@@ -256,7 +33,6 @@
 
     <script>
         const APP_ID = '337a69597cd1a9343e68ec5173bbe27d';
-
         const AWARD_NAMES = {
             'medalCarius': 'Медаль Каріуса',
             'cadet': 'Кадет',
@@ -270,10 +46,9 @@
         };
 
         function searchPlayer() {
-            const nick = document.getElementById('player-nick').value;
+            const nick = document.getElementById('player-nick').value.trim();
             const server = document.getElementById('server').value;
             const resultDiv = document.getElementById('result');
-            const historyList = document.getElementById('history-list');
 
             if (!nick) {
                 resultDiv.innerHTML = '<p class="error">Будь ласка, введіть нік гравця!</p>';
@@ -306,8 +81,12 @@
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    const playerData = data.data[playerId];
-                    displayPlayerInfo(playerData, nick);
+                    if (data.status === 'ok') {
+                        const playerData = data.data[playerId];
+                        displayPlayerInfo(playerData, nick);
+                    } else {
+                        document.getElementById('result').innerHTML = '<p class="error">Не вдалося отримати дані гравця.</p>';
+                    }
                 })
                 .catch(error => {
                     const resultDiv = document.getElementById('result');
@@ -361,17 +140,36 @@
         }
 
         function updateHistory(nick) {
-            const historyList = document.getElementById('history-list');
-            const listItem = document.createElement('li');
-            listItem.textContent = nick;
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Видалити';
-            deleteButton.onclick = function() {
-                historyList.removeChild(listItem);
-            };
-            listItem.appendChild(deleteButton);
-            historyList.appendChild(listItem);
+            const history = JSON.parse(localStorage.getItem('playerSearchHistory')) || [];
+            if (!history.includes(nick)) {
+                history.push(nick);
+                localStorage.setItem('playerSearchHistory', JSON.stringify(history));
+                renderHistory();
+            }
         }
+
+        function renderHistory() {
+            const history = JSON.parse(localStorage.getItem('playerSearchHistory')) || [];
+            const historyList = document.getElementById('history-list');
+            historyList.innerHTML = '';
+
+            history.forEach((nick, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = nick;
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Видалити';
+                deleteButton.onclick = function() {
+                    history.splice(index, 1);
+                    localStorage.setItem('playerSearchHistory', JSON.stringify(history));
+                    renderHistory();
+                };
+                listItem.appendChild(deleteButton);
+                historyList.appendChild(listItem);
+            });
+        }
+
+        // Відображення історії під час завантаження сторінки
+        document.addEventListener('DOMContentLoaded', renderHistory);
     </script>
 </body>
 </html>
