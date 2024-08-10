@@ -26,6 +26,7 @@
             max-width: 800px;
             width: 100%;
             box-sizing: border-box;
+            animation: fadeIn 1s ease-in-out;
         }
         .tab {
             cursor: pointer;
@@ -238,10 +239,6 @@
             button {
                 padding: 12px;
             }
-            .loader {
-                width: 50px;
-                height: 50px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -256,10 +253,6 @@
             }
             button {
                 padding: 10px;
-            }
-            .loader {
-                width: 40px;
-                height: 40px;
             }
         }
 
@@ -284,109 +277,85 @@
         </div>
         <div id="search" class="tab-content active">
             <label for="player-nick">Введіть нік гравця:</label>
-            <input type="text" id="player-nick" placeholder="Нік гравця" />
-            
+            <input type="text" id="player-nick" placeholder="Нік гравця">
             <label for="server">Виберіть сервер:</label>
             <select id="server">
-                <option value="ru">RU</option>
-                <option value="eu">EU</option>
-                <option value="na">NA</option>
-                <option value="asia">ASIA</option>
+                <option value="na">North America</option>
+                <option value="eu">Europe</option>
+                <option value="asia">Asia</option>
+                <option value="ru">Russia</option>
             </select>
-            
             <button onclick="searchPlayer()">Пошук</button>
             <div id="result"></div>
         </div>
         <div id="history" class="tab-content">
-            <h3>Історія Ніків:</h3>
-            <ul id="history-list"></ul>
+            <div class="history">
+                <h3>Історія запитів</h3>
+                <ul id="history-list"></ul>
+            </div>
         </div>
     </div>
 
     <script>
-        const APP_ID = '337a69597cd1a9343e68ec5173bbe27d';
-
+        const APP_ID = 'YOUR_APP_ID';
         const AWARD_NAMES = {
-            'medalCarius': 'Медаль Каріуса',
-            'cadet': 'Кадет',
-            'invader': 'Загарбник',
-            'armorPiercer': 'Бронебійник',
-            'medalEkins': 'Медаль Екінса',
-            'markOfMasteryI': 'Знак майстерності I',
-            'firstBlood': 'Перша кров',
-            'medalKay': 'Медаль Кея',
-            'firstVictory': 'Перша перемога',
-            'markOfMasteryII': 'Знак майстерності II',
-            'defender': 'Захисник',
-            'markOfMasteryIII': 'Знак майстерності III',
-            'medalLeClerc': 'Медаль Леклерка',
-            'supporter': 'Підтримка',
-            'steelwall': 'Сталевий мур',
-            'sniper': 'Снайпер',
-            'scout': 'Розвідник',
-            'fireForEffect': 'Вогонь на ураження',
-            'diehard': 'Загартований',
-            'invincible': 'Непереможний',
-            'tankExpert': 'Експерт танків',
-            'beasthunter': 'Мисливець на звірів',
-            'handOfDeath': 'Рука смерті',
-            'jointVictory': 'Спільна перемога',
-            'sinai': 'Синай',
-            'pattonValley': 'Долина Паттона'
+            'medalPascucci': 'Медаль Паскуччі',
+            'medalBatrakov': 'Медаль Батрак',
+            'bravery': 'Сміливість',
+            'tacticalBrilliance': 'Тактична блискучість'
         };
 
         function showTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+
             document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
-        }
-
-        function updateHistoryList() {
-            const historyList = document.getElementById('history-list');
-            historyList.innerHTML = '';
-            const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
-            history.forEach((nick, index) => {
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `${nick} <button onclick="removeHistoryItem(${index})">Видалити</button>`;
-                historyList.appendChild(listItem);
-            });
-        }
-
-        function removeHistoryItem(index) {
-            const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
-            history.splice(index, 1);
-            localStorage.setItem('searchHistory', JSON.stringify(history));
-            updateHistoryList();
+            document.getElementById(tabId).classList.add('active');
         }
 
         function searchPlayer() {
-            const nick = document.getElementById('player-nick').value;
+            const nick = document.getElementById('player-nick').value.trim();
             const server = document.getElementById('server').value;
-
-            if (!nick) {
-                document.getElementById('result').innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Будь ласка, введіть нік гравця.</div>';
-                return;
-            }
-
             const url = `https://api.wotblitz.com/wotb/account/info/?application_id=${APP_ID}&account_id=${nick}`;
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="loader"></div>';
 
             fetch(url)
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     if (data.status === 'ok' && data.data) {
                         const playerData = data.data[nick];
                         if (playerData) {
-                            const resultDiv = document.getElementById('result');
                             resultDiv.innerHTML = `
                                 <div class="success"><i class="fas fa-check-circle"></i> Гравця знайдено!</div>
                                 <h3>Інформація про гравця:</h3>
                                 <p><strong>Нік:</strong> ${playerData.nickname}</p>
                                 <p><strong>Рейтинг:</strong> ${playerData.rating}</p>
                                 <p><strong>Кількість боїв:</strong> ${playerData.battles}</p>
+                                <div class="awards" id="awards">
+                                    <h3>Нагороди:</h3>
+                                    <ul id="awards-list"></ul>
+                                </div>
                             `;
 
-                            // Додати гравця до історії
+                            const awardsList = document.getElementById('awards-list');
+                            if (playerData.awards) {
+                                for (const [key, value] of Object.entries(playerData.awards)) {
+                                    if (AWARD_NAMES[key]) {
+                                        const listItem = document.createElement('li');
+                                        listItem.innerHTML = `<i class="fas fa-trophy"></i> ${AWARD_NAMES[key]} (${value})`;
+                                        awardsList.appendChild(listItem);
+                                    }
+                                }
+                            }
+
                             const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
                             if (!history.includes(nick)) {
                                 history.push(nick);
@@ -394,19 +363,38 @@
                                 updateHistoryList();
                             }
                         } else {
-                            document.getElementById('result').innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Гравця не знайдено.</div>';
+                            resultDiv.innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Гравця не знайдено.</div>';
                         }
                     } else {
-                        document.getElementById('result').innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Помилка при запиті до сервера.</div>';
+                        resultDiv.innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Помилка при запиті до сервера.</div>';
                     }
                 })
                 .catch(error => {
-                    document.getElementById('result').innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Помилка при запиті до сервера.</div>';
+                    resultDiv.innerHTML = `<div class="error"><i class="fas fa-exclamation-circle"></i> Помилка: ${error.message}</div>`;
                 });
         }
 
-        // Ініціалізувати історію
-        updateHistoryList();
+        function updateHistoryList() {
+            const historyList = document.getElementById('history-list');
+            historyList.innerHTML = '';
+            const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+            history.forEach(nick => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `${nick} <button onclick="removeFromHistory('${nick}')">Видалити</button>`;
+                historyList.appendChild(listItem);
+            });
+        }
+
+        function removeFromHistory(nick) {
+            let history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+            history = history.filter(item => item !== nick);
+            localStorage.setItem('searchHistory', JSON.stringify(history));
+            updateHistoryList();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateHistoryList();
+        });
     </script>
 </body>
 </html>
