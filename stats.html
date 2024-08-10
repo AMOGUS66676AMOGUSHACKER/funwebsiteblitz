@@ -264,6 +264,7 @@
                 }
 
                 const playerId = playerData.data[0].account_id;
+                const playerNickname = playerData.data[0].nickname;
 
                 const statsResponse = await fetch(`${apiUrl}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}`);
                 const statsData = await statsResponse.json();
@@ -292,14 +293,15 @@
                 awardsHtml += '</ul><button onclick="toggleAwards()">Показати/Сховати Нагороди</button></div>';
 
                 resultDiv.innerHTML = `
-                    <h2>Статистика для ${playerStats.nickname}</h2>
+                    <h2>Статистика для ${playerNickname}</h2>
                     <div class="stats">
                         <p>Бої: ${playerStats.statistics.all.battles}</p>
                         <p>Перемоги: ${playerStats.statistics.all.wins}</p>
                         <p>Процент перемог: ${(playerStats.statistics.all.wins / playerStats.statistics.all.battles * 100).toFixed(2)}%</p>
-                        <p>Ураження: ${playerStats.statistics.all.losses}</p>
+                        <p>Поразки: ${playerStats.statistics.all.losses}</p>
                         <p>Середній урон: ${(playerStats.statistics.all.damage_dealt / playerStats.statistics.all.battles).toFixed(2)}</p>
                         <p>Фрагів: ${playerStats.statistics.all.frags}</p>
+                        <p>Історія Ніків: ${playerData.data.map(player => player.nickname).join(', ')}</p>
                     </div>
                     ${awardsHtml}
                 `;
