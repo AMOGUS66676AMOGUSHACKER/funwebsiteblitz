@@ -6,7 +6,230 @@
     <title>Пошук Гравця</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        /* Стилі залишаються без змін */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #1c92d2, #f2fcfe);
+            color: #333;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        h1 {
+            color: #004080;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+        label {
+            font-size: 1.1em;
+            margin: 10px 0;
+            display: block;
+        }
+        input, select {
+            font-size: 1.1em;
+            padding: 12px;
+            margin: 5px 0;
+            width: calc(100% - 24px);
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+        input:focus, select:focus {
+            border-color: #1c92d2;
+            outline: none;
+        }
+        button {
+            background-color: #1c92d2;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            margin: 20px 0;
+            width: 100%;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.2s;
+            font-size: 1.1em;
+        }
+        button:hover {
+            background-color: #004080;
+            transform: scale(1.05);
+        }
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            position: relative;
+        }
+        .error {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .stats, .awards, .additional-info {
+            margin-top: 20px;
+        }
+        .stats p, .awards p, .additional-info p {
+            font-size: 1em;
+            margin: 5px 0;
+        }
+        .awards ul {
+            list-style-type: none;
+            padding: 0;
+            display: none;
+        }
+        .awards.active ul {
+            display: block;
+        }
+        .awards li {
+            background: #e6f7ff;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        .awards li i {
+            margin-right: 10px;
+            color: #004080;
+        }
+        .awards h3 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        .loader {
+            border: 12px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 12px solid #3498db;
+            width: 60px;
+            height: 60px;
+            animation: spin 2s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 150px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; 
+            left: 50%;
+            margin-left: -75px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9em;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .history {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .history h3 {
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        .history ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .history li {
+            background: #f9f9f9;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        .history li button {
+            background: #ff4d4d;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background 0.3s;
+        }
+        .history li button:hover {
+            background: #cc0000;
+        }
+
+        /* Media Queries for Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.6em;
+            }
+            label, button {
+                font-size: 1em;
+            }
+            input, select {
+                font-size: 1em;
+            }
+            button {
+                padding: 12px;
+            }
+            .loader {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.4em;
+            }
+            label, button {
+                font-size: 0.9em;
+            }
+            input, select {
+                font-size: 0.9em;
+            }
+            button {
+                padding: 10px;
+            }
+            .loader {
+                width: 40px;
+                height: 40px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -33,6 +256,7 @@
 
     <script>
         const APP_ID = '337a69597cd1a9343e68ec5173bbe27d';
+
         const AWARD_NAMES = {
             'medalCarius': 'Медаль Каріуса',
             'cadet': 'Кадет',
@@ -42,134 +266,148 @@
             'markOfMasteryI': 'Знак майстерності I',
             'firstBlood': 'Перша кров',
             'medalKay': 'Медаль Кея',
-            'firstVictory': 'Перша перемога'
+            'firstVictory': 'Перша перемога',
+            'markOfMasteryII': 'Знак майстерності II',
+            'defender': 'Захисник',
+            'markOfMasteryIII': 'Знак майстерності III',
+            'medalLeClerc': 'Медаль Леклерка',
+            'supporter': 'Підтримка',
+            'steelwall': 'Сталевий мур',
+            'sniper': 'Снайпер',
+            'scout': 'Розвідник',
+            'fireForEffect': 'Вогонь на ураження',
+            'diehard': 'Загартований',
+            'invincible': 'Непереможний',
+            'tankExpert': 'Експерт танків',
+            'beasthunter': 'Мисливець на звірів',
+            'handOfDeath': 'Рука смерті',
+            'jointVictory': 'Спільна перемога',
+            'sinai': 'Синай',
+            'pattonValley': 'Долина Паттона'
         };
 
-        function searchPlayer() {
-            const nick = document.getElementById('player-nick').value.trim();
-            const server = document.getElementById('server').value;
-            const resultDiv = document.getElementById('result');
-
-            if (!nick) {
-                resultDiv.innerHTML = '<p class="error">Будь ласка, введіть нік гравця!</p>';
-                return;
-            }
-
-            resultDiv.innerHTML = '<div class="loader"></div>';
-
-            const url = `https://api.worldoftanks.${server}/wot/account/list/?application_id=${APP_ID}&search=${nick}`;
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'ok' && data.data.length > 0) {
-                        const playerId = data.data[0].account_id;
-                        fetchPlayerInfo(playerId, server, nick);
-                        updateHistory(nick);
-                    } else {
-                        resultDiv.innerHTML = '<p class="error">Гравця не знайдено!</p>';
-                    }
-                })
-                .catch(error => {
-                    resultDiv.innerHTML = '<p class="error">Сталася помилка при пошуку гравця. Спробуйте ще раз.</p>';
-                });
-        }
-
-        function fetchPlayerInfo(playerId, server, nick) {
-            const url = `https://api.worldoftanks.${server}/wot/account/info/?application_id=${APP_ID}&account_id=${playerId}`;
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'ok') {
-                        const playerData = data.data[playerId];
-                        displayPlayerInfo(playerData, nick);
-                    } else {
-                        document.getElementById('result').innerHTML = '<p class="error">Не вдалося отримати дані гравця.</p>';
-                    }
-                })
-                .catch(error => {
-                    const resultDiv = document.getElementById('result');
-                    resultDiv.innerHTML = '<p class="error">Сталася помилка при отриманні даних гравця. Спробуйте ще раз.</p>';
-                });
-        }
-
-        function displayPlayerInfo(playerData, nick) {
-            const resultDiv = document.getElementById('result');
-            let statsHtml = `
-                <h2>${nick}</h2>
-                <div class="stats">
-                    <h3>Основна Статистика:</h3>
-                    <p>Битв: ${playerData.statistics.all.battles}</p>
-                    <p>Перемог: ${playerData.statistics.all.wins}</p>
-                    <p>Поразок: ${playerData.statistics.all.losses}</p>
-                    <p>Знищено техніки: ${playerData.statistics.all.frags}</p>
-                    <p>Процент перемог: ${(playerData.statistics.all.wins / playerData.statistics.all.battles * 100).toFixed(2)}%</p>
-                </div>
-            `;
-
-            const awardsHtml = generateAwardsHtml(playerData.achievements);
-            const additionalInfoHtml = generateAdditionalInfoHtml(playerData);
-
-            resultDiv.innerHTML = `
-                ${statsHtml}
-                <div class="awards">${awardsHtml}</div>
-                <div class="additional-info">${additionalInfoHtml}</div>
-            `;
-        }
-
-        function generateAwardsHtml(achievements) {
-            let awardsHtml = '<h3>Нагороди:</h3>';
-            awardsHtml += '<ul>';
-            for (const award in achievements) {
-                if (AWARD_NAMES[award]) {
-                    awardsHtml += `<li><i class="fas fa-medal"></i>${AWARD_NAMES[award]}: ${achievements[award]}</li>`;
-                }
-            }
-            awardsHtml += '</ul>';
-            return awardsHtml;
-        }
-
-        function generateAdditionalInfoHtml(playerData) {
-            return `
-                <h3>Додаткова Інформація:</h3>
-                <p>Дата створення акаунта: ${new Date(playerData.created_at * 1000).toLocaleDateString()}</p>
-                <p>Останній вхід: ${new Date(playerData.last_battle_time * 1000).toLocaleDateString()}</p>
-                <p>Клан: ${playerData.clan_id ? 'Є' : 'Немає'}</p>
-            `;
-        }
-
-        function updateHistory(nick) {
-            const history = JSON.parse(localStorage.getItem('playerSearchHistory')) || [];
-            if (!history.includes(nick)) {
-                history.push(nick);
-                localStorage.setItem('playerSearchHistory', JSON.stringify(history));
-                renderHistory();
-            }
-        }
-
-        function renderHistory() {
-            const history = JSON.parse(localStorage.getItem('playerSearchHistory')) || [];
+        function updateHistoryList() {
             const historyList = document.getElementById('history-list');
             historyList.innerHTML = '';
-
+            const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
             history.forEach((nick, index) => {
                 const listItem = document.createElement('li');
-                listItem.textContent = nick;
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Видалити';
-                deleteButton.onclick = function() {
-                    history.splice(index, 1);
-                    localStorage.setItem('playerSearchHistory', JSON.stringify(history));
-                    renderHistory();
-                };
-                listItem.appendChild(deleteButton);
+                listItem.innerHTML = `${nick} <button onclick="removeHistoryItem(${index})">Видалити</button>`;
                 historyList.appendChild(listItem);
             });
         }
 
-        // Відображення історії під час завантаження сторінки
-        document.addEventListener('DOMContentLoaded', renderHistory);
+        function removeHistoryItem(index) {
+            const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+            history.splice(index, 1);
+            localStorage.setItem('searchHistory', JSON.stringify(history));
+            updateHistoryList();
+        }
+
+        async function searchPlayer() {
+            const playerNick = document.getElementById('player-nick').value;
+            const server = document.getElementById('server').value;
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="loader"></div>';
+
+            if (!playerNick) {
+                resultDiv.innerHTML = '<span class="error">Будь ласка, введіть нік гравця</span>';
+                return;
+            }
+
+            const serverUrlMap = {
+                'ru': 'https://api.wotblitz.ru',
+                'eu': 'https://api.wotblitz.eu',
+                'na': 'https://api.wotblitz.com',
+                'asia': 'https://api.wotblitz.asia'
+            };
+
+            const apiUrl = serverUrlMap[server];
+
+            try {
+                const playerResponse = await fetch(`${apiUrl}/wotb/account/list/?application_id=${APP_ID}&search=${playerNick}`);
+                const playerData = await playerResponse.json();
+
+                if (playerData.status !== 'ok' || playerData.data.length === 0) {
+                    resultDiv.innerHTML = '<span class="error">Гравця не знайдено або виникла помилка.</span>';
+                    return;
+                }
+
+                const playerId = playerData.data[0].account_id;
+                const playerNickname = playerData.data[0].nickname;
+
+                // Save to history
+                const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+                if (!history.includes(playerNick)) {
+                    history.push(playerNick);
+                    localStorage.setItem('searchHistory', JSON.stringify(history));
+                    updateHistoryList();
+                }
+
+                const statsResponse = await fetch(`${apiUrl}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}`);
+                const statsData = await statsResponse.json();
+
+                if (statsData.status !== 'ok') {
+                    resultDiv.innerHTML = '<span class="error">Не вдалося отримати інформацію про гравця</span>';
+                    return;
+                }
+
+                const playerStats = statsData.data[playerId];
+                const achievementsResponse = await fetch(`${apiUrl}/wotb/account/achievements/?application_id=${APP_ID}&account_id=${playerId}`);
+                const achievementsData = await achievementsResponse.json();
+
+                let awardsHtml = '<div class="awards"><h3>Нагороди:</h3><ul>';
+                if (achievementsData.status === 'ok') {
+                    const awards = achievementsData.data[playerId].achievements;
+                    for (let award in awards) {
+                        if (awards[award] > 0) {
+                            const awardName = AWARD_NAMES[award] || award;
+                            awardsHtml += `<li class="tooltip"><i class="fas fa-medal"></i> ${awardName}: ${awards[award]}<span class="tooltiptext">${awardName}</span></li>`;
+                        }
+                    }
+                } else {
+                    awardsHtml += '<li>Не вдалося отримати нагороди</li>';
+                }
+                awardsHtml += '</ul><button onclick="toggleAwards()">Показати/Сховати Нагороди</button></div>';
+
+                // Additional info
+                const registrationDate = new Date(playerStats.created * 1000).toLocaleDateString();
+                const battlesByType = playerStats.statistics.all.battles_by_type || {};
+                const winsByType = playerStats.statistics.all.wins_by_type || {};
+                
+                let battlesByTypeHtml = '';
+                const types = ['light', 'medium', 'heavy', 'td', 'arty'];
+                types.forEach(type => {
+                    const typeName = type.charAt(0).toUpperCase() + type.slice(1);
+                    battlesByTypeHtml += `<p>${typeName} танки: ${battlesByType[type] || 0} боїв, Перемоги: ${winsByType[type] || 0}</p>`;
+                });
+
+                resultDiv.innerHTML = 
+                    `<h2>Статистика для ${playerNickname}</h2>
+                    <div class="stats">
+                        <p>Дата реєстрації: ${registrationDate || 'Не вказана'}</p>
+                        <p>Бої: ${playerStats.statistics.all.battles}</p>
+                        <p>Перемоги: ${playerStats.statistics.all.wins}</p>
+                        <p>Процент перемог: ${(playerStats.statistics.all.wins / playerStats.statistics.all.battles * 100).toFixed(2)}%</p>
+                        <p>Поразки: ${playerStats.statistics.all.losses}</p>
+                        <p>Середній урон: ${(playerStats.statistics.all.damage_dealt / playerStats.statistics.all.battles).toFixed(2)}</p>
+                        <p>Фрагів: ${playerStats.statistics.all.frags}</p>
+                        ${battlesByTypeHtml}
+                    </div>
+                    ${awardsHtml}`;
+            } catch (error) {
+                console.error('Error fetching player data:', error);
+                resultDiv.innerHTML = `<span class="error">Виникла помилка при отриманні даних: ${error.message}</span>`;
+            }
+        }
+
+        function toggleAwards() {
+            const awardsDiv = document.querySelector('.awards');
+            awardsDiv.classList.toggle('active');
+        }
+
+        // Initialize history list
+        document.addEventListener('DOMContentLoaded', updateHistoryList);
     </script>
 </body>
 </html>
