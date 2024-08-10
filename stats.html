@@ -22,7 +22,7 @@
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
+            max-width: 800px;
             width: 100%;
             box-sizing: border-box;
         }
@@ -74,15 +74,16 @@
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             text-align: left;
+            position: relative;
         }
         .error {
             color: #e74c3c;
             font-weight: bold;
         }
-        .stats, .awards {
+        .stats, .awards, .additional-info {
             margin-top: 20px;
         }
-        .stats p, .awards p {
+        .stats p, .awards p, .additional-info p {
             font-size: 1em;
             margin: 5px 0;
         }
@@ -369,15 +370,29 @@
                 }
                 awardsHtml += '</ul><button onclick="toggleAwards()">Показати/Сховати Нагороди</button></div>';
 
+                // Additional info
+                const registrationDate = new Date(playerStats.created * 1000).toLocaleDateString();
+                const battlesByType = playerStats.statistics.all.battles_by_type || {};
+                const winsByType = playerStats.statistics.all.wins_by_type || {};
+                
+                let battlesByTypeHtml = '';
+                const types = ['light', 'medium', 'heavy', 'td', 'arty'];
+                types.forEach(type => {
+                    const typeName = type.charAt(0).toUpperCase() + type.slice(1);
+                    battlesByTypeHtml += `<p>${typeName} танки: ${battlesByType[type] || 0} боїв, Перемоги: ${winsByType[type] || 0}</p>`;
+                });
+
                 resultDiv.innerHTML = `
                     <h2>Статистика для ${playerNickname}</h2>
                     <div class="stats">
+                        <p>Дата реєстрації: ${registrationDate}</p>
                         <p>Бої: ${playerStats.statistics.all.battles}</p>
                         <p>Перемоги: ${playerStats.statistics.all.wins}</p>
                         <p>Процент перемог: ${(playerStats.statistics.all.wins / playerStats.statistics.all.battles * 100).toFixed(2)}%</p>
                         <p>Поразки: ${playerStats.statistics.all.losses}</p>
                         <p>Середній урон: ${(playerStats.statistics.all.damage_dealt / playerStats.statistics.all.battles).toFixed(2)}</p>
                         <p>Фрагів: ${playerStats.statistics.all.frags}</p>
+                        ${battlesByTypeHtml}
                     </div>
                     ${awardsHtml}
                 `;
