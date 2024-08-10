@@ -87,6 +87,32 @@
             font-size: 1em;
             margin: 5px 0;
         }
+        .stats {
+            background-color: #e6f7ff;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        .stats h3 {
+            margin-top: 0;
+            font-size: 1.4em;
+            color: #004080;
+        }
+        .stats .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .stats .stat-item:last-child {
+            border-bottom: none;
+        }
+        .stats .stat-item .label {
+            font-weight: bold;
+        }
+        .stats .stat-item .value {
+            color: #1c92d2;
+        }
         .awards ul {
             list-style-type: none;
             padding: 0;
@@ -249,23 +275,17 @@
         <button onclick="searchPlayer()">Пошук</button>
         <div id="result"></div>
         <div class="history">
-            <h3>Історія Ніків:</h3>
+            <h3>Історія пошуку:</h3>
             <ul id="history-list"></ul>
         </div>
     </div>
 
     <script>
-        const APP_ID = '337a69597cd1a9343e68ec5173bbe27d';
+        const APP_ID = '337a69597cd1a9343e68ec5173bbe27d'; // Замініть на ваш API ключ
 
         const AWARD_NAMES = {
-            'medalCarius': 'Медаль Каріуса',
-            'cadet': 'Кадет',
-            'invader': 'Загарбник',
-            'armorPiercer': 'Бронебійник',
-            'medalEkins': 'Медаль Екінса',
-            'markOfMasteryI': 'Знак майстерності I',
-            'firstBlood': 'Перша кров',
-            'medalKay': 'Медаль Кея',
+            'bestPlayer': 'Найкращий гравець',
+            'medalKea': 'Медаль Кея',
             'firstVictory': 'Перша перемога',
             'markOfMasteryII': 'Знак майстерності II',
             'defender': 'Захисник',
@@ -385,13 +405,16 @@
                 resultDiv.innerHTML = `
                     <h2>Статистика для ${playerNickname}</h2>
                     <div class="stats">
-                        <p>Дата реєстрації: ${registrationDate || 'Не вказана'}</p>
-                        <p>Бої: ${playerStats.statistics.all.battles}</p>
-                        <p>Перемоги: ${playerStats.statistics.all.wins}</p>
-                        <p>Процент перемог: ${(playerStats.statistics.all.wins / playerStats.statistics.all.battles * 100).toFixed(2)}%</p>
-                        <p>Поразки: ${playerStats.statistics.all.losses}</p>
-                        <p>Середній урон: ${(playerStats.statistics.all.damage_dealt / playerStats.statistics.all.battles).toFixed(2)}</p>
-                        <p>Фрагів: ${playerStats.statistics.all.frags}</p>
+                        <h3>Основна Статистика</h3>
+                        <div class="stat-item"><span class="label">Дата реєстрації:</span> <span class="value">${registrationDate || 'Не вказана'}</span></div>
+                        <div class="stat-item"><span class="label">Бої:</span> <span class="value">${playerStats.statistics.all.battles}</span></div>
+                        <div class="stat-item"><span class="label">Перемоги:</span> <span class="value">${playerStats.statistics.all.wins}</span></div>
+                        <div class="stat-item"><span class="label">Процент перемог:</span> <span class="value">${(playerStats.statistics.all.wins / playerStats.statistics.all.battles * 100).toFixed(2)}%</span></div>
+                        <div class="stat-item"><span class="label">Поразки:</span> <span class="value">${playerStats.statistics.all.losses}</span></div>
+                        <div class="stat-item"><span class="label">Середній урон:</span> <span class="value">${(playerStats.statistics.all.damage_dealt / playerStats.statistics.all.battles).toFixed(2)}</span></div>
+                        <div class="stat-item"><span class="label">Фрагів:</span> <span class="value">${playerStats.statistics.all.frags}</span></div>
+                    </div>
+                    <div class="additional-info">
                         ${battlesByTypeHtml}
                     </div>
                     ${awardsHtml}
