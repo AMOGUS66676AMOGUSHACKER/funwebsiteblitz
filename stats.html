@@ -236,104 +236,109 @@
             'pattonValley': 'Долина Паттона'
         };
 
-        async function searchPlayer() {
-            const playerNick = document.getElementById('player-nick').value;
-            const server = document.getElementById('server').value;
-            const resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = '<div class="loader"></div>';
+async function searchPlayer() {
+    const playerNick = document.getElementById('player-nick').value;
+    const server = document.getElementById('server').value;
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = '<div class="loader"></div>';
 
-            if (!playerNick) {
-                resultDiv.innerHTML = '<span class="error">Будь ласка, введіть нік гравця</span>';
-                return;
-            }
+    if (!playerNick) {
+        resultDiv.innerHTML = '<span class="error">Будь ласка, введіть нік гравця</span>';
+        return;
+    }
 
-            const serverUrlMap = {
-                'ru': 'https://api.wotblitz.ru',
-                'eu': 'https://api.wotblitz.eu',
-                'na': 'https://api.wotblitz.com',
-                'asia': 'https://api.wotblitz.asia'
-            };
+    const serverUrlMap = {
+        'ru': 'https://api.wotblitz.ru',
+        'eu': 'https://api.wotblitz.eu',
+        'na': 'https://api.wotblitz.com',
+        'asia': 'https://api.wotblitz.asia'
+    };
 
-            const apiUrl = serverUrlMap[server];
+    const apiUrl = serverUrlMap[server];
 
-            try {
-                const playerResponse = await fetch(`${apiUrl}/wotb/account/list/?application_id=${APP_ID}&search=${playerNick}`);
-                const playerData = await playerResponse.json();
+    try {
+        const playerResponse = await fetch(`${apiUrl}/wotb/account/list/?application_id=${APP_ID}&search=${playerNick}`);
+        const playerData = await playerResponse.json();
 
-                if (playerData.status !== 'ok' || playerData.data.length === 0) {
-                    resultDiv.innerHTML = '<span class="error">Гравця не знайдено або виникла помилка.</span>';
-                    return;
-                }
-
-                const playerId = playerData.data[0].account_id;
-
-                const statsResponse = await fetch(`${apiUrl}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}&extra=statistics.all`);
-                const statsData = await statsResponse.json();
-
-                if (statsData.status !== 'ok') {
-                    resultDiv.innerHTML = '<span class="error">Не вдалося отримати статистику гравця.</span>';
-                    return;
-                }
-
-                const playerStats = statsData.data[playerId].statistics.all;
-                const awardsResponse = await fetch(`${apiUrl}/wotb/account/achievements/?application_id=${APP_ID}&account_id=${playerId}`);
-                const awardsData = await awardsResponse.json();
-
-                const awards = awardsData.data[playerId].achievements;
-
-                resultDiv.innerHTML = `
-                    <div class="stats">
-                        <p><strong>Бої:</strong> ${playerStats.battles}</p>
-                        <p><strong>Перемоги:</strong> ${playerStats.wins} (${(playerStats.wins / playerStats.battles * 100).toFixed(2)}%)</p>
-                        <p><strong>Ураження:</strong> ${playerStats.losses}</p>
-                        <p><strong>Середній урон:</strong> ${playerStats.damage_dealt / playerStats.battles}</p>
-                        <p><strong>Фрагів:</strong> ${playerStats.frags}</p>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="winRateChart"></canvas>
-                    </div>
-                    <div class="awards">
-                        <h3>Нагороди</h3>
-                        <ul>
-                            ${Object.keys(awards).map(award => `
-                                <li>
-                                    <span class="tooltip">${AWARD_NAMES[award] || award}
-                                        <span class="tooltiptext">Кількість: ${awards[award]}</span>
-                                    </span>
-                                </li>
-                            `).join('')}
-                        </ul>
-                    </div>
-                `;
-
-                const ctx = document.getElementById('winRateChart').getContext('2d');
-                new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ['Бої', 'Перемоги', 'Ураження', 'Фраги'],
-                        datasets: [{
-                            label: 'Статистика гравця',
-                            data: [playerStats.battles, playerStats.wins, playerStats.losses, playerStats.frags],
-                            backgroundColor: 'rgba(102, 224, 255, 0.5)',
-                            borderColor: '#66e0ff',
-                            borderWidth: 1,
-                            fill: true
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-
-            } catch (error) {
-                console.error(error);
-                resultDiv.innerHTML = '<span class="error">Сталася помилка при завантаженні даних.</span>';
-            }
+        if (playerData.status !== 'ok' || playerData.data.length === 0) {
+            resultDiv.innerHTML = '<span class="error">Гравця не знайдено або виникла помилка.</span>';
+            return;
         }
+
+        const playerId = playerData.data[0].account_id;
+
+        const statsResponse = await fetch(`${apiUrl}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}&extra=statistics.all`);
+        const statsData = await statsResponse.json();
+
+        if (statsData.status !== 'ok' || !statsData.data || !statsData.data[playerId]) {
+            resultDiv.innerHTML = '<span class="error">Не вдалося отримати статистику гравця.</span>';
+            return;
+        }
+
+        const playerStats = statsData.data[playerId].statistics.all;
+        const awardsResponse = await fetch(`${apiUrl}/wotb/account/achievements/?application_id=${APP_ID}&account_id=${playerId}`);
+        const awardsData = await awardsResponse.json();
+
+        if (awardsData.status !== 'ok' || !awardsData.data || !awardsData.data[playerId]) {
+            resultDiv.innerHTML = '<span class="error">Не вдалося отримати нагороди гравця.</span>';
+            return;
+        }
+
+        const awards = awardsData.data[playerId].achievements;
+
+        resultDiv.innerHTML = `
+            <div class="stats">
+                <p><strong>Бої:</strong> ${playerStats.battles}</p>
+                <p><strong>Перемоги:</strong> ${playerStats.wins} (${(playerStats.wins / playerStats.battles * 100).toFixed(2)}%)</p>
+                <p><strong>Ураження:</strong> ${playerStats.losses}</p>
+                <p><strong>Середній урон:</strong> ${playerStats.damage_dealt / playerStats.battles}</p>
+                <p><strong>Фрагів:</strong> ${playerStats.frags}</p>
+            </div>
+            <div class="chart-container">
+                <canvas id="winRateChart"></canvas>
+            </div>
+            <div class="awards">
+                <h3>Нагороди</h3>
+                <ul>
+                    ${Object.keys(awards).map(award => `
+                        <li>
+                            <span class="tooltip">${AWARD_NAMES[award] || award}
+                                <span class="tooltiptext">Кількість: ${awards[award]}</span>
+                            </span>
+                        </li>
+                    `).join('')}
+                </ul>
+            </div>
+        `;
+
+        const ctx = document.getElementById('winRateChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Бої', 'Перемоги', 'Ураження', 'Фраги'],
+                datasets: [{
+                    label: 'Статистика гравця',
+                    data: [playerStats.battles, playerStats.wins, playerStats.losses, playerStats.frags],
+                    backgroundColor: 'rgba(102, 224, 255, 0.5)',
+                    borderColor: '#66e0ff',
+                    borderWidth: 1,
+                    fill: true
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+    } catch (error) {
+        console.error(error);
+        resultDiv.innerHTML = '<span class="error">Сталася помилка при завантаженні даних.</span>';
+    }
+}
     </script>
 </body>
 </html>
