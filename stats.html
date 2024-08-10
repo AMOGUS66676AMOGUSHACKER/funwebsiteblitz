@@ -82,6 +82,10 @@
         .awards ul {
             list-style-type: none;
             padding: 0;
+            display: none;
+        }
+        .awards.active ul {
+            display: block;
         }
         .awards li {
             background: #cce5ff;
@@ -285,7 +289,7 @@
                 } else {
                     awardsHtml += '<li>Не вдалося отримати нагороди</li>';
                 }
-                awardsHtml += '</ul></div>';
+                awardsHtml += '</ul><button onclick="toggleAwards()">Показати/Сховати Нагороди</button></div>';
 
                 resultDiv.innerHTML = `
                     <h2>Статистика для ${playerStats.nickname}</h2>
@@ -303,6 +307,11 @@
                 console.error('Error fetching player data:', error);
                 resultDiv.innerHTML = `<span class="error">Виникла помилка при отриманні даних: ${error.message}</span>`;
             }
+        }
+
+        function toggleAwards() {
+            const awardsDiv = document.querySelector('.awards');
+            awardsDiv.classList.toggle('active');
         }
     </script>
 </body>
