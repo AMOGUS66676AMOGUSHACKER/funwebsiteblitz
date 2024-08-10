@@ -385,7 +385,7 @@
                 resultDiv.innerHTML = `
                     <h2>Статистика для ${playerNickname}</h2>
                     <div class="stats">
-                        <p>Дата реєстрації: ${registrationDate}</p>
+                        <p>Дата реєстрації: ${registrationDate || 'Не вказана'}</p>
                         <p>Бої: ${playerStats.statistics.all.battles}</p>
                         <p>Перемоги: ${playerStats.statistics.all.wins}</p>
                         <p>Процент перемог: ${(playerStats.statistics.all.wins / playerStats.statistics.all.battles * 100).toFixed(2)}%</p>
