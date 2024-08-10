@@ -420,5 +420,33 @@
             });
         }
     </script>
+    <script> function searchPlayer() {
+    const nick = document.getElementById('player-nick').value;
+    const server = document.getElementById('server').value;
+    const resultDiv = document.getElementById('result');
+    const loader = document.createElement('div');
+    loader.className = 'loader';
+    resultDiv.innerHTML = '';
+    resultDiv.appendChild(loader);
+
+    fetch(`https://api.worldoftanks.${server}/wot/account/list/?application_id=${APP_ID}&search=${nick}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log('API Response:', data); // Додаємо логування
+            if (data.status === 'ok' && data.data.length > 0) {
+                const playerId = data.data[0].account_id;
+                fetchPlayerStats(playerId, server);
+            } else {
+                loader.remove();
+                showError('Гравця не знайдено.');
+            }
+        })
+        .catch(error => {
+            loader.remove();
+            showError('Сталася помилка при пошуку гравця.');
+            console.error(error);
+        });
+}
+    </script>
 </body>
 </html>
