@@ -78,7 +78,7 @@
         .stats p, .additional-info p {
             font-size: 1.1em;
         }
-        .stats .stat-item {
+        .stats .stat-item, .additional-info .info-item {
             background: #f9f9f9;
             margin: 10px 0;
             padding: 10px;
@@ -86,15 +86,6 @@
             display: flex;
             justify-content: space-between;
             border: 1px solid #ddd;
-        }
-        .additional-info p {
-            background: #d1ecf1;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            border: 1px solid #aeeeee;
         }
         .awards ul {
             list-style-type: none;
@@ -213,11 +204,17 @@
     </div>
 
     <script>
-        const APP_ID = ' 337a69597cd1a9343e68ec5173bbe27d'; // Замініть на ваш API ключ
+        const APP_ID = 'your_app_id_here'; // Замініть на ваш API ключ
 
         const AWARD_NAMES = {
-            'bestPlayer': 'Найкращий гравець',
-            'medalKea': 'Медаль Кея',
+            'medalCarius': 'Медаль Каріуса',
+            'cadet': 'Кадет',
+            'invader': 'Загарбник',
+            'armorPiercer': 'Бронебійник',
+            'medalEkins': 'Медаль Екінса',
+            'markOfMasteryI': 'Знак майстерності I',
+            'firstBlood': 'Перша кров',
+            'medalKay': 'Медаль Кея',
             'firstVictory': 'Перша перемога',
             'markOfMasteryII': 'Знак майстерності II',
             'defender': 'Захисник',
@@ -238,45 +235,17 @@
             'pattonValley': 'Долина Паттона'
         };
 
-        function updateHistoryList() {
-            const historyList = document.getElementById('history-list');
-            historyList.innerHTML = '';
-            const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
-            history.forEach((nick, index) => {
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `${nick} <button onclick="removeHistoryItem(${index})">Видалити</button>`;
-                historyList.appendChild(listItem);
-            });
-        }
-
-        function removeHistoryItem(index) {
-            const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
-            history.splice(index, 1);
-            localStorage.setItem('searchHistory', JSON.stringify(history));
-            updateHistoryList();
-        }
-
-        function addToHistory(nick) {
-            const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
-            if (!history.includes(nick)) {
-                history.push(nick);
-                localStorage.setItem('searchHistory', JSON.stringify(history));
-                updateHistoryList();
-            }
-        }
-
         async function searchPlayer() {
             const playerNick = document.getElementById('player-nick').value;
             const server = document.getElementById('server').value;
             const resultDiv = document.getElementById('result');
+            const historyList = document.getElementById('history-list');
             resultDiv.innerHTML = '<div class="loader"></div>';
 
             if (!playerNick) {
                 resultDiv.innerHTML = '<span class="error">Будь ласка, введіть нік гравця</span>';
                 return;
             }
-
-            addToHistory(playerNick);
 
             const serverUrlMap = {
                 'ru': 'https://api.wotblitz.ru',
@@ -298,93 +267,100 @@
 
                 const playerId = playerData.data[0].account_id;
 
-                const statsResponse = await fetch(`${apiUrl}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}`);
+                const statsResponse = await fetch(`${apiUrl}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}&fields=statistics`);
                 const statsData = await statsResponse.json();
 
-                if (statsData.status !== 'ok') {
+                if (statsData.status !== 'ok' || !statsData.data || !statsData.data[playerId]) {
                     resultDiv.innerHTML = '<span class="error">Не вдалося отримати інформацію про гравця</span>';
                     return;
                 }
 
-                const playerStats = statsData.data[playerId];
+                const playerStats = statsData.data[playerId].statistics || {};
                 const achievementsResponse = await fetch(`${apiUrl}/wotb/account/achievements/?application_id=${APP_ID}&account_id=${playerId}`);
                 const achievementsData = await achievementsResponse.json();
+                const awards = achievementsData.status === 'ok' ? achievementsData.data[playerId]?.achievements || {} : {};
 
-                let awardsHtml = '<div class="awards"><h3>Нагороди:</h3><ul>';
-                if (achievementsData.status === 'ok') {
-                    const awards = achievementsData.data[playerId].achievements;
-                    for (let award in awards) {
-                        if (awards[award] > 0) {
-                            const awardName = AWARD_NAMES[award] || award;
-                            awardsHtml += `<li class="tooltip"><i class="fas fa-medal"></i> ${awardName}: ${awards[award]}<span class="tooltiptext">${awardName}</span></li>`;
-                        }
-                    }
-                } else {
-                    awardsHtml += '<li>Не вдалося отримати нагороди</li>';
-                }
-                awardsHtml += '</ul></div>';
+                // Функція для безпечного доступу до об'єктів
+                const safeGet = (obj, path, defaultValue = '0') => path.split('.').reduce((o, p) => (o && o[p] !== undefined) ? o[p] : defaultValue, obj);
 
                 resultDiv.innerHTML = `
-                    <h2>Статистика для ${playerStats.nickname}</h2>
-                    <div class="additional-info">
-                        <p>Дата реєстрації: ${new Date(playerStats.created_at * 1000).toLocaleDateString()}</p>
-                        <p>Віковий рівень: ${playerStats.age}</p>
+                    <h2>Статистика для ${playerNick}</h2>
+                    <p><strong>Дата реєстрації:</strong> ${statsData.data[playerId].registration_date || 'Invalid Date'}</p>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span><strong>Бої:</strong></span>
+                            <span>${safeGet(playerStats, 'battles')}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span><strong>Перемоги:</strong></span>
+                            <span>${safeGet(playerStats, 'wins')}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span><strong>Процент перемог:</strong></span>
+                            <span>${(safeGet(playerStats, 'wins') / safeGet(playerStats, 'battles') * 100).toFixed(2)}%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span><strong>Поразки:</strong></span>
+                            <span>${safeGet(playerStats, 'losses')}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span><strong>Середній урон:</strong></span>
+                            <span>${(safeGet(playerStats, 'damage_dealt') / safeGet(playerStats, 'battles')).toFixed(2)}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span><strong>Фрагів:</strong></span>
+                            <span>${safeGet(playerStats, 'frags')}</span>
+                        </div>
                     </div>
                     <div class="stats">
                         <div class="stat-item">
-                            <span>Бої:</span>
-                            <span>${playerStats.statistics.all.battles}</span>
+                            <span><strong>Light танки:</strong></span>
+                            <span>${safeGet(playerStats, 'tank_type.light.battles')} боїв, Перемоги: ${safeGet(playerStats, 'tank_type.light.wins')}</span>
                         </div>
                         <div class="stat-item">
-                            <span>Перемоги:</span>
-                            <span>${playerStats.statistics.all.wins}</span>
+                            <span><strong>Medium танки:</strong></span>
+                            <span>${safeGet(playerStats, 'tank_type.medium.battles')} боїв, Перемоги: ${safeGet(playerStats, 'tank_type.medium.wins')}</span>
                         </div>
                         <div class="stat-item">
-                            <span>Процент перемог:</span>
-                            <span>${(playerStats.statistics.all.wins / playerStats.statistics.all.battles * 100).toFixed(2)}%</span>
+                            <span><strong>Heavy танки:</strong></span>
+                            <span>${safeGet(playerStats, 'tank_type.heavy.battles')} боїв, Перемоги: ${safeGet(playerStats, 'tank_type.heavy.wins')}</span>
                         </div>
                         <div class="stat-item">
-                            <span>Поразки:</span>
-                            <span>${playerStats.statistics.all.losses}</span>
+                            <span><strong>Td танки:</strong></span>
+                            <span>${safeGet(playerStats, 'tank_type.td.battles')} боїв, Перемоги: ${safeGet(playerStats, 'tank_type.td.wins')}</span>
                         </div>
                         <div class="stat-item">
-                            <span>Середній урон:</span>
-                            <span>${(playerStats.statistics.all.damage_dealt / playerStats.statistics.all.battles).toFixed(2)}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span>Фрагів:</span>
-                            <span>${playerStats.statistics.all.frags}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span>Light танки:</span>
-                            <span>${playerStats.statistics.tanks.light.battles} боїв, Перемоги: ${playerStats.statistics.tanks.light.wins}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span>Medium танки:</span>
-                            <span>${playerStats.statistics.tanks.medium.battles} боїв, Перемоги: ${playerStats.statistics.tanks.medium.wins}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span>Heavy танки:</span>
-                            <span>${playerStats.statistics.tanks.heavy.battles} боїв, Перемоги: ${playerStats.statistics.tanks.heavy.wins}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span>TD танки:</span>
-                            <span>${playerStats.statistics.tanks.td.battles} боїв, Перемоги: ${playerStats.statistics.tanks.td.wins}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span>Arty танки:</span>
-                            <span>${playerStats.statistics.tanks.arty.battles} боїв, Перемоги: ${playerStats.statistics.tanks.arty.wins}</span>
+                            <span><strong>Arty танки:</strong></span>
+                            <span>${safeGet(playerStats, 'tank_type.arty.battles')} боїв, Перемоги: ${safeGet(playerStats, 'tank_type.arty.wins')}</span>
                         </div>
                     </div>
-                    ${awardsHtml}
+                    <div class="awards">
+                        <h3>Нагороди:</h3>
+                        <ul>
+                            ${Object.keys(awards).map(award => `
+                                <li><i class="fas fa-trophy"></i> ${AWARD_NAMES[award] || award}</li>
+                            `).join('')}
+                        </ul>
+                    </div>
                 `;
+
+                // Додати історію пошуків
+                const historyItem = document.createElement('li');
+                historyItem.innerHTML = `
+                    <span>${playerNick}</span>
+                    <button onclick="removeHistory(this)">Видалити</button>
+                `;
+                historyList.appendChild(historyItem);
+
             } catch (error) {
-                console.error('Error fetching player data:', error);
                 resultDiv.innerHTML = `<span class="error">Виникла помилка при отриманні даних: ${error.message}</span>`;
             }
         }
 
-        updateHistoryList();
+        function removeHistory(button) {
+            const historyList = document.getElementById('history-list');
+            historyList.removeChild(button.parentElement);
+        }
     </script>
 </body>
 </html>
