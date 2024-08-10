@@ -25,6 +25,7 @@
             max-width: 900px;
             width: 100%;
             box-sizing: border-box;
+            position: relative;
         }
         h1 {
             color: #333;
@@ -70,14 +71,41 @@
             background-color: #4a0088;
             transform: scale(1.05);
         }
-        #result {
-            margin-top: 25px;
-            padding: 25px;
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #6a0dad;
+            margin-bottom: 20px;
+        }
+        .tab {
+            flex: 1;
+            padding: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            border: 2px solid transparent;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+        .tab.active {
+            border-color: #6a0dad;
             background-color: #f7f7f7;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            text-align: left;
-            position: relative;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .loader {
+            border: 12px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 12px solid #6a0dad;
+            width: 60px;
+            height: 60px;
+            animation: spin 2s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         .error {
             color: #e74c3c;
@@ -117,19 +145,6 @@
             font-size: 1.3em;
             font-weight: 700;
         }
-        .loader {
-            border: 12px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 12px solid #6a0dad;
-            width: 60px;
-            height: 60px;
-            animation: spin 2s linear infinite;
-            margin: 20px auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
         .tooltip {
             position: relative;
             display: inline-block;
@@ -144,7 +159,7 @@
             padding: 8px;
             position: absolute;
             z-index: 1;
-            bottom: 150%; 
+            bottom: 150%;
             left: 50%;
             margin-left: -80px;
             opacity: 0;
@@ -238,31 +253,34 @@
 <body>
     <div class="container">
         <h1>Пошук Гравця</h1>
-        <label for="player-nick">Введіть нік гравця:</label>
-        <input type="text" id="player-nick" placeholder="Нік гравця" />
-        
-        <label for="server">Виберіть сервер:</label>
-        <select id="server">
-            <option value="ru">RU</option>
-            <option value="eu">EU</option>
-            <option value="na">NA</option>
-            <option value="asia">ASIA</option>
-        </select>
-        
-        <button onclick="searchPlayer()">Пошук</button>
-        <div id="result"></div>
-        <div class="history">
-            <h3>Історія Ніків:</h3>
-            <ul id="history-list"></ul>
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('search')">Пошук</div>
+            <div class="tab" onclick="showTab('history')">Історія</div>
+        </div>
+        <div id="search" class="tab-content active">
+            <label for="player-nick">Нік Гравця:</label>
+            <input type="text" id="player-nick" placeholder="Введіть нік гравця">
+            <label for="server">Сервер:</label>
+            <select id="server">
+                <option value="ru">RU</option>
+                <option value="eu">EU</option>
+                <option value="na">NA</option>
+                <option value="asia">ASIA</option>
+            </select>
+            <button onclick="searchPlayer()">Пошук</button>
+            <div id="result"></div>
+        </div>
+        <div id="history" class="tab-content">
+            <div class="history">
+                <h3>Історія Пошуку</h3>
+                <ul id="history-list"></ul>
+            </div>
         </div>
     </div>
 
     <script>
-        const APP_ID = '337a69597cd1a9343e68ec5173bbe27d';
-
+        const APP_ID = 'your_app_id_here'; // Замість 'your_app_id_here' вставте свій реальний APP_ID
         const AWARD_NAMES = {
-            'medalCarius': 'Медаль Каріуса',
-            'cadet': 'Кадет',
             'medalEkins': 'Медаль Екінса',
             'markOfMasteryI': 'Знак майстерності I',
             'firstBlood': 'Перша кров',
@@ -286,6 +304,13 @@
             'sinai': 'Синай',
             'pattonValley': 'Долина Паттона'
         };
+
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
+        }
 
         function updateHistoryList() {
             const historyList = document.getElementById('history-list');
