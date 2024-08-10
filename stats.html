@@ -247,196 +247,178 @@
             'defender': 'Захисник',
             'markOfMasteryIII': 'Знак майстерності III ступеня',
             'medalLeClerc': 'Медаль Леклерка',
-            'supporter': 'Підтримка',
-            'steelwall': 'Сталевий мур',
+            'medalNichols': 'Медаль Ніколса',
             'sniper': 'Снайпер',
+            'markOfMasteryIV': 'Знак майстерності IV ступеня',
+            'medalAbrams': 'Медаль Абрамса',
+            'medalPoppel': 'Медаль Поппеля',
+            'medalFadin': 'Медаль Фадіна',
+            'medalDeLanglade': 'Медаль Лангладе',
+            'medalHuzar': 'Медаль Хузара',
+            'medalOrlik': 'Медаль Орліка',
             'scout': 'Розвідник',
-            'fireForEffect': 'Вогонь на ураження',
-            'diehard': 'Загартований',
-            'invincible': 'Непереможний',
-            'tankExpert': 'Експерт танків',
-            'beasthunter': 'Мисливець на звірів',
-            'handOfDeath': 'Рука смерті',
-            'jointVictory': 'Спільна перемога',
-            'sinai': 'Синай',
-            'pattonValley': 'Долина Паттона'
+            'medalBurda': 'Медаль Бурди',
+            'medalCox': 'Медаль Кокса',
+            'medalDumitru': 'Медаль Думітру',
+            'medalRadleyWalters': 'Медаль Редлі-Уолтера',
+            'medalErohin': 'Медаль Єрохіна',
+            'medalKnispel': 'Медаль Кніспеля',
+            'medalKolobanov': 'Медаль Колобанова',
+            'medalHalonen': 'Медаль Халонена',
+            'medalKaye': 'Медаль Кея',
+            'medalLavrinenko': 'Медаль Лавриненка',
+            'medalKayZa': 'Медаль Кея ZA',
+            'medalStarkova': 'Медаль Старкова',
+            'medalOskin': 'Медаль Оскіна',
+            'medalLehvaslaiho': 'Медаль Лехвеслайго',
+            'medalFurman': 'Медаль Фурмана',
+            'medalDavidov': 'Медаль Давидова',
+            'medalDuelist': 'Медаль Дуеліста',
+            'medalBoelter': 'Медаль Бельтера',
+            'medalKolobov': 'Медаль Колобова',
+            'medalCariusZa': 'Медаль Каріуса ZA',
+            'medalPasckuci': 'Медаль Паскючі',
+            'medalSkriabin': 'Медаль Скрябіна',
+            'medalLehvaslaihoZa': 'Медаль Лехвеслайго ZA',
+            'medalNikolsZa': 'Медаль Ніколса ZA',
+            'medalLeh': 'Медаль Леха',
+            'medalKhrulev': 'Медаль Хрульова',
+            'medalHalonenZa': 'Медаль Халонена ZA',
+            'medalKellerman': 'Медаль Келлермана',
+            'medalPopel': 'Медаль Попеля',
+            'medalKayZaConfer': 'Медаль Кея ZA Confer',
+            'medalLehvaslaihoVa': 'Медаль Лехвеслайго VA',
+            'medalKnispelZa': 'Медаль Кніспеля ZA',
+            'medalJosa': 'Медаль Йоси',
+            'medalKayVa': 'Медаль Кея VA',
+            'medalKayeZaConfer': 'Медаль Кея ZA Confer',
+            'medalLehvaslaihoZaConfer': 'Медаль Лехвеслайго ZA Confer',
+            'medalKayeVa': 'Медаль Кея VA',
+            'medalKellermanZa': 'Медаль Келлермана ZA'
         };
 
-        async function searchPlayer() {
-            const playerNick = document.getElementById('player-nick').value;
+        function searchPlayer() {
+            const nick = document.getElementById('player-nick').value;
             const server = document.getElementById('server').value;
             const resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = '<div class="loader"></div>';
+            const loader = document.createElement('div');
+            loader.className = 'loader';
+            resultDiv.innerHTML = '';
+            resultDiv.appendChild(loader);
 
-            if (!playerNick) {
-                resultDiv.innerHTML = '<span class="error">Будь ласка, введіть нік гравця</span>';
-                return;
-            }
-
-            const serverUrlMap = {
-                'ru': 'https://api.worldoftanks.ru',
-                'eu': 'https://api.worldoftanks.eu',
-                'na': 'https://api.worldoftanks.com',
-                'asia': 'https://api.worldoftanks.asia'
-            };
-
-            const apiUrl = `${serverUrlMap[server]}/wot/account/list/?application_id=${APP_ID}&search=${playerNick}`;
-
-            try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-
-                if (data.status !== 'ok' || data.data.length === 0) {
-                    resultDiv.innerHTML = '<span class="error">Гравця не знайдено або виникла помилка</span>';
-                    return;
-                }
-
-                const playerId = data.data[0].account_id;
-                const playerInfoUrl = `${serverUrlMap[server]}/wot/account/info/?application_id=${APP_ID}&account_id=${playerId}`;
-                const playerInfoResponse = await fetch(playerInfoUrl);
-                const playerInfoData = await playerInfoResponse.json();
-
-                const playerStats = playerInfoData.data[playerId];
-
-                if (!playerStats || !playerStats.statistics) {
-                    resultDiv.innerHTML = '<span class="error">Не вдалося отримати дані про статистику гравця</span>';
-                    return;
-                }
-
-                resultDiv.innerHTML = `
-                    <div class="stats">
-                        <p><strong>Нік:</strong> ${playerNick}</p>
-                        <p><strong>Кількість боїв:</strong> ${playerStats.statistics.all.battles}</p>
-                        <p><strong>Виграші:</strong> ${playerStats.statistics.all.wins}</p>
-                        <p><strong>Процент перемог:</strong> ${(playerStats.statistics.all.wins / playerStats.statistics.all.battles * 100).toFixed(2)}%</p>
-                    </div>
-                `;
-
-                const awards = playerStats.achievements;
-                if (awards) {
-                    let awardsHtml = '<div class="awards"><h3>Нагороди:</h3><ul>';
-                    for (const award in awards) {
-                        if (AWARD_NAMES[award]) {
-                            awardsHtml += `
-                                <li class="tooltip">
-                                    ${AWARD_NAMES[award]} (${awards[award]})
-                                    <span class="tooltiptext">${award}</span>
-                                </li>
-                            `;
-                        }
+            fetch(`https://api.worldoftanks.${server}/wot/account/list/?application_id=${APP_ID}&search=${nick}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'ok' && data.data.length > 0) {
+                        const playerId = data.data[0].account_id;
+                        fetchPlayerStats(playerId, server);
+                    } else {
+                        loader.remove();
+                        showError('Гравця не знайдено.');
                     }
-                    awardsHtml += '</ul></div>';
-                    resultDiv.innerHTML += awardsHtml;
-                } else {
-                    resultDiv.innerHTML += '<div class="awards"><h3>Нагороди:</h3><p>Нагороди відсутні</p></div>';
-                }
-
-                // Chart.js - Побудова графіка на основі статистики
-                const ctx = document.getElementById('statsChart').getContext('2d');
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Бої', 'Виграші', 'Процент перемог'],
-                        datasets: [{
-                            label: 'Статистика гравця',
-                            data: [
-                                playerStats.statistics.all.battles,
-                                playerStats.statistics.all.wins,
-                                (playerStats.statistics.all.wins / playerStats.statistics.all.battles * 100).toFixed(2)
-                            ],
-                            backgroundColor: [
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
+                })
+                .catch(error => {
+                    loader.remove();
+                    showError('Сталася помилка при пошуку гравця.');
+                    console.error(error);
                 });
+        }
 
-            } catch (error) {
-                console.error('Помилка при отриманні даних:', error);
-                resultDiv.innerHTML = '<span class="error">Сталася помилка при отриманні даних</span>';
+        function fetchPlayerStats(playerId, server) {
+            const resultDiv = document.getElementById('result');
+            fetch(`https://api.worldoftanks.${server}/wot/account/info/?application_id=${APP_ID}&account_id=${playerId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'ok') {
+                        resultDiv.innerHTML = `
+                            <div class="stats">
+                                <p><strong>Нік:</strong> ${data.data[playerId].nickname}</p>
+                                <p><strong>Битв:</strong> ${data.data[playerId].statistics.all.battles}</p>
+                                <p><strong>Перемог:</strong> ${data.data[playerId].statistics.all.wins}</p>
+                                <p><strong>Смертей:</strong> ${data.data[playerId].statistics.all.losses}</p>
+                                <p><strong>Очок досвіду:</strong> ${data.data[playerId].statistics.all.xp}</p>
+                                <p><strong>Середній дамаг:</strong> ${data.data[playerId].statistics.all.damage_dealt}</p>
+                            </div>
+                        `;
+
+                        const awardsList = getAwards(data.data[playerId].achievements);
+                        displayAwards(awardsList);
+                        drawChart(data.data[playerId].statistics.all);
+                    } else {
+                        showError('Гравця не знайдено.');
+                    }
+                })
+                .catch(error => {
+                    showError('Сталася помилка при завантаженні даних гравця.');
+                    console.error(error);
+                });
+        }
+
+        function showError(message) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `<div class="error">${message}</div>`;
+        }
+
+        function getAwards(achievements) {
+            const awards = [];
+            for (const key in achievements) {
+                if (AWARD_NAMES[key]) {
+                    awards.push(AWARD_NAMES[key]);
+                }
             }
+            return awards;
+        }
+
+        function displayAwards(awardsList) {
+            const resultDiv = document.getElementById('result');
+            const awardsDiv = document.createElement('div');
+            awardsDiv.className = 'awards';
+            awardsDiv.innerHTML = `<h3>Нагороди:</h3>`;
+            const ul = document.createElement('ul');
+            awardsList.forEach(award => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span class="tooltip">${award}<span class="tooltiptext">Опис нагороди...</span></span>`;
+                ul.appendChild(li);
+            });
+            awardsDiv.appendChild(ul);
+            resultDiv.appendChild(awardsDiv);
+        }
+
+        function drawChart(stats) {
+            const ctx = document.getElementById('statsChart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Битви', 'Перемоги', 'Смерті', 'Очки досвіду', 'Середній дамаг'],
+                    datasets: [{
+                        label: 'Статистика гравця',
+                        data: [stats.battles, stats.wins, stats.losses, stats.xp, stats.damage_dealt],
+                        backgroundColor: [
+                            '#f39c12',
+                            '#27ae60',
+                            '#c0392b',
+                            '#8e44ad',
+                            '#2980b9'
+                        ],
+                        borderColor: [
+                            '#f39c12',
+                            '#27ae60',
+                            '#c0392b',
+                            '#8e44ad',
+                            '#2980b9'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
         }
     </script>
-    <script> async function searchPlayer() {
-    const playerNick = document.getElementById('player-nick').value;
-    const server = document.getElementById('server').value;
-    const resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = '<div class="loader"></div>';
-
-    if (!playerNick) {
-        resultDiv.innerHTML = '<span class="error">Будь ласка, введіть нік гравця</span>';
-        return;
-    }
-
-    const serverUrlMap = {
-        'ru': 'https://api.worldoftanks.ru',
-        'eu': 'https://api.worldoftanks.eu',
-        'na': 'https://api.worldoftanks.com',
-        'asia': 'https://api.worldoftanks.asia'
-    };
-
-    const apiUrl = `${serverUrlMap[server]}/wot/account/list/?application_id=${APP_ID}&search=${playerNick}`;
-
-    try {
-        console.log('Fetching data from:', apiUrl);
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-
-        console.log('Response Status:', response.status);
-        console.log('Response Data:', data);
-
-        if (data.status !== 'ok' || data.data.length === 0) {
-            resultDiv.innerHTML = '<span class="error">Гравця не знайдено або виникла помилка</span>';
-            return;
-        }
-
-        const playerId = data.data[0].account_id;
-        console.log('Player ID:', playerId);
-
-        const playerInfoUrl = `${serverUrlMap[server]}/wot/account/info/?application_id=${APP_ID}&account_id=${playerId}`;
-        const playerInfoResponse = await fetch(playerInfoUrl);
-        const playerInfoData = await playerInfoResponse.json();
-
-        console.log('Player Info Data:', playerInfoData);
-
-        const playerStats = playerInfoData.data[playerId];
-
-        if (!playerStats || !playerStats.statistics) {
-            resultDiv.innerHTML = '<span class="error">Не вдалося отримати дані про статистику гравця</span>';
-            return;
-        }
-
-        resultDiv.innerHTML = `
-            <div class="stats">
-                <p><strong>Нік:</strong> ${playerNick}</p>
-                <p><strong>Кількість боїв:</strong> ${playerStats.statistics.all.battles}</p>
-                <p><strong>Виграші:</strong> ${playerStats.statistics.all.wins}</p>
-                <p><strong>Процент перемог:</strong> ${(playerStats.statistics.all.wins / playerStats.statistics.all.battles * 100).toFixed(2)}%</p>
-            </div>
-        `;
-
-        // ... код для відображення нагород і графіка ...
-
-    } catch (error) {
-        console.error('Помилка при отриманні даних:', error);
-        resultDiv.innerHTML = '<span class="error">Сталася помилка при отриманні даних</span>';
-    }
-}
-</script>
 </body>
 </html>
