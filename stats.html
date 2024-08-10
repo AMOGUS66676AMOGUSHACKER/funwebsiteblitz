@@ -78,7 +78,7 @@
         .stats p, .additional-info p {
             font-size: 1.1em;
         }
-        .stats .stat-item, .additional-info .info-item {
+        .stats .stat-item {
             background: #f9f9f9;
             margin: 10px 0;
             padding: 10px;
@@ -86,6 +86,15 @@
             display: flex;
             justify-content: space-between;
             border: 1px solid #ddd;
+        }
+        .additional-info p {
+            background: #d1ecf1;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid #aeeeee;
         }
         .awards ul {
             list-style-type: none;
@@ -207,14 +216,8 @@
         const APP_ID = ' 337a69597cd1a9343e68ec5173bbe27d'; // Замініть на ваш API ключ
 
         const AWARD_NAMES = {
-            'medalCarius': 'Медаль Каріуса',
-            'cadet': 'Кадет',
-            'invader': 'Загарбник',
-            'armorPiercer': 'Бронебійник',
-            'medalEkins': 'Медаль Екінса',
-            'markOfMasteryI': 'Знак майстерності I',
-            'firstBlood': 'Перша кров',
-            'medalKay': 'Медаль Кея',
+            'bestPlayer': 'Найкращий гравець',
+            'medalKea': 'Медаль Кея',
             'firstVictory': 'Перша перемога',
             'markOfMasteryII': 'Знак майстерності II',
             'defender': 'Захисник',
@@ -235,75 +238,153 @@
             'pattonValley': 'Долина Паттона'
         };
 
+        function updateHistoryList() {
+            const historyList = document.getElementById('history-list');
+            historyList.innerHTML = '';
+            const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+            history.forEach((nick, index) => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `${nick} <button onclick="removeHistoryItem(${index})">Видалити</button>`;
+                historyList.appendChild(listItem);
+            });
+        }
+
+        function removeHistoryItem(index) {
+            const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+            history.splice(index, 1);
+            localStorage.setItem('searchHistory', JSON.stringify(history));
+            updateHistoryList();
+        }
+
+        function addToHistory(nick) {
+            const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+            if (!history.includes(nick)) {
+                history.push(nick);
+                localStorage.setItem('searchHistory', JSON.stringify(history));
+                updateHistoryList();
+            }
+        }
+
         async function searchPlayer() {
             const playerNick = document.getElementById('player-nick').value;
             const server = document.getElementById('server').value;
             const resultDiv = document.getElementById('result');
-            const historyList = document.getElementById('history-list');
             resultDiv.innerHTML = '<div class="loader"></div>';
 
             if (!playerNick) {
-                resultDiv.innerHTML = '<span class="error">Будь ласка, введіть нік гравця.</span>';
+                resultDiv.innerHTML = '<span class="error">Будь ласка, введіть нік гравця</span>';
                 return;
             }
 
-            try {
-                const response = await fetch(`https://api.wotblitz.com/wotb/account/info/?application_id=${APP_ID}&account_id=${playerNick}&fields=statistics`);
-                const data = await response.json();
+            addToHistory(playerNick);
 
-                if (!data || !data.data || !data.data[playerNick]) {
-                    throw new Error('Гравця не знайдено або виникла помилка.');
+            const serverUrlMap = {
+                'ru': 'https://api.wotblitz.ru',
+                'eu': 'https://api.wotblitz.eu',
+                'na': 'https://api.wotblitz.com',
+                'asia': 'https://api.wotblitz.asia'
+            };
+
+            const apiUrl = serverUrlMap[server];
+
+            try {
+                const playerResponse = await fetch(`${apiUrl}/wotb/account/list/?application_id=${APP_ID}&search=${playerNick}`);
+                const playerData = await playerResponse.json();
+
+                if (playerData.status !== 'ok' || playerData.data.length === 0) {
+                    resultDiv.innerHTML = '<span class="error">Гравця не знайдено або виникла помилка.</span>';
+                    return;
                 }
 
-                const playerData = data.data[playerNick];
-                const stats = playerData.statistics || {};
-                const awards = playerData.achievements || {};
+                const playerId = playerData.data[0].account_id;
+
+                const statsResponse = await fetch(`${apiUrl}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}`);
+                const statsData = await statsResponse.json();
+
+                if (statsData.status !== 'ok') {
+                    resultDiv.innerHTML = '<span class="error">Не вдалося отримати інформацію про гравця</span>';
+                    return;
+                }
+
+                const playerStats = statsData.data[playerId];
+                const achievementsResponse = await fetch(`${apiUrl}/wotb/account/achievements/?application_id=${APP_ID}&account_id=${playerId}`);
+                const achievementsData = await achievementsResponse.json();
+
+                let awardsHtml = '<div class="awards"><h3>Нагороди:</h3><ul>';
+                if (achievementsData.status === 'ok') {
+                    const awards = achievementsData.data[playerId].achievements;
+                    for (let award in awards) {
+                        if (awards[award] > 0) {
+                            const awardName = AWARD_NAMES[award] || award;
+                            awardsHtml += `<li class="tooltip"><i class="fas fa-medal"></i> ${awardName}: ${awards[award]}<span class="tooltiptext">${awardName}</span></li>`;
+                        }
+                    }
+                } else {
+                    awardsHtml += '<li>Не вдалося отримати нагороди</li>';
+                }
+                awardsHtml += '</ul></div>';
 
                 resultDiv.innerHTML = `
-                    <h2>Статистика для ${playerNick}</h2>
-                    <p><strong>Дата реєстрації:</strong> ${playerData.registration_date || 'Invalid Date'}</p>
-                    <div class="stats">
-                        <p><strong>Бої:</strong> ${stats.battles || '0'}</p>
-                        <p><strong>Перемоги:</strong> ${stats.wins || '0'}</p>
-                        <p><strong>Процент перемог:</strong> ${(stats.wins / stats.battles * 100).toFixed(2) || '0.00'}%</p>
-                        <p><strong>Поразки:</strong> ${stats.losses || '0'}</p>
-                        <p><strong>Середній урон:</strong> ${(stats.damage_dealt / stats.battles).toFixed(2) || '0.00'}</p>
-                        <p><strong>Фрагів:</strong> ${stats.frags || '0'}</p>
+                    <h2>Статистика для ${playerStats.nickname}</h2>
+                    <div class="additional-info">
+                        <p>Дата реєстрації: ${new Date(playerStats.created_at * 1000).toLocaleDateString()}</p>
+                        <p>Віковий рівень: ${playerStats.age}</p>
                     </div>
                     <div class="stats">
-                        <p><strong>Light танки:</strong> ${stats.tank_type['light']?.battles || '0'} боїв, Перемоги: ${stats.tank_type['light']?.wins || '0'}</p>
-                        <p><strong>Medium танки:</strong> ${stats.tank_type['medium']?.battles || '0'} боїв, Перемоги: ${stats.tank_type['medium']?.wins || '0'}</p>
-                        <p><strong>Heavy танки:</strong> ${stats.tank_type['heavy']?.battles || '0'} боїв, Перемоги: ${stats.tank_type['heavy']?.wins || '0'}</p>
-                        <p><strong>Td танки:</strong> ${stats.tank_type['td']?.battles || '0'} боїв, Перемоги: ${stats.tank_type['td']?.wins || '0'}</p>
-                        <p><strong>Arty танки:</strong> ${stats.tank_type['arty']?.battles || '0'} боїв, Перемоги: ${stats.tank_type['arty']?.wins || '0'}</p>
+                        <div class="stat-item">
+                            <span>Бої:</span>
+                            <span>${playerStats.statistics.all.battles}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Перемоги:</span>
+                            <span>${playerStats.statistics.all.wins}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Процент перемог:</span>
+                            <span>${(playerStats.statistics.all.wins / playerStats.statistics.all.battles * 100).toFixed(2)}%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Поразки:</span>
+                            <span>${playerStats.statistics.all.losses}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Середній урон:</span>
+                            <span>${(playerStats.statistics.all.damage_dealt / playerStats.statistics.all.battles).toFixed(2)}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Фрагів:</span>
+                            <span>${playerStats.statistics.all.frags}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Light танки:</span>
+                            <span>${playerStats.statistics.tanks.light.battles} боїв, Перемоги: ${playerStats.statistics.tanks.light.wins}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Medium танки:</span>
+                            <span>${playerStats.statistics.tanks.medium.battles} боїв, Перемоги: ${playerStats.statistics.tanks.medium.wins}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Heavy танки:</span>
+                            <span>${playerStats.statistics.tanks.heavy.battles} боїв, Перемоги: ${playerStats.statistics.tanks.heavy.wins}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>TD танки:</span>
+                            <span>${playerStats.statistics.tanks.td.battles} боїв, Перемоги: ${playerStats.statistics.tanks.td.wins}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Arty танки:</span>
+                            <span>${playerStats.statistics.tanks.arty.battles} боїв, Перемоги: ${playerStats.statistics.tanks.arty.wins}</span>
+                        </div>
                     </div>
-                    <div class="awards">
-                        <h3>Нагороди:</h3>
-                        <ul>
-                            ${Object.keys(awards).map(award => `
-                                <li><i class="fas fa-trophy"></i> ${AWARD_NAMES[award] || award}</li>
-                            `).join('')}
-                        </ul>
-                    </div>
+                    ${awardsHtml}
                 `;
-
-                // Додати історію пошуків
-                const historyItem = document.createElement('li');
-                historyItem.innerHTML = `
-                    <span>${playerNick}</span>
-                    <button onclick="removeHistory(this)">Видалити</button>
-                `;
-                historyList.appendChild(historyItem);
-
             } catch (error) {
+                console.error('Error fetching player data:', error);
                 resultDiv.innerHTML = `<span class="error">Виникла помилка при отриманні даних: ${error.message}</span>`;
             }
         }
 
-        function removeHistory(button) {
-            const historyList = document.getElementById('history-list');
-            historyList.removeChild(button.parentElement);
-        }
+        updateHistoryList();
     </script>
 </body>
 </html>
