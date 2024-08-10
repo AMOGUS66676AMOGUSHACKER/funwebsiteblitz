@@ -19,86 +19,91 @@
         }
         .container {
             background-color: #fff;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            max-width: 600px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
             width: 100%;
+            box-sizing: border-box;
         }
         h1 {
             color: #004080;
             margin-bottom: 20px;
+            font-size: 1.8em;
+            font-weight: 600;
         }
-        label, button {
-            font-size: 1.2em;
-            display: block;
+        label {
+            font-size: 1.1em;
             margin: 10px 0;
+            display: block;
         }
         input, select {
-            font-size: 1.2em;
-            padding: 10px;
+            font-size: 1.1em;
+            padding: 12px;
             margin: 5px 0;
-            width: calc(100% - 22px);
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            width: calc(100% - 24px);
+            border: 1px solid #ddd;
+            border-radius: 8px;
             transition: border-color 0.3s;
+            box-sizing: border-box;
         }
         input:focus, select:focus {
             border-color: #1c92d2;
+            outline: none;
         }
         button {
             background-color: #1c92d2;
             color: #fff;
             border: none;
-            padding: 15px 20px;
+            padding: 15px;
             cursor: pointer;
             margin: 20px 0;
             width: 100%;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.2s;
+            font-size: 1.1em;
         }
         button:hover {
             background-color: #004080;
+            transform: scale(1.05);
         }
         #result {
             margin-top: 20px;
             padding: 20px;
-            background-color: #e6f2ff;
+            background-color: #f2f2f2;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             text-align: left;
+            position: relative;
         }
         .error {
-            color: red;
+            color: #e74c3c;
             font-weight: bold;
         }
         .stats, .awards, .additional-info {
             margin-top: 20px;
         }
-        .stats p, .additional-info p {
-            font-size: 1.1em;
-        }
-        .stats .stat-item, .additional-info .info-item {
-            background: #f9f9f9;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            border: 1px solid #ddd;
+        .stats p, .awards p, .additional-info p {
+            font-size: 1em;
+            margin: 5px 0;
         }
         .awards ul {
             list-style-type: none;
             padding: 0;
+            display: none;
+        }
+        .awards.active ul {
+            display: block;
         }
         .awards li {
-            background: #cce5ff;
+            background: #e6f7ff;
             margin: 5px 0;
             padding: 10px;
-            border-radius: 5px;
+            border-radius: 8px;
             text-align: left;
             display: flex;
             align-items: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
         .awards li i {
             margin-right: 10px;
@@ -106,13 +111,15 @@
         }
         .awards h3 {
             margin-bottom: 10px;
+            font-size: 1.2em;
+            font-weight: 600;
         }
         .loader {
-            border: 16px solid #f3f3f3;
+            border: 12px solid #f3f3f3;
             border-radius: 50%;
-            border-top: 16px solid #3498db;
-            width: 120px;
-            height: 120px;
+            border-top: 12px solid #3498db;
+            width: 60px;
+            height: 60px;
             animation: spin 2s linear infinite;
             margin: 20px auto;
         }
@@ -126,57 +133,102 @@
         }
         .tooltip .tooltiptext {
             visibility: hidden;
-            width: 120px;
-            background-color: #6c757d;
+            width: 150px;
+            background-color: #333;
             color: #fff;
             text-align: center;
             border-radius: 6px;
             padding: 5px;
             position: absolute;
             z-index: 1;
-            bottom: 125%;
+            bottom: 125%; 
             left: 50%;
-            margin-left: -60px;
+            margin-left: -75px;
             opacity: 0;
             transition: opacity 0.3s;
+            font-size: 0.9em;
         }
         .tooltip:hover .tooltiptext {
             visibility: visible;
             opacity: 1;
         }
-        #history {
+        .history {
             margin-top: 20px;
-            padding: 10px;
-            background-color: #f1f1f1;
-            border-radius: 10px;
+            text-align: left;
         }
-        #history h3 {
-            margin-top: 0;
+        .history h3 {
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            font-weight: 600;
         }
-        #history-list {
+        .history ul {
             list-style-type: none;
             padding: 0;
         }
-        #history-list li {
+        .history li {
+            background: #f9f9f9;
             margin: 5px 0;
             padding: 10px;
-            background-color: #e9ecef;
-            border-radius: 5px;
+            border-radius: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
-        #history-list button {
-            background-color: #dc3545;
-            color: #fff;
+        .history li button {
+            background: #ff4d4d;
             border: none;
+            color: white;
             padding: 5px 10px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 0.9em;
+            transition: background 0.3s;
         }
-        #history-list button:hover {
-            background-color: #c82333;
+        .history li button:hover {
+            background: #cc0000;
+        }
+
+        /* Media Queries for Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.6em;
+            }
+            label, button {
+                font-size: 1em;
+            }
+            input, select {
+                font-size: 1em;
+            }
+            button {
+                padding: 12px;
+            }
+            .loader {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.4em;
+            }
+            label, button {
+                font-size: 0.9em;
+            }
+            input, select {
+                font-size: 0.9em;
+            }
+            button {
+                padding: 10px;
+            }
+            .loader {
+                width: 40px;
+                height: 40px;
+            }
         }
     </style>
 </head>
@@ -196,15 +248,14 @@
         
         <button onclick="searchPlayer()">Пошук</button>
         <div id="result"></div>
-
-        <div id="history">
-            <h3>Історія пошуку:</h3>
+        <div class="history">
+            <h3>Історія Ніків:</h3>
             <ul id="history-list"></ul>
         </div>
     </div>
 
     <script>
-        const APP_ID = 'your_app_id_here'; // Замініть на ваш API ключ
+        const APP_ID = '337a69597cd1a9343e68ec5173bbe27d';
 
         const AWARD_NAMES = {
             'medalCarius': 'Медаль Каріуса',
@@ -235,11 +286,28 @@
             'pattonValley': 'Долина Паттона'
         };
 
+        function updateHistoryList() {
+            const historyList = document.getElementById('history-list');
+            historyList.innerHTML = '';
+            const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+            history.forEach((nick, index) => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `${nick} <button onclick="removeHistoryItem(${index})">Видалити</button>`;
+                historyList.appendChild(listItem);
+            });
+        }
+
+        function removeHistoryItem(index) {
+            const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+            history.splice(index, 1);
+            localStorage.setItem('searchHistory', JSON.stringify(history));
+            updateHistoryList();
+        }
+
         async function searchPlayer() {
             const playerNick = document.getElementById('player-nick').value;
             const server = document.getElementById('server').value;
             const resultDiv = document.getElementById('result');
-            const historyList = document.getElementById('history-list');
             resultDiv.innerHTML = '<div class="loader"></div>';
 
             if (!playerNick) {
@@ -266,101 +334,81 @@
                 }
 
                 const playerId = playerData.data[0].account_id;
+                const playerNickname = playerData.data[0].nickname;
 
-                const statsResponse = await fetch(`${apiUrl}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}&fields=statistics`);
+                // Save to history
+                const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+                if (!history.includes(playerNick)) {
+                    history.push(playerNick);
+                    localStorage.setItem('searchHistory', JSON.stringify(history));
+                    updateHistoryList();
+                }
+
+                const statsResponse = await fetch(`${apiUrl}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}`);
                 const statsData = await statsResponse.json();
 
-                if (statsData.status !== 'ok' || !statsData.data || !statsData.data[playerId]) {
+                if (statsData.status !== 'ok') {
                     resultDiv.innerHTML = '<span class="error">Не вдалося отримати інформацію про гравця</span>';
                     return;
                 }
 
-                const playerStats = statsData.data[playerId].statistics || {};
+                const playerStats = statsData.data[playerId];
                 const achievementsResponse = await fetch(`${apiUrl}/wotb/account/achievements/?application_id=${APP_ID}&account_id=${playerId}`);
                 const achievementsData = await achievementsResponse.json();
-                const awards = achievementsData.status === 'ok' ? achievementsData.data[playerId]?.achievements || {} : {};
 
-                // Функція для безпечного доступу до об'єктів
-                const safeGet = (obj, path, defaultValue = '0') => path.split('.').reduce((o, p) => (o && o[p] !== undefined) ? o[p] : defaultValue, obj);
+                let awardsHtml = '<div class="awards"><h3>Нагороди:</h3><ul>';
+                if (achievementsData.status === 'ok') {
+                    const awards = achievementsData.data[playerId].achievements;
+                    for (let award in awards) {
+                        if (awards[award] > 0) {
+                            const awardName = AWARD_NAMES[award] || award;
+                            awardsHtml += `<li class="tooltip"><i class="fas fa-medal"></i> ${awardName}: ${awards[award]}<span class="tooltiptext">${awardName}</span></li>`;
+                        }
+                    }
+                } else {
+                    awardsHtml += '<li>Не вдалося отримати нагороди</li>';
+                }
+                awardsHtml += '</ul><button onclick="toggleAwards()">Показати/Сховати Нагороди</button></div>';
+
+                // Additional info
+                const registrationDate = new Date(playerStats.created * 1000).toLocaleDateString();
+                const battlesByType = playerStats.statistics.all.battles_by_type || {};
+                const winsByType = playerStats.statistics.all.wins_by_type || {};
+                
+                let battlesByTypeHtml = '';
+                const types = ['light', 'medium', 'heavy', 'td', 'arty'];
+                types.forEach(type => {
+                    const typeName = type.charAt(0).toUpperCase() + type.slice(1);
+                    battlesByTypeHtml += `<p>${typeName} танки: ${battlesByType[type] || 0} боїв, Перемоги: ${winsByType[type] || 0}</p>`;
+                });
 
                 resultDiv.innerHTML = `
-                    <h2>Статистика для ${playerNick}</h2>
-                    <p><strong>Дата реєстрації:</strong> ${statsData.data[playerId].registration_date || 'Invalid Date'}</p>
+                    <h2>Статистика для ${playerNickname}</h2>
                     <div class="stats">
-                        <div class="stat-item">
-                            <span><strong>Бої:</strong></span>
-                            <span>${safeGet(playerStats, 'battles')}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span><strong>Перемоги:</strong></span>
-                            <span>${safeGet(playerStats, 'wins')}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span><strong>Процент перемог:</strong></span>
-                            <span>${(safeGet(playerStats, 'wins') / safeGet(playerStats, 'battles') * 100).toFixed(2)}%</span>
-                        </div>
-                        <div class="stat-item">
-                            <span><strong>Поразки:</strong></span>
-                            <span>${safeGet(playerStats, 'losses')}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span><strong>Середній урон:</strong></span>
-                            <span>${(safeGet(playerStats, 'damage_dealt') / safeGet(playerStats, 'battles')).toFixed(2)}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span><strong>Фрагів:</strong></span>
-                            <span>${safeGet(playerStats, 'frags')}</span>
-                        </div>
+                        <p>Дата реєстрації: ${registrationDate || 'Не вказана'}</p>
+                        <p>Бої: ${playerStats.statistics.all.battles}</p>
+                        <p>Перемоги: ${playerStats.statistics.all.wins}</p>
+                        <p>Процент перемог: ${(playerStats.statistics.all.wins / playerStats.statistics.all.battles * 100).toFixed(2)}%</p>
+                        <p>Поразки: ${playerStats.statistics.all.losses}</p>
+                        <p>Середній урон: ${(playerStats.statistics.all.damage_dealt / playerStats.statistics.all.battles).toFixed(2)}</p>
+                        <p>Фрагів: ${playerStats.statistics.all.frags}</p>
+                        ${battlesByTypeHtml}
                     </div>
-                    <div class="stats">
-                        <div class="stat-item">
-                            <span><strong>Light танки:</strong></span>
-                            <span>${safeGet(playerStats, 'tank_type.light.battles')} боїв, Перемоги: ${safeGet(playerStats, 'tank_type.light.wins')}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span><strong>Medium танки:</strong></span>
-                            <span>${safeGet(playerStats, 'tank_type.medium.battles')} боїв, Перемоги: ${safeGet(playerStats, 'tank_type.medium.wins')}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span><strong>Heavy танки:</strong></span>
-                            <span>${safeGet(playerStats, 'tank_type.heavy.battles')} боїв, Перемоги: ${safeGet(playerStats, 'tank_type.heavy.wins')}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span><strong>Td танки:</strong></span>
-                            <span>${safeGet(playerStats, 'tank_type.td.battles')} боїв, Перемоги: ${safeGet(playerStats, 'tank_type.td.wins')}</span>
-                        </div>
-                        <div class="stat-item">
-                            <span><strong>Arty танки:</strong></span>
-                            <span>${safeGet(playerStats, 'tank_type.arty.battles')} боїв, Перемоги: ${safeGet(playerStats, 'tank_type.arty.wins')}</span>
-                        </div>
-                    </div>
-                    <div class="awards">
-                        <h3>Нагороди:</h3>
-                        <ul>
-                            ${Object.keys(awards).map(award => `
-                                <li><i class="fas fa-trophy"></i> ${AWARD_NAMES[award] || award}</li>
-                            `).join('')}
-                        </ul>
-                    </div>
+                    ${awardsHtml}
                 `;
-
-                // Додати історію пошуків
-                const historyItem = document.createElement('li');
-                historyItem.innerHTML = `
-                    <span>${playerNick}</span>
-                    <button onclick="removeHistory(this)">Видалити</button>
-                `;
-                historyList.appendChild(historyItem);
-
             } catch (error) {
+                console.error('Error fetching player data:', error);
                 resultDiv.innerHTML = `<span class="error">Виникла помилка при отриманні даних: ${error.message}</span>`;
             }
         }
 
-        function removeHistory(button) {
-            const historyList = document.getElementById('history-list');
-            historyList.removeChild(button.parentElement);
+        function toggleAwards() {
+            const awardsDiv = document.querySelector('.awards');
+            awardsDiv.classList.toggle('active');
         }
+
+        // Initialize history list
+        document.addEventListener('DOMContentLoaded', updateHistoryList);
     </script>
 </body>
 </html>
