@@ -8,7 +8,8 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(to right, #e0c3fc, #8ec5fc);
+            background: url('https://imgr1.flugrevue.de/image-169FullWidth-e9c89912-1954508.jpg') no-repeat center center fixed;
+            background-size: cover;
             color: #333;
             margin: 0;
             display: flex;
@@ -18,75 +19,27 @@
             text-align: center;
         }
         .container {
-            background-color: #ffffff;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-            max-width: 900px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
             width: 100%;
             box-sizing: border-box;
-            position: relative;
-        }
-        h1 {
-            color: #333;
-            margin-bottom: 25px;
-            font-size: 2em;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-        label {
-            font-size: 1.2em;
-            margin: 15px 0;
-            display: block;
-        }
-        input, select {
-            font-size: 1.1em;
-            padding: 15px;
-            margin: 8px 0;
-            width: calc(100% - 30px);
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            transition: border-color 0.3s, box-shadow 0.3s;
-            box-sizing: border-box;
-        }
-        input:focus, select:focus {
-            border-color: #6a0dad;
-            box-shadow: 0 0 8px rgba(106, 13, 173, 0.4);
-            outline: none;
-        }
-        button {
-            background-color: #6a0dad;
-            color: #ffffff;
-            border: none;
-            padding: 15px;
-            cursor: pointer;
-            margin: 25px 0;
-            width: 100%;
-            border-radius: 10px;
-            transition: background-color 0.3s, transform 0.2s;
-            font-size: 1.2em;
-            font-weight: 600;
-        }
-        button:hover {
-            background-color: #4a0088;
-            transform: scale(1.05);
-        }
-        .tabs {
-            display: flex;
-            border-bottom: 2px solid #6a0dad;
-            margin-bottom: 20px;
         }
         .tab {
-            flex: 1;
-            padding: 10px;
             cursor: pointer;
+            padding: 15px 20px;
+            margin: 0 5px;
+            border-radius: 10px;
+            background-color: #e6f7ff;
+            color: #004080;
             font-weight: bold;
-            border: 2px solid transparent;
-            transition: border-color 0.3s, background-color 0.3s;
+            transition: background-color 0.3s, color 0.3s;
         }
         .tab.active {
-            border-color: #6a0dad;
-            background-color: #f7f7f7;
+            background-color: #1c92d2;
+            color: #fff;
         }
         .tab-content {
             display: none;
@@ -94,56 +47,117 @@
         .tab-content.active {
             display: block;
         }
-        .loader {
-            border: 12px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 12px solid #6a0dad;
-            width: 60px;
-            height: 60px;
-            animation: spin 2s linear infinite;
-            margin: 20px auto;
+        h1 {
+            color: #004080;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            font-weight: 600;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        label {
+            font-size: 1.1em;
+            margin: 10px 0;
+            display: block;
+        }
+        input, select {
+            font-size: 1.1em;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-sizing: border-box;
+        }
+        input:focus, select:focus {
+            border-color: #1c92d2;
+            box-shadow: 0 0 5px rgba(28, 146, 210, 0.5);
+            outline: none;
+        }
+        button {
+            background-color: #1c92d2;
+            color: #fff;
+            border: none;
+            padding: 15px 20px;
+            cursor: pointer;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-size: 1.1em;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+        }
+        button:hover {
+            background-color: #004080;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            position: relative;
+        }
+        .error, .success {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px 0;
         }
         .error {
             color: #e74c3c;
-            font-weight: bold;
+            background: #fdecea;
+        }
+        .success {
+            color: #27ae60;
+            background: #e9f7ef;
+        }
+        .error i, .success i {
+            margin-right: 10px;
+        }
+        .error i {
+            color: #e74c3c;
+        }
+        .success i {
+            color: #27ae60;
         }
         .stats, .awards, .additional-info {
-            margin-top: 25px;
+            margin-top: 20px;
         }
         .stats p, .awards p, .additional-info p {
-            font-size: 1.1em;
-            margin: 8px 0;
+            font-size: 1em;
+            margin: 5px 0;
+        }
+        .awards {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .awards h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: #004080;
         }
         .awards ul {
             list-style-type: none;
             padding: 0;
-            display: none;
-        }
-        .awards.active ul {
-            display: block;
         }
         .awards li {
-            background: #e0f7fa;
-            margin: 8px 0;
-            padding: 12px;
-            border-radius: 10px;
-            text-align: left;
+            background: #e6f7ff;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
         .awards li i {
-            margin-right: 12px;
-            color: #6a0dad;
-        }
-        .awards h3 {
-            margin-bottom: 12px;
-            font-size: 1.3em;
-            font-weight: 700;
+            margin-right: 10px;
+            color: #1c92d2;
         }
         .tooltip {
             position: relative;
@@ -151,17 +165,17 @@
         }
         .tooltip .tooltiptext {
             visibility: hidden;
-            width: 160px;
+            width: 150px;
             background-color: #333;
             color: #fff;
             text-align: center;
             border-radius: 6px;
-            padding: 8px;
+            padding: 5px;
             position: absolute;
             z-index: 1;
-            bottom: 150%;
+            bottom: 125%; 
             left: 50%;
-            margin-left: -80px;
+            margin-left: -75px;
             opacity: 0;
             transition: opacity 0.3s;
             font-size: 0.9em;
@@ -171,33 +185,33 @@
             opacity: 1;
         }
         .history {
-            margin-top: 25px;
+            margin-top: 20px;
             text-align: left;
         }
         .history h3 {
-            margin-bottom: 20px;
-            font-size: 1.3em;
-            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            font-weight: 600;
         }
         .history ul {
             list-style-type: none;
             padding: 0;
         }
         .history li {
-            background: #f1f1f1;
-            margin: 8px 0;
-            padding: 12px;
-            border-radius: 10px;
+            background: #f9f9f9;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
         .history li button {
             background: #ff4d4d;
             border: none;
             color: white;
-            padding: 6px 12px;
+            padding: 5px 10px;
             border-radius: 5px;
             cursor: pointer;
             font-size: 0.9em;
@@ -210,10 +224,10 @@
         /* Media Queries for Responsive Design */
         @media (max-width: 768px) {
             .container {
-                padding: 25px;
+                padding: 20px;
             }
             h1 {
-                font-size: 1.8em;
+                font-size: 1.6em;
             }
             label, button {
                 font-size: 1em;
@@ -232,7 +246,7 @@
 
         @media (max-width: 480px) {
             h1 {
-                font-size: 1.6em;
+                font-size: 1.4em;
             }
             label, button {
                 font-size: 0.9em;
@@ -248,6 +262,17 @@
                 height: 40px;
             }
         }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -258,29 +283,34 @@
             <div class="tab" onclick="showTab('history')">Історія</div>
         </div>
         <div id="search" class="tab-content active">
-            <label for="player-nick">Нік Гравця:</label>
-            <input type="text" id="player-nick" placeholder="Введіть нік гравця">
-            <label for="server">Сервер:</label>
+            <label for="player-nick">Введіть нік гравця:</label>
+            <input type="text" id="player-nick" placeholder="Нік гравця" />
+            
+            <label for="server">Виберіть сервер:</label>
             <select id="server">
                 <option value="ru">RU</option>
                 <option value="eu">EU</option>
                 <option value="na">NA</option>
                 <option value="asia">ASIA</option>
             </select>
+            
             <button onclick="searchPlayer()">Пошук</button>
             <div id="result"></div>
         </div>
         <div id="history" class="tab-content">
-            <div class="history">
-                <h3>Історія Пошуку</h3>
-                <ul id="history-list"></ul>
-            </div>
+            <h3>Історія Ніків:</h3>
+            <ul id="history-list"></ul>
         </div>
     </div>
 
     <script>
-        const APP_ID = ' 337a69597cd1a9343e68ec5173bbe27d'; // Замість 'your_app_id_here' вставте свій реальний APP_ID
+        const APP_ID = '337a69597cd1a9343e68ec5173bbe27d';
+
         const AWARD_NAMES = {
+            'medalCarius': 'Медаль Каріуса',
+            'cadet': 'Кадет',
+            'invader': 'Загарбник',
+            'armorPiercer': 'Бронебійник',
             'medalEkins': 'Медаль Екінса',
             'markOfMasteryI': 'Знак майстерності I',
             'firstBlood': 'Перша кров',
@@ -330,110 +360,53 @@
             updateHistoryList();
         }
 
-        async function searchPlayer() {
-            const playerNick = document.getElementById('player-nick').value;
+        function searchPlayer() {
+            const nick = document.getElementById('player-nick').value;
             const server = document.getElementById('server').value;
-            const resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = '<div class="loader"></div>';
 
-            if (!playerNick) {
-                resultDiv.innerHTML = '<span class="error">Будь ласка, введіть нік гравця</span>';
+            if (!nick) {
+                document.getElementById('result').innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Будь ласка, введіть нік гравця.</div>';
                 return;
             }
 
-            const serverUrlMap = {
-                'ru': 'https://api.wotblitz.ru',
-                'eu': 'https://api.wotblitz.eu',
-                'na': 'https://api.wotblitz.com',
-                'asia': 'https://api.wotblitz.asia'
-            };
+            const url = `https://api.wotblitz.com/wotb/account/info/?application_id=${APP_ID}&account_id=${nick}`;
 
-            const apiUrl = serverUrlMap[server];
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'ok' && data.data) {
+                        const playerData = data.data[nick];
+                        if (playerData) {
+                            const resultDiv = document.getElementById('result');
+                            resultDiv.innerHTML = `
+                                <div class="success"><i class="fas fa-check-circle"></i> Гравця знайдено!</div>
+                                <h3>Інформація про гравця:</h3>
+                                <p><strong>Нік:</strong> ${playerData.nickname}</p>
+                                <p><strong>Рейтинг:</strong> ${playerData.rating}</p>
+                                <p><strong>Кількість боїв:</strong> ${playerData.battles}</p>
+                            `;
 
-            try {
-                const playerResponse = await fetch(`${apiUrl}/wotb/account/list/?application_id=${APP_ID}&search=${playerNick}`);
-                const playerData = await playerResponse.json();
-
-                if (playerData.status !== 'ok' || playerData.data.length === 0) {
-                    resultDiv.innerHTML = '<span class="error">Гравця не знайдено або виникла помилка.</span>';
-                    return;
-                }
-
-                const playerId = playerData.data[0].account_id;
-                const playerNickname = playerData.data[0].nickname;
-
-                // Save to history
-                const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
-                if (!history.includes(playerNick)) {
-                    history.push(playerNick);
-                    localStorage.setItem('searchHistory', JSON.stringify(history));
-                    updateHistoryList();
-                }
-
-                const statsResponse = await fetch(`${apiUrl}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}`);
-                const statsData = await statsResponse.json();
-
-                if (statsData.status !== 'ok') {
-                    resultDiv.innerHTML = '<span class="error">Не вдалося отримати інформацію про гравця</span>';
-                    return;
-                }
-
-                const playerStats = statsData.data[playerId];
-                const achievementsResponse = await fetch(`${apiUrl}/wotb/account/achievements/?application_id=${APP_ID}&account_id=${playerId}`);
-                const achievementsData = await achievementsResponse.json();
-
-                let awardsHtml = '<div class="awards"><h3>Нагороди:</h3><ul>';
-                if (achievementsData.status === 'ok') {
-                    const awards = achievementsData.data[playerId].achievements;
-                    for (let award in awards) {
-                        if (awards[award] > 0) {
-                            const awardName = AWARD_NAMES[award] || award;
-                            awardsHtml += `<li class="tooltip"><i class="fas fa-medal"></i> ${awardName}: ${awards[award]}<span class="tooltiptext">${awardName}</span></li>`;
+                            // Додати гравця до історії
+                            const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+                            if (!history.includes(nick)) {
+                                history.push(nick);
+                                localStorage.setItem('searchHistory', JSON.stringify(history));
+                                updateHistoryList();
+                            }
+                        } else {
+                            document.getElementById('result').innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Гравця не знайдено.</div>';
                         }
+                    } else {
+                        document.getElementById('result').innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Помилка при запиті до сервера.</div>';
                     }
-                } else {
-                    awardsHtml += '<li>Не вдалося отримати нагороди</li>';
-                }
-                awardsHtml += '</ul><button onclick="toggleAwards()">Показати/Сховати Нагороди</button></div>';
-
-                // Additional info
-                const registrationDate = new Date(playerStats.created * 1000).toLocaleDateString();
-                const battlesByType = playerStats.statistics.all.battles_by_type || {};
-                const winsByType = playerStats.statistics.all.wins_by_type || {};
-                
-                let battlesByTypeHtml = '';
-                const types = ['light', 'medium', 'heavy', 'td', 'arty'];
-                types.forEach(type => {
-                    const typeName = type.charAt(0).toUpperCase() + type.slice(1);
-                    battlesByTypeHtml += `<p>${typeName} танки: ${battlesByType[type] || 0} боїв, Перемоги: ${winsByType[type] || 0}</p>`;
+                })
+                .catch(error => {
+                    document.getElementById('result').innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Помилка при запиті до сервера.</div>';
                 });
-
-                resultDiv.innerHTML = 
-                    `<h2>Статистика для ${playerNickname}</h2>
-                    <div class="stats">
-                        <p>Дата реєстрації: ${registrationDate || 'Не вказана'}</p>
-                        <p>Бої: ${playerStats.statistics.all.battles}</p>
-                        <p>Перемоги: ${playerStats.statistics.all.wins}</p>
-                        <p>Процент перемог: ${(playerStats.statistics.all.wins / playerStats.statistics.all.battles * 100).toFixed(2)}%</p>
-                        <p>Поразки: ${playerStats.statistics.all.losses}</p>
-                        <p>Середній урон: ${(playerStats.statistics.all.damage_dealt / playerStats.statistics.all.battles).toFixed(2)}</p>
-                        <p>Фрагів: ${playerStats.statistics.all.frags}</p>
-                        ${battlesByTypeHtml}
-                    </div>
-                    ${awardsHtml}`;
-            } catch (error) {
-                console.error('Error fetching player data:', error);
-                resultDiv.innerHTML = `<span class="error">Виникла помилка при отриманні даних: ${error.message}</span>`;
-            }
         }
 
-        function toggleAwards() {
-            const awardsDiv = document.querySelector('.awards');
-            awardsDiv.classList.toggle('active');
-        }
-
-        // Initialize history list
-        document.addEventListener('DOMContentLoaded', updateHistoryList);
+        // Ініціалізувати історію
+        updateHistoryList();
     </script>
 </body>
 </html>
