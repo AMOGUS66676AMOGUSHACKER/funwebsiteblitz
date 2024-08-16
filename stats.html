@@ -5,14 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Пошук Гравця</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-   <!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Пошук Гравця</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
- <style>
+   <style>
 
 
                 .awards ul {
@@ -305,7 +298,6 @@
             <ul id="history-list"></ul>
         </div>
     </div>
-    <div id="result"></div>
     <script>
         const APP_ID = '337a69597cd1a9343e68ec5173bbe27d';
         const AWARD_NAMES = {
@@ -343,7 +335,7 @@
             const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
             history.forEach((nick, index) => {
                 const listItem = document.createElement('li');
-                listItem.innerHTML = ${nick} <button onclick="removeHistoryItem(${index})">Видалити</button>;
+                listItem.innerHTML = `${nick} <button onclick="removeHistoryItem(${index})">Видалити</button>`;
                 historyList.appendChild(listItem);
             });
         }
@@ -376,7 +368,7 @@
             const apiUrl = serverUrlMap[server];
 
             try {
-                const playerResponse = await fetch(${apiUrl}/wotb/account/list/?application_id=${APP_ID}&search=${playerNick});
+                const playerResponse = await fetch(`${apiUrl}/wotb/account/list/?application_id=${APP_ID}&search=${playerNick}`);
                 const playerData = await playerResponse.json();
 
                 if (playerData.status !== 'ok' || playerData.data.length === 0) {
@@ -395,7 +387,7 @@
                     updateHistoryList();
                 }
 
-                const statsResponse = await fetch(${apiUrl}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId});
+                const statsResponse = await fetch(`${apiUrl}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}`);
                 const statsData = await statsResponse.json();
 
                 if (statsData.status !== 'ok') {
@@ -404,7 +396,7 @@
                 }
 
                 const playerStats = statsData.data[playerId];
-                const achievementsResponse = await fetch(${apiUrl}/wotb/account/achievements/?application_id=${APP_ID}&account_id=${playerId});
+                const achievementsResponse = await fetch(`${apiUrl}/wotb/account/achievements/?application_id=${APP_ID}&account_id=${playerId}`);
                 const achievementsData = await achievementsResponse.json();
 
                 let awardsHtml = '<div class="awards"><h3>Нагороди:</h3><ul>';
@@ -413,7 +405,7 @@
                     for (let award in awards) {
                         if (awards[award] > 0) {
                             const awardName = AWARD_NAMES[award] || award;
-                            awardsHtml += <li class="tooltip"><i class="fas fa-medal"></i> ${awardName}: ${awards[award]}<span class="tooltiptext">${awardName}</span></li>;
+                            awardsHtml += `<li class="tooltip"><i class="fas fa-medal"></i> ${awardName}: ${awards[award]}<span class="tooltiptext">${awardName}</span></li>`;
                         }
                     }
                 } else {
@@ -430,11 +422,11 @@
                 const types = ['light', 'medium', 'heavy', 'td', 'arty'];
                 types.forEach(type => {
                     const typeName = type.charAt(0).toUpperCase() + type.slice(1);
-                    battlesByTypeHtml += <p>${typeName} танки: ${battlesByType[type] || 0} боїв, ${winsByType[type] || 0} перемог</p>;
+                    battlesByTypeHtml += `<p>${typeName} танки: ${battlesByType[type] || 0} боїв, ${winsByType[type] || 0} перемог</p>`;
                 });
 
                 resultDiv.innerHTML = 
-                    <div class="success"><i class="fas fa-check-circle"></i> Знайдено гравця: ${playerNickname}</div>
+                    `<div class="success"><i class="fas fa-check-circle"></i> Знайдено гравця: ${playerNickname}</div>
                     <div class="stats">
                         <p>Вік: ${playerStats.age} років</p>
                         <p>Дата реєстрації: ${registrationDate}</p>
@@ -443,9 +435,7 @@
                         <p>Середній рейтинг: ${playerStats.statistics.all.avg_damage_assisted_radio}</p>
                         ${battlesByTypeHtml}
                     </div>
-                    ${awardsHtml}
-                ;
-
+                    ${awardsHtml}`;
             } catch (error) {
                 resultDiv.innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Виникла помилка при запиті до сервера.</div>';
                 console.error('Error:', error);
@@ -456,10 +446,6 @@
             const awards = document.querySelector('.awards');
             awards.classList.toggle('active');
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            updateHistoryList();
-        });
 
         document.addEventListener('DOMContentLoaded', () => {
             updateHistoryList();
