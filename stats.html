@@ -20,10 +20,10 @@ body {
 }
 
 .container {
-    background-color: rgba(255, 255, 255, 0.9); /* Напівпрозорий фон */
+    background-color: rgba(255, 255, 255, 0.85); /* Більш прозорий фон */
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
     max-width: 800px;
     width: 100%;
     box-sizing: border-box;
@@ -34,16 +34,17 @@ body {
     cursor: pointer;
     padding: 15px 20px;
     margin: 0 5px;
-    border-radius: 10px;
-    background-color: rgba(230, 247, 255, 0.8); /* Напівпрозорий фон для вкладок */
+    border-radius: 12px;
+    background-color: rgba(230, 247, 255, 0.7); /* Більш прозорий фон для вкладок */
     color: #004080;
     font-weight: bold;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s;
 }
 
 .tab.active {
-    background-color: rgba(28, 146, 210, 0.8); /* Напівпрозорий фон для активних вкладок */
+    background-color: rgba(28, 146, 210, 0.7); /* Більш прозорий фон для активних вкладок */
     color: #fff;
+    transform: scale(1.05);
 }
 
 .tab-content {
@@ -57,55 +58,55 @@ body {
 h1 {
     color: #004080;
     margin-bottom: 20px;
-    font-size: 1.8em;
-    font-weight: 600;
+    font-size: 2em;
+    font-weight: 700;
 }
 
 label {
-    font-size: 1.1em;
+    font-size: 1.2em;
     margin: 10px 0;
     display: block;
 }
 
 input, select {
-    font-size: 1.1em;
-    padding: 12px 15px;
-    border: 2px solid rgba(221, 221, 221, 0.8); /* Напівпрозорі краї */
-    border-radius: 8px;
+    font-size: 1.2em;
+    padding: 14px 18px;
+    border: 2px solid rgba(221, 221, 221, 0.7); /* Більш прозорі краї */
+    border-radius: 10px;
     transition: border-color 0.3s, box-shadow 0.3s;
     box-sizing: border-box;
 }
 
 input:focus, select:focus {
-    border-color: rgba(28, 146, 210, 0.8); /* Напівпрозорий акцент на фокус */
-    box-shadow: 0 0 5px rgba(28, 146, 210, 0.5);
+    border-color: rgba(28, 146, 210, 0.7); /* Більш прозорий акцент на фокус */
+    box-shadow: 0 0 8px rgba(28, 146, 210, 0.5);
     outline: none;
 }
 
 button {
-    background-color: rgba(28, 146, 210, 0.8); /* Напівпрозорий фон кнопок */
+    background-color: rgba(28, 146, 210, 0.8); /* Більш прозорий фон кнопок */
     color: #fff;
     border: none;
-    padding: 15px 20px;
+    padding: 16px 22px;
     cursor: pointer;
     margin: 20px 0;
-    border-radius: 8px;
-    font-size: 1.1em;
-    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    border-radius: 10px;
+    font-size: 1.2em;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
 button:hover {
-    background-color: rgba(0, 64, 128, 0.8); /* Напівпрозорий темніший фон при наведенні */
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 64, 128, 0.8); /* Темніший прозорий фон при наведенні */
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
 }
 
 #result {
     margin-top: 20px;
     padding: 20px;
-    background-color: rgba(242, 242, 242, 0.9); /* Напівпрозорий фон для результатів */
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: rgba(242, 242, 242, 0.85); /* Більш прозорий фон для результатів */
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
     text-align: left;
     position: relative;
 }
@@ -114,21 +115,21 @@ button:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.9); /* Напівпрозорий фон для повідомлень */
+    background: rgba(255, 255, 255, 0.85); /* Більш прозорий фон для повідомлень */
     padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     margin: 10px 0;
 }
 
 .error {
     color: #e74c3c;
-    background: rgba(253, 236, 234, 0.9); /* Напівпрозорий червоний фон для помилок */
+    background: rgba(253, 236, 234, 0.85); /* Більш прозорий червоний фон для помилок */
 }
 
 .success {
     color: #27ae60;
-    background: rgba(233, 247, 239, 0.9); /* Напівпрозорий зелений фон для успіхів */
+    background: rgba(233, 247, 239, 0.85); /* Більш прозорий зелений фон для успіхів */
 }
 
 .error i, .success i {
@@ -148,20 +149,20 @@ button:hover {
 }
 
 .stats p, .awards p, .additional-info p {
-    font-size: 1em;
+    font-size: 1.1em;
     margin: 5px 0;
 }
 
 .awards {
     margin-top: 20px;
     padding: 15px;
-    background: rgba(249, 249, 249, 0.9); /* Напівпрозорий фон для нагород */
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: rgba(249, 249, 249, 0.85); /* Більш прозорий фон для нагород */
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .awards h3 {
-    font-size: 1.4em;
+    font-size: 1.5em;
     margin-bottom: 15px;
     color: #004080;
 }
@@ -172,18 +173,18 @@ button:hover {
 }
 
 .awards li {
-    background: rgba(230, 247, 255, 0.8); /* Напівпрозорий фон для елементів нагород */
+    background: rgba(230, 247, 255, 0.7); /* Більш прозорий фон для елементів нагород */
     margin: 10px 0;
     padding: 10px;
-    border-radius: 8px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .awards li i {
     margin-right: 10px;
-    color: rgba(28, 146, 210, 0.8); /* Напівпрозорий колір іконок */
+    color: rgba(28, 146, 210, 0.7); /* Більш прозорий колір іконок */
 }
 
 .tooltip {
@@ -193,17 +194,17 @@ button:hover {
 
 .tooltip .tooltiptext {
     visibility: hidden;
-    width: 150px;
-    background-color: rgba(51, 51, 51, 0.9); /* Напівпрозорий фон для підказок */
+    width: 160px;
+    background-color: rgba(51, 51, 51, 0.9); /* Більш прозорий фон для підказок */
     color: #fff;
     text-align: center;
     border-radius: 6px;
-    padding: 5px;
+    padding: 8px;
     position: absolute;
     z-index: 1;
     bottom: 125%; 
     left: 50%;
-    margin-left: -75px;
+    margin-left: -80px;
     opacity: 0;
     transition: opacity 0.3s;
     font-size: 0.9em;
@@ -221,8 +222,8 @@ button:hover {
 
 .history h3 {
     margin-bottom: 15px;
-    font-size: 1.2em;
-    font-weight: 600;
+    font-size: 1.3em;
+    font-weight: 700;
 }
 
 .history ul {
@@ -231,18 +232,18 @@ button:hover {
 }
 
 .history li {
-    background: rgba(249, 249, 249, 0.9); /* Напівпрозорий фон для історії */
+    background: rgba(249, 249, 249, 0.85); /* Більш прозорий фон для історії */
     margin: 5px 0;
     padding: 10px;
-    border-radius: 8px;
+    border-radius: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .history li button {
-    background: rgba(255, 77, 77, 0.8); /* Напівпрозорий червоний фон для кнопок в історії */
+    background: rgba(255, 77, 77, 0.8); /* Більш прозорий червоний фон для кнопок в історії */
     border: none;
     color: white;
     padding: 5px 10px;
@@ -253,7 +254,7 @@ button:hover {
 }
 
 .history li button:hover {
-    background: rgba(204, 0, 0, 0.8); /* Темніший червоний при наведенні */
+    background: rgba(204, 0, 0, 0.8); /* Темніший прозорий червоний при наведенні */
 }
 
 /* Media Queries for Responsive Design */
