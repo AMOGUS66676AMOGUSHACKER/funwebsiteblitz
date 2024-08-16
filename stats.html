@@ -6,275 +6,301 @@
     <title>Пошук Гравця</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
    <style>
+body {
+    font-family: 'Roboto', sans-serif;
+    background: url('https://imgr1.flugrevue.de/image-169FullWidth-e9c89912-1954508.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
 
+.container {
+    background-color: rgba(255, 255, 255, 0.9); /* Напівпрозорий фон */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+    box-sizing: border-box;
+    animation: fadeIn 1s ease-in-out;
+}
 
-                .awards ul {
-            display: none;
-        }
+.tab {
+    cursor: pointer;
+    padding: 15px 20px;
+    margin: 0 5px;
+    border-radius: 10px;
+    background-color: rgba(230, 247, 255, 0.8); /* Напівпрозорий фон для вкладок */
+    color: #004080;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
 
-        .awards.active ul {
-            display: block;
-        }
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: url('https://imgr1.flugrevue.de/image-169FullWidth-e9c89912-1954508.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #333;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-        }
-        .container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            width: 100%;
-            box-sizing: border-box;
-            animation: fadeIn 1s ease-in-out;
-        }
-        .tab {
-            cursor: pointer;
-            padding: 15px 20px;
-            margin: 0 5px;
-            border-radius: 10px;
-            background-color: #e6f7ff;
-            color: #004080;
-            font-weight: bold;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .tab.active {
-            background-color: #1c92d2;
-            color: #fff;
-        }
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        h1 {
-            color: #004080;
-            margin-bottom: 20px;
-            font-size: 1.8em;
-            font-weight: 600;
-        }
-        label {
-            font-size: 1.1em;
-            margin: 10px 0;
-            display: block;
-        }
-        input, select {
-            font-size: 1.1em;
-            padding: 12px 15px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            transition: border-color 0.3s, box-shadow 0.3s;
-            box-sizing: border-box;
-        }
-        input:focus, select:focus {
-            border-color: #1c92d2;
-            box-shadow: 0 0 5px rgba(28, 146, 210, 0.5);
-            outline: none;
-        }
-        button {
-            background-color: #1c92d2;
-            color: #fff;
-            border: none;
-            padding: 15px 20px;
-            cursor: pointer;
-            margin: 20px 0;
-            border-radius: 8px;
-            font-size: 1.1em;
-            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
-        }
-        button:hover {
-            background-color: #004080;
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        #result {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #f2f2f2;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            text-align: left;
-            position: relative;
-        }
-        .error, .success {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #fff;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin: 10px 0;
-        }
-        .error {
-            color: #e74c3c;
-            background: #fdecea;
-        }
-        .success {
-            color: #27ae60;
-            background: #e9f7ef;
-        }
-        .error i, .success i {
-            margin-right: 10px;
-        }
-        .error i {
-            color: #e74c3c;
-        }
-        .success i {
-            color: #27ae60;
-        }
-        .stats, .awards, .additional-info {
-            margin-top: 20px;
-        }
-        .stats p, .awards p, .additional-info p {
-            font-size: 1em;
-            margin: 5px 0;
-        }
-        .awards {
-            margin-top: 20px;
-            padding: 15px;
-            background: #f9f9f9;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .awards h3 {
-            font-size: 1.4em;
-            margin-bottom: 15px;
-            color: #004080;
-        }
-        .awards ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .awards li {
-            background: #e6f7ff;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        }
-        .awards li i {
-            margin-right: 10px;
-            color: #1c92d2;
-        }
-        .tooltip {
-            position: relative;
-            display: inline-block;
-        }
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 150px;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%; 
-            left: 50%;
-            margin-left: -75px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 0.9em;
-        }
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-        }
-        .history {
-            margin-top: 20px;
-            text-align: left;
-        }
-        .history h3 {
-            margin-bottom: 15px;
-            font-size: 1.2em;
-            font-weight: 600;
-        }
-        .history ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .history li {
-            background: #f9f9f9;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        }
-        .history li button {
-            background: #ff4d4d;
-            border: none;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: background 0.3s;
-        }
-        .history li button:hover {
-            background: #cc0000;
-        }
+.tab.active {
+    background-color: rgba(28, 146, 210, 0.8); /* Напівпрозорий фон для активних вкладок */
+    color: #fff;
+}
 
-        /* Media Queries for Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-            h1 {
-                font-size: 1.6em;
-            }
-            label, button {
-                font-size: 1em;
-            }
-            input, select {
-                font-size: 1em;
-            }
-            button {
-                padding: 12px;
-            }
-        }
+.tab-content {
+    display: none;
+}
 
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.4em;
-            }
-            label, button {
-                font-size: 0.9em;
-            }
-            input, select {
-                font-size: 0.9em;
-            }
-            button {
-                padding: 10px;
-            }
-        }
+.tab-content.active {
+    display: block;
+}
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+h1 {
+    color: #004080;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+label {
+    font-size: 1.1em;
+    margin: 10px 0;
+    display: block;
+}
+
+input, select {
+    font-size: 1.1em;
+    padding: 12px 15px;
+    border: 2px solid rgba(221, 221, 221, 0.8); /* Напівпрозорі краї */
+    border-radius: 8px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-sizing: border-box;
+}
+
+input:focus, select:focus {
+    border-color: rgba(28, 146, 210, 0.8); /* Напівпрозорий акцент на фокус */
+    box-shadow: 0 0 5px rgba(28, 146, 210, 0.5);
+    outline: none;
+}
+
+button {
+    background-color: rgba(28, 146, 210, 0.8); /* Напівпрозорий фон кнопок */
+    color: #fff;
+    border: none;
+    padding: 15px 20px;
+    cursor: pointer;
+    margin: 20px 0;
+    border-radius: 8px;
+    font-size: 1.1em;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+button:hover {
+    background-color: rgba(0, 64, 128, 0.8); /* Напівпрозорий темніший фон при наведенні */
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#result {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: rgba(242, 242, 242, 0.9); /* Напівпрозорий фон для результатів */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    position: relative;
+}
+
+.error, .success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.9); /* Напівпрозорий фон для повідомлень */
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px 0;
+}
+
+.error {
+    color: #e74c3c;
+    background: rgba(253, 236, 234, 0.9); /* Напівпрозорий червоний фон для помилок */
+}
+
+.success {
+    color: #27ae60;
+    background: rgba(233, 247, 239, 0.9); /* Напівпрозорий зелений фон для успіхів */
+}
+
+.error i, .success i {
+    margin-right: 10px;
+}
+
+.error i {
+    color: #e74c3c;
+}
+
+.success i {
+    color: #27ae60;
+}
+
+.stats, .awards, .additional-info {
+    margin-top: 20px;
+}
+
+.stats p, .awards p, .additional-info p {
+    font-size: 1em;
+    margin: 5px 0;
+}
+
+.awards {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(249, 249, 249, 0.9); /* Напівпрозорий фон для нагород */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.awards h3 {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #004080;
+}
+
+.awards ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.awards li {
+    background: rgba(230, 247, 255, 0.8); /* Напівпрозорий фон для елементів нагород */
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.awards li i {
+    margin-right: 10px;
+    color: rgba(28, 146, 210, 0.8); /* Напівпрозорий колір іконок */
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 150px;
+    background-color: rgba(51, 51, 51, 0.9); /* Напівпрозорий фон для підказок */
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; 
+    left: 50%;
+    margin-left: -75px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.9em;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.history {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.history h3 {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.history ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.history li {
+    background: rgba(249, 249, 249, 0.9); /* Напівпрозорий фон для історії */
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.history li button {
+    background: rgba(255, 77, 77, 0.8); /* Напівпрозорий червоний фон для кнопок в історії */
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background 0.3s;
+}
+
+.history li button:hover {
+    background: rgba(204, 0, 0, 0.8); /* Темніший червоний при наведенні */
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    h1 {
+        font-size: 1.6em;
+    }
+    label, button {
+        font-size: 1em;
+    }
+    input, select {
+        font-size: 1em;
+    }
+    button {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.4em;
+    }
+    label, button {
+        font-size: 0.9em;
+    }
+    input, select {
+        font-size: 0.9em;
+    }
+    button {
+        padding: 10px;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
     </style>
 </head>
 <body>
