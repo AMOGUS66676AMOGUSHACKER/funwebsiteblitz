@@ -301,6 +301,13 @@ button:hover {
     }
 }
 
+        .awards ul {
+            display: none;
+        }
+
+        .awards.active ul {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -324,6 +331,7 @@ button:hover {
             <ul id="history-list"></ul>
         </div>
     </div>
+      <div id="result"></div>
     <script>
         const APP_ID = '337a69597cd1a9343e68ec5173bbe27d';
         const AWARD_NAMES = {
@@ -467,7 +475,6 @@ button:hover {
                 console.error('Error:', error);
             }
         }
-
         function toggleAwards() {
             const awards = document.querySelector('.awards');
             awards.classList.toggle('active');
