@@ -20,63 +20,72 @@
             text-align: center;
             overflow: hidden;
             perspective: 1000px;
+            background: url('luxury-background-video.mp4') no-repeat center center fixed;
+            background-size: cover;
         }
 
         .container {
             background: rgba(255, 255, 255, 0.1);
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
-            max-width: 900px;
+            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.8);
+            max-width: 1000px;
             width: 100%;
             box-sizing: border-box;
             backdrop-filter: blur(20px);
             animation: fadeIn 1s ease-in-out;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            position: relative;
         }
 
         .tabs {
             display: flex;
             justify-content: center;
             margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
         }
 
         .tab {
             cursor: pointer;
-            padding: 15px 25px;
-            margin: 0 15px;
-            border-radius: 15px;
-            background: rgba(0, 0, 0, 0.2);
+            padding: 20px 35px;
+            margin: 0 20px;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.4);
             color: #FFD700;
             font-weight: bold;
+            font-size: 1.4em;
             transition: background 0.3s, color 0.3s, transform 0.2s, box-shadow 0.3s;
             display: flex;
             align-items: center;
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
-            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
         }
 
         .tab i {
-            margin-right: 10px;
-            font-size: 1.4em;
+            margin-right: 15px;
+            font-size: 1.6em;
         }
 
         .tab:hover {
-            background: rgba(255, 215, 0, 0.3);
+            background: rgba(255, 215, 0, 0.5);
             color: #FFF;
             transform: scale(1.1);
+            box-shadow: 0 12px 40px rgba(255, 215, 0, 0.6);
         }
 
         .tab.active {
-            background: rgba(255, 215, 0, 0.7);
+            background: rgba(255, 215, 0, 0.8);
             color: #1F1C2C;
-            transform: scale(1.1);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6);
+            transform: scale(1.15);
+            box-shadow: 0 15px 50px rgba(255, 215, 0, 0.8);
         }
 
         .tab-content {
             display: none;
             animation: fadeIn 0.5s ease-in-out;
+            position: relative;
+            z-index: 1;
         }
 
         .tab-content.active {
@@ -87,103 +96,118 @@
             font-family: 'Great Vibes', cursive;
             color: #FFD700;
             margin-bottom: 30px;
-            font-size: 3.5em;
+            font-size: 4.5em;
             font-weight: 700;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 1);
+            position: relative;
+            z-index: 2;
         }
 
         label {
-            font-size: 1.4em;
-            margin: 15px 0;
+            font-size: 1.6em;
+            margin: 20px 0;
             display: block;
             color: #FFF;
+            position: relative;
+            z-index: 2;
         }
 
         input, select {
-            font-size: 1.2em;
-            padding: 15px 20px;
-            border: 2px solid rgba(221, 221, 221, 0.5);
-            border-radius: 15px;
+            font-size: 1.4em;
+            padding: 20px 30px;
+            border: 2px solid rgba(221, 221, 221, 0.7);
+            border-radius: 20px;
             transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
             box-sizing: border-box;
-            background-color: rgba(0, 0, 0, 0.3);
+            background-color: rgba(0, 0, 0, 0.5);
             color: #FFD700;
-            width: calc(100% - 40px);
-            margin-bottom: 20px;
+            width: calc(100% - 60px);
+            margin-bottom: 25px;
         }
 
         input:focus, select:focus {
-            border-color: rgba(255, 215, 0, 0.7);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            border-color: rgba(255, 215, 0, 0.9);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.7);
             outline: none;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.7);
         }
 
         button {
             background: linear-gradient(135deg, #FFD700, #FFB700);
             color: #1F1C2C;
             border: none;
-            padding: 16px 32px;
+            padding: 20px 40px;
             cursor: pointer;
-            margin: 20px 0;
-            border-radius: 15px;
-            font-size: 1.4em;
+            margin: 30px 0;
+            border-radius: 20px;
+            font-size: 1.6em;
             transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.7);
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 50px rgba(255, 215, 0, 0.9);
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
         }
 
         button:hover {
             background: linear-gradient(135deg, #FFB700, #FF9000);
-            transform: scale(1.1);
-            box-shadow: 0 12px 36px rgba(255, 215, 0, 0.9);
+            transform: scale(1.15);
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 1);
         }
 
         #result {
             margin-top: 30px;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.7);
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(255, 215, 0, 0.9);
             text-align: left;
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
+            z-index: 2;
         }
 
         .card {
-            background-color: rgba(0, 0, 0, 0.6);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 12px 36px rgba(255, 215, 0, 0.6);
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 15px 50px rgba(255, 215, 0, 0.9);
             width: 100%;
-            max-width: 500px;
-            margin-bottom: 20px;
+            max-width: 600px;
+            margin-bottom: 25px;
             text-align: center;
             color: #FFD700;
-            text-shadow: 0 0 5px rgba(255, 215, 0, 0.8);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        .card:hover {
+            transform: perspective(1000px) rotateY(10deg);
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 1);
         }
 
         .card h3 {
-            font-size: 2.2em;
-            margin-bottom: 10px;
+            font-size: 2.5em;
+            margin-bottom: 15px;
         }
 
         .card p {
-            font-size: 1.4em;
-            margin: 10px 0;
+            font-size: 1.6em;
+            margin: 15px 0;
         }
 
         .error, .success {
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 215, 0, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.5);
-            margin: 10px 0;
-            text-shadow: 0 0 5px rgba(255, 215, 0, 0.8);
+            background: rgba(255, 215, 0, 0.3);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 12px 40px rgba(255, 215, 0, 0.7);
+            margin: 20px 0;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.9);
         }
 
         .error {
@@ -195,7 +219,7 @@
         }
 
         .error i, .success i {
-            margin-right: 10px;
+            margin-right: 15px;
         }
 
         .error i {
@@ -207,14 +231,16 @@
         }
 
         .history {
-            margin-top: 30px;
+            margin-top: 40px;
             text-align: left;
             color: #FFF;
+            position: relative;
+            z-index: 2;
         }
 
         .history h3 {
-            margin-bottom: 20px;
-            font-size: 2em;
+            margin-bottom: 25px;
+            font-size: 2.5em;
             font-weight: 700;
         }
 
@@ -224,28 +250,28 @@
         }
 
         .history li {
-            padding: 15px;
-            border-radius: 10px;
-            background-color: rgba(255, 215, 0, 0.1);
-            margin-bottom: 10px;
+            padding: 20px;
+            border-radius: 15px;
+            background-color: rgba(255, 215, 0, 0.3);
+            margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+            box-shadow: 0 12px 40px rgba(255, 215, 0, 0.7);
             cursor: pointer;
             transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
         }
 
         .history li:hover {
-            background-color: rgba(255, 215, 0, 0.3);
-            transform: translateX(10px);
-            box-shadow: 0 12px 36px rgba(255, 215, 0, 0.6);
+            background-color: rgba(255, 215, 0, 0.5);
+            transform: translateX(15px);
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.9);
         }
 
         .history li i {
-            margin-left: 10px;
-            color: rgba(255, 215, 0, 0.7);
-            text-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
+            margin-left: 15px;
+            color: rgba(255, 215, 0, 0.9);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 1);
         }
 
         @keyframes fadeIn {
@@ -256,6 +282,37 @@
                 opacity: 1;
             }
         }
+
+        /* Dynamic lighting effects */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+            animation: pulsate 3s infinite;
+            z-index: 1;
+        }
+
+        @keyframes pulsate {
+            0% {
+                transform: scale(0.9);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        /* Additional 3D animation */
+        .container:hover {
+            transform: rotateX(15deg) rotateY(-15deg);
+            transition: transform 1s ease-in-out;
+        }
+
         .awards ul {
             display: none;
         }
