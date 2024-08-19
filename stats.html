@@ -24,28 +24,29 @@ body {
 
 .container {
     background: rgba(255, 255, 255, 0.15);
-    padding: 30px;
+    padding: 20px;
     border-radius: 15px;
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
-    max-width: 1000px;
-    width: 90%;
+    max-width: 100%;
+    width: 100%;
     box-sizing: border-box;
     backdrop-filter: blur(25px);
     animation: fadeIn 1s ease-in-out;
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-image: linear-gradient(45deg, #FFD700, #FFB700) 1;
+    overflow: auto;
 }
 
 .tabs {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .tab {
     cursor: pointer;
-    padding: 15px 20px;
+    padding: 10px 15px;
     margin: 5px;
     border-radius: 20px;
     background: rgba(0, 0, 0, 0.3);
@@ -60,7 +61,7 @@ body {
 
 .tab i {
     margin-right: 10px;
-    font-size: 1.4em;
+    font-size: 1.2em;
 }
 
 .tab:hover {
@@ -88,24 +89,24 @@ body {
 h1 {
     font-family: 'Great Vibes', cursive;
     color: #FFD700;
-    margin-bottom: 30px;
-    font-size: 3em;
+    margin-bottom: 20px;
+    font-size: 2.5em;
     font-weight: 700;
     text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
 }
 
 label {
-    font-size: 1.4em;
-    margin: 15px 0;
+    font-size: 1.2em;
+    margin: 10px 0;
     display: block;
     color: #FFF;
 }
 
 input, select {
-    font-size: 1.2em;
-    padding: 15px;
+    font-size: 1em;
+    padding: 12px;
     border: 2px solid rgba(221, 221, 221, 0.6);
-    border-radius: 15px;
+    border-radius: 10px;
     transition: border-color 0.4s, box-shadow 0.4s, background-color 0.4s;
     box-sizing: border-box;
     background-color: rgba(0, 0, 0, 0.4);
@@ -125,11 +126,11 @@ button {
     background: linear-gradient(135deg, #FFD700, #FFB700);
     color: #1F1C2C;
     border: none;
-    padding: 15px 30px;
+    padding: 12px 25px;
     cursor: pointer;
-    margin: 20px 0;
+    margin: 15px 0;
     border-radius: 15px;
-    font-size: 1.4em;
+    font-size: 1.2em;
     transition: background-color 0.4s, transform 0.4s, box-shadow 0.4s;
     box-shadow: 0 15px 40px rgba(255, 215, 0, 0.8);
     text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
@@ -142,8 +143,8 @@ button:hover {
 }
 
 #result {
-    margin-top: 30px;
-    padding: 20px;
+    margin-top: 20px;
+    padding: 15px;
     background-color: rgba(0, 0, 0, 0.6);
     border-radius: 15px;
     box-shadow: 0 12px 30px rgba(255, 215, 0, 0.8);
@@ -155,12 +156,12 @@ button:hover {
 
 .card {
     background-color: rgba(0, 0, 0, 0.9);
-    border-radius: 20px;
-    padding: 20px;
+    border-radius: 15px;
+    padding: 15px;
     box-shadow: 0 15px 40px rgba(255, 215, 0, 0.9);
     width: 100%;
-    max-width: 500px;
-    margin-bottom: 20px;
+    max-width: 100%;
+    margin-bottom: 15px;
     text-align: center;
     color: #FFD700;
     text-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
@@ -168,13 +169,13 @@ button:hover {
 }
 
 .card h3 {
-    font-size: 2.5em;
-    margin-bottom: 15px;
+    font-size: 2em;
+    margin-bottom: 10px;
 }
 
 .card p {
-    font-size: 1.4em;
-    margin: 15px 0;
+    font-size: 1.2em;
+    margin: 10px 0;
 }
 
 .error, .success {
@@ -210,14 +211,14 @@ button:hover {
 }
 
 .history {
-    margin-top: 30px;
+    margin-top: 20px;
     text-align: left;
     color: #FFF;
 }
 
 .history h3 {
-    margin-bottom: 20px;
-    font-size: 2em;
+    margin-bottom: 15px;
+    font-size: 1.8em;
     font-weight: 700;
 }
 
@@ -227,10 +228,10 @@ button:hover {
 }
 
 .history li {
-    padding: 15px;
-    border-radius: 15px;
+    padding: 10px;
+    border-radius: 10px;
     background-color: rgba(255, 215, 0, 0.15);
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -242,13 +243,13 @@ button:hover {
 .history li:hover {
     background-color: rgba(255, 215, 0, 0.3);
     transform: translateX(10px);
-    box-shadow: 0 15px 35px rgba(255, 215, 0, 0.7);
+    box-shadow: 0 15px 40px rgba(255, 215, 0, 0.7);
 }
 
 .history li i {
     margin-left: 10px;
-    color: rgba(255, 215, 0, 0.8);
-    text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+    color: rgba(255, 215, 0, 0.7);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
 }
 
 @keyframes fadeIn {
@@ -277,38 +278,6 @@ button:hover {
 /* Медіа-запити для адаптивності */
 @media (max-width: 1200px) {
     .container {
-        padding: 20px;
-        max-width: 90%;
-    }
-
-    .tab {
-        padding: 12px 15px;
-        margin: 5px;
-        font-size: 1.2em;
-    }
-
-    h1 {
-        font-size: 2.5em;
-    }
-
-    .card {
-        max-width: 90%;
-        padding: 15px;
-    }
-
-    input, select {
-        font-size: 1.1em;
-        padding: 12px;
-    }
-
-    button {
-        padding: 12px 25px;
-        font-size: 1.2em;
-    }
-}
-
-@media (max-width: 768px) {
-    .container {
         padding: 15px;
     }
 
@@ -323,8 +292,8 @@ button:hover {
     }
 
     .card {
-        max-width: 100%;
-        padding: 10px;
+        max-width: 90%;
+        padding: 12px;
     }
 
     input, select {
@@ -338,7 +307,7 @@ button:hover {
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .container {
         padding: 10px;
     }
@@ -355,7 +324,7 @@ button:hover {
 
     .card {
         max-width: 100%;
-        padding: 8px;
+        padding: 10px;
     }
 
     input, select {
@@ -366,6 +335,36 @@ button:hover {
     button {
         padding: 8px 15px;
         font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 8px;
+    }
+
+    .tab {
+        padding: 6px;
+        margin: 2px;
+        font-size: 0.8em;
+    }
+
+    h1 {
+        font-size: 1.6em;
+    }
+
+    .card {
+        padding: 8px;
+    }
+
+    input, select {
+        font-size: 0.8em;
+        padding: 6px;
+    }
+
+    button {
+        padding: 6px 12px;
+        font-size: 0.8em;
     }
 }
 
