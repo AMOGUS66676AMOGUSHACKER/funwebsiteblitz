@@ -451,100 +451,100 @@ button:hover {
             updateHistoryList();
         }
 
-        async function searchPlayer() {
-            const playerNick = document.getElementById('player-nick').value;
-            const server = document.getElementById('server').value;
-            const resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = '<div class="loader"></div>';
+async function searchPlayer() {
+    const playerNick = document.getElementById('player-nick').value;
+    const server = document.getElementById('server').value;
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = '<div class="loader"></div>';
 
-            if (!playerNick) {
-                resultDiv.innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Будь ласка, введіть нік гравця</div>';
-                return;
-            }
+    if (!playerNick) {
+        resultDiv.innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Будь ласка, введіть нік гравця</div>';
+        return;
+    }
 
-            const serverUrlMap = {
-                'ru': 'https://api.wotblitz.ru',
-                'eu': 'https://api.wotblitz.eu',
-                'na': 'https://api.wotblitz.com',
-                'asia': 'https://api.wotblitz.asia'
-            };
+    const serverUrlMap = {
+        'ru': 'https://api.wotblitz.ru',
+        'eu': 'https://api.wotblitz.eu',
+        'na': 'https://api.wotblitz.com',
+        'asia': 'https://api.wotblitz.asia'
+    };
 
-            const apiUrl = serverUrlMap[server];
+    const apiUrl = serverUrlMap[server];
 
-            try {
-                const playerResponse = await fetch(`${apiUrl}/wotb/account/list/?application_id=${APP_ID}&search=${playerNick}`);
-                const playerData = await playerResponse.json();
+    try {
+        const playerResponse = await fetch(`${apiUrl}/wotb/account/list/?application_id=${APP_ID}&search=${playerNick}`);
+        const playerData = await playerResponse.json();
 
-                if (playerData.status !== 'ok' || playerData.data.length === 0) {
-                    resultDiv.innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Гравця не знайдено або виникла помилка.</div>';
-                    return;
-                }
-
-                const playerId = playerData.data[0].account_id;
-                const playerNickname = playerData.data[0].nickname;
-
-                // Save to history
-                const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
-                if (!history.includes(playerNick)) {
-                    history.push(playerNick);
-                    localStorage.setItem('searchHistory', JSON.stringify(history));
-                    updateHistoryList();
-                }
-
-                const statsResponse = await fetch(`${apiUrl}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}`);
-                const statsData = await statsResponse.json();
-
-                if (statsData.status !== 'ok') {
-                    resultDiv.innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Не вдалося отримати інформацію про гравця</div>';
-                    return;
-                }
-
-                const playerStats = statsData.data[playerId];
-                const achievementsResponse = await fetch(`${apiUrl}/wotb/account/achievements/?application_id=${APP_ID}&account_id=${playerId}`);
-                const achievementsData = await achievementsResponse.json();
-
-                let awardsHtml = '<div class="awards"><h3>Нагороди:</h3><ul>';
-                if (achievementsData.status === 'ok') {
-                    const awards = achievementsData.data[playerId].achievements;
-                    for (let award in awards) {
-                        if (awards[award] > 0) {
-                            const awardName = AWARD_NAMES[award] || award;
-                            awardsHtml += `<li class="tooltip"><i class="fas fa-medal"></i> ${awardName}: ${awards[award]}<span class="tooltiptext">${awardName}</span></li>`;
-                        }
-                    }
-                } else {
-                    awardsHtml += '<li>Не вдалося отримати нагороди</li>';
-                }
-                awardsHtml += '</ul><button onclick="toggleAwards()">Показати/Сховати Нагороди</button></div>';
-
-                // Additional info
-                const registrationDate = new Date(playerStats.created * 1000).toLocaleDateString();
-                const battlesByType = playerStats.statistics.all.battles_by_type || {};
-                const winsByType = playerStats.statistics.all.wins_by_type || {};
-                
-                let battlesByTypeHtml = '';
-                const types = ['light', 'medium', 'heavy', 'td', 'arty'];
-                types.forEach(type => {
-                    const typeName = type.charAt(0).toUpperCase() + type.slice(1);
-                    battlesByTypeHtml += `<p>${typeName} танки: ${battlesByType[type] || 0} боїв, ${winsByType[type] || 0} перемог</p>`;
-                });
-
-                resultDiv.innerHTML = 
-                    `<div class="success"><i class="fas fa-check-circle"></i> Знайдено гравця: ${playerNickname}</div>
-                    <div class="stats">
-                        <p>Вік: ${playerStats.age} років</p>
-                        <p>Дата реєстрації: ${registrationDate}</p>
-                        <p>Бої: ${playerStats.statistics.all.battles}</p>
-                        <p>Перемоги: ${playerStats.statistics.all.wins}</p>
-                        <p>Середній рейтинг: ${playerStats.statistics.all.avg_damage_assisted_radio}</p>
-                        ${battlesByTypeHtml}
-                    </div>
-                    ${awardsHtml}`;
-            } catch (error) {
-                resultDiv.innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Виникла помилка при запиті до сервера.</div>';
-                console.error('Error:', error);
-            }
+        if (playerData.status !== 'ok' || playerData.data.length === 0) {
+            resultDiv.innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Гравця не знайдено або виникла помилка.</div>';
+            return;
         }
+
+        const playerId = playerData.data[0].account_id;
+        const playerNickname = playerData.data[0].nickname;
+
+        // Save to history
+        const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+        if (!history.includes(playerNick)) {
+            history.push(playerNick);
+            localStorage.setItem('searchHistory', JSON.stringify(history));
+            updateHistoryList();
+        }
+
+        const statsResponse = await fetch(`${apiUrl}/wotb/account/info/?application_id=${APP_ID}&account_id=${playerId}`);
+        const statsData = await statsResponse.json();
+
+        if (statsData.status !== 'ok') {
+            resultDiv.innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Не вдалося отримати інформацію про гравця</div>';
+            return;
+        }
+
+        const playerStats = statsData.data[playerId] || {};
+        const achievementsResponse = await fetch(`${apiUrl}/wotb/account/achievements/?application_id=${APP_ID}&account_id=${playerId}`);
+        const achievementsData = await achievementsResponse.json();
+
+        let awardsHtml = '<div class="awards"><h3>Нагороди:</h3><ul>';
+        if (achievementsData.status === 'ok' && achievementsData.data[playerId]) {
+            const awards = achievementsData.data[playerId].achievements || {};
+            for (let award in awards) {
+                if (awards[award] > 0) {
+                    const awardName = AWARD_NAMES[award] || award;
+                    awardsHtml += `<li class="tooltip"><i class="fas fa-medal"></i> ${awardName}: ${awards[award]}<span class="tooltiptext">${awardName}</span></li>`;
+                }
+            }
+        } else {
+            awardsHtml += '<li>Не вдалося отримати нагороди</li>';
+        }
+        awardsHtml += '</ul><button onclick="toggleAwards()">Показати/Сховати Нагороди</button></div>';
+
+        // Additional info
+        const registrationDate = playerStats.created ? new Date(playerStats.created * 1000).toLocaleDateString() : 'Не відомо';
+        const battlesByType = playerStats.statistics?.all?.battles_by_type || {};
+        const winsByType = playerStats.statistics?.all?.wins_by_type || {};
+        
+        let battlesByTypeHtml = '';
+        const types = ['light', 'medium', 'heavy', 'td', 'arty'];
+        types.forEach(type => {
+            const typeName = type.charAt(0).toUpperCase() + type.slice(1);
+            battlesByTypeHtml += `<p>${typeName} танки: ${battlesByType[type] || 0} боїв, ${winsByType[type] || 0} перемог</p>`;
+        });
+
+        resultDiv.innerHTML = 
+            `<div class="success"><i class="fas fa-check-circle"></i> Знайдено гравця: ${playerNickname}</div>
+            <div class="stats">
+                <p>Вік: ${playerStats.age || 'Не відомо'} років</p>
+                <p>Дата реєстрації: ${registrationDate}</p>
+                <p>Бої: ${playerStats.statistics?.all?.battles || 'Не відомо'}</p>
+                <p>Перемоги: ${playerStats.statistics?.all?.wins || 'Не відомо'}</p>
+                <p>Середній рейтинг: ${playerStats.statistics?.all?.avg_damage_assisted_radio || 'Не відомо'}</p>
+                ${battlesByTypeHtml}
+            </div>
+            ${awardsHtml}`;
+    } catch (error) {
+        resultDiv.innerHTML = '<div class="error"><i class="fas fa-exclamation-circle"></i> Виникла помилка при запиті до сервера.</div>';
+        console.error('Error:', error);
+    }
+}
         function toggleAwards() {
             const awards = document.querySelector('.awards');
             awards.classList.toggle('active');
