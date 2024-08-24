@@ -9,8 +9,8 @@
 html, body {
     margin: 0;
     padding: 0;
-    overflow: hidden; /* Забороняє прокрутку */
     height: 100%;
+    /* overflow: hidden; Прибрати або закоментувати цей рядок */
 }
 
 body {
@@ -23,8 +23,7 @@ body {
     align-items: center;
     min-height: 100vh;
     text-align: center;
-    overflow-x: hidden; /* Забороняє горизонтальну прокрутку */
-    perspective: 1500px;
+    overflow-x: hidden; /* Це можна залишити, якщо горизонтальна прокрутка не потрібна */
 }
 
 .container {
@@ -32,12 +31,12 @@ body {
     padding: 40px;
     border-radius: 30px;
     box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
-    width: 100vw; /* Встановлює ширину на 100% від viewport */
-    min-height: 100vh; /* Встановлює мінімальну висоту на 100% від viewport */
+    width: 100vw; /* Можна залишити */
+    min-height: 100vh; /* Це також можна залишити */
     box-sizing: border-box;
     backdrop-filter: blur(30px);
     position: relative;
-    overflow-x: hidden; /* Забороняє горизонтальну прокрутку всередині контейнера */
+    /* overflow-x: hidden; Прибрати або закоментувати цей рядок */
 }
 
 h1 {
