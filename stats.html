@@ -23,6 +23,7 @@ body {
     align-items: center;
     min-height: 100vh;
     text-align: center;
+    overflow-x: hidden; /* Забороняє горизонтальну прокрутку */
     perspective: 1500px;
 }
 
@@ -31,14 +32,12 @@ body {
     padding: 40px;
     border-radius: 30px;
     box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
-    width: 90%;
-    max-width: 100%;
+    width: 100vw; /* Встановлює ширину на 100% від viewport */
+    min-height: 100vh; /* Встановлює мінімальну висоту на 100% від viewport */
     box-sizing: border-box;
     backdrop-filter: blur(30px);
-    animation: fadeIn 1s ease-in-out;
-    border: 2px solid rgba(255, 255, 255, 0.3);
     position: relative;
-    overflow: hidden; /* Забороняє прокрутку всередині контейнера */
+    overflow-x: hidden; /* Забороняє горизонтальну прокрутку всередині контейнера */
 }
 
 h1 {
