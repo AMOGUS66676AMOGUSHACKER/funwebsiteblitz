@@ -80,6 +80,12 @@
     
     <div class="stats" id="stats">
       <!-- Player stats will appear here -->
+      <div><strong>Player Name:</strong> <span id="playerName"></span></div>
+      <div><strong>Trophies:</strong> <span id="trophies"></span></div>
+      <div><strong>Highest Trophies:</strong> <span id="highestTrophies"></span></div>
+      <div><strong>3v3 Victories:</strong> <span id="victories3v3"></span></div>
+      <div><strong>Solo Victories:</strong> <span id="soloVictories"></span></div>
+      <div><strong>Duo Victories:</strong> <span id="duoVictories"></span></div>
     </div>
 
     <div id="userLevel">
@@ -98,7 +104,7 @@
     let searchesDone = 0;
 
     function fetchPlayerStats() {
-      const playerTag = document.getElementById('playerTag').value;
+      const playerTag = document.getElementById('playerTag').value.trim();
       if (!playerTag) {
         alert('Please enter a valid Player Tag!');
         return;
@@ -115,27 +121,33 @@
         document.getElementById('premiumButton').disabled = false;
       }
 
-      fetch(`https://api.brawlstars.com/v1/players/%23${playerTag.replace('#', '')}`, {
+      // Перевірте, чи правильно введений тег і замініть #
+      const formattedTag = playerTag.replace('#', '%23');
+
+      fetch(`https://api.brawlstars.com/v1/players/${formattedTag}`, {
         method: 'GET',
         headers: {
           'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjMxZGNmOTNhLWMzZjYtNDhhZi05MGRlLTkwZWU5ZWFlMDZmOCIsImlhdCI6MTcyNTI5NDE1Mywic3ViIjoiZGV2ZWxvcGVyLzQ1ZmY1YzM3LTBiNTgtMWE3My1iZTlkLWRkZTE5MjhiMGNmYyIsInNjb3BlcyI6WyJicmF3bHN0YXJzIl0sImxpbWl0cyI6W3sidGllciI6ImRldmVsb3Blci9zaWx2ZXIiLCJ0eXBlIjoidGhyb3R0bGluZyJ9LHsiY2lkcnMiOlsiNzguNTUuNzkuMTAyIl0sInR5cGUiOiJjbGllbnQifV19.4i79LjVmkfwFgo6o6E_uicDvzGnf_PjMR0wduRszWSe8RVHM4efvH-0UDodW7UtYTQ-dPABmTN_4Vtv8DQzOPA
 '  // Вставте свій API ключ тут
         }
       })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Player not found or API limit reached');
+        }
+        return response.json();
+      })
       .then(data => {
-        const statsDiv = document.getElementById('stats');
-        statsDiv.innerHTML = `
-          <div><strong>Player Name:</strong> ${data.name}</div>
-          <div><strong>Trophies:</strong> ${data.trophies}</div>
-          <div><strong>Highest Trophies:</strong> ${data.highestTrophies}</div>
-          <div><strong>3v3 Victories:</strong> ${data['3vs3Victories']}</div>
-          <div><strong>Solo Victories:</strong> ${data.soloVictories}</div>
-          <div><strong>Duo Victories:</strong> ${data.duoVictories}</div>
-        `;
+        // Оновлюємо HTML елементи з отриманими даними
+        document.getElementById('playerName').innerText = data.name;
+        document.getElementById('trophies').innerText = data.trophies;
+        document.getElementById('highestTrophies').innerText = data.highestTrophies;
+        document.getElementById('victories3v3').innerText = data['3vs3Victories'];
+        document.getElementById('soloVictories').innerText = data.soloVictories;
+        document.getElementById('duoVictories').innerText = data.duoVictories;
       })
       .catch(error => {
-        alert('Error fetching player stats! Make sure your Player Tag is correct.');
+        alert('Error fetching player stats! Make sure your Player Tag is correct or check your API limits.');
         console.error(error);
       });
     }
