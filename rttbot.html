@@ -105,6 +105,18 @@
       });
     }
   </script>
-
+<script> .then(data => {
+  console.log(data);  // Додайте це для налагодження
+  const statsDiv = document.getElementById('stats');
+  statsDiv.innerHTML = `
+    <div><strong>Player Name:</strong> ${data.name}</div>
+    <div><strong>Trophies:</strong> ${data.trophies}</div>
+    <div><strong>Highest Trophies:</strong> ${data.highestTrophies}</div>
+    <div><strong>3v3 Victories:</strong> ${data['3vs3Victories']}</div>
+    <div><strong>Solo Victories:</strong> ${data.soloVictories}</div>
+    <div><strong>Duo Victories:</strong> ${data.duoVictories}</div>
+  `;
+})
+ </script>
 </body>
 </html>
