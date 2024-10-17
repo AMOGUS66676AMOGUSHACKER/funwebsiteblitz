@@ -15,6 +15,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      flex-direction: column;
     }
     .container {
       text-align: center;
@@ -22,6 +23,7 @@
       padding: 20px;
       border-radius: 15px;
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
     }
     h1 {
       color: #f9a825;
@@ -68,6 +70,20 @@
     #premiumSection h2 {
       color: #f9a825;
     }
+    #history {
+      margin-top: 20px;
+      background-color: #333;
+      padding: 15px;
+      border-radius: 5px;
+      max-width: 400px;
+      width: 100%;
+    }
+    #history div {
+      margin: 5px 0;
+      background-color: #444;
+      padding: 10px;
+      border-radius: 5px;
+    }
   </style>
 </head>
 <body>
@@ -79,7 +95,6 @@
     <button onclick="fetchPlayerStats()">Get Stats</button>
     
     <div class="stats" id="stats">
-      <!-- Player stats will appear here -->
       <div><strong>Player Name:</strong> <span id="playerName"></span></div>
       <div><strong>Trophies:</strong> <span id="trophies"></span></div>
       <div><strong>Highest Trophies:</strong> <span id="highestTrophies"></span></div>
@@ -99,9 +114,18 @@
     </div>
   </div>
 
+  <!-- Історія пошуку -->
+  <div class="container" id="history">
+    <h2>History</h2>
+    <div id="searchHistory">
+      <!-- Search history will appear here -->
+    </div>
+  </div>
+
   <script>
     let userLevel = 1;
     let searchesDone = 0;
+    let searchHistory = [];
 
     function fetchPlayerStats() {
       const playerTag = document.getElementById('playerTag').value.trim();
@@ -145,11 +169,22 @@
         document.getElementById('victories3v3').innerText = data['3vs3Victories'];
         document.getElementById('soloVictories').innerText = data.soloVictories;
         document.getElementById('duoVictories').innerText = data.duoVictories;
+
+        // Додаємо пошук в історію
+        addToHistory(data.name, playerTag, data.trophies);
       })
       .catch(error => {
         alert('Error fetching player stats! Make sure your Player Tag is correct or check your API limits.');
         console.error(error);
       });
+    }
+
+    function addToHistory(playerName, playerTag, trophies) {
+      const searchEntry = `<div><strong>${playerName} (${playerTag})</strong> - Trophies: ${trophies}</div>`;
+      searchHistory.push(searchEntry);
+      
+      const searchHistoryDiv = document.getElementById('searchHistory');
+      searchHistoryDiv.innerHTML = searchHistory.join('');
     }
 
     function premiumFeatures() {
