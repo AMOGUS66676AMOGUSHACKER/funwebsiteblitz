@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brawl Stars Player Stats</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #121212;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      text-align: center;
+      background: linear-gradient(145deg, #232526, #414345);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    h1 {
+      color: #f9a825;
+      margin-bottom: 20px;
+    }
+    input {
+      padding: 10px;
+      width: 300px;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #f9a825;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #ffc107;
+    }
+    .stats {
+      margin-top: 20px;
+    }
+    .stats div {
+      background-color: #333;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Brawl Stars Player Stats</h1>
+    <input type="text" id="playerTag" placeholder="Enter Player Tag (e.g., #XXXXXX)">
+    <br>
+    <button onclick="fetchPlayerStats()">Get Stats</button>
+    
+    <div class="stats" id="stats">
+      <!-- Player stats will appear here -->
+    </div>
+  </div>
+
+  <script>
+    function fetchPlayerStats() {
+      const playerTag = document.getElementById('playerTag').value;
+      if (!playerTag) {
+        alert('Please enter a valid Player Tag!');
+        return;
+      }
+      
+      // Fetch the player's stats using Brawl Stars API (replace 'YOUR_API_KEY')
+      fetch(`https://api.brawlstars.com/v1/players/%23${playerTag.replace('#', '')}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjMxZGNmOTNhLWMzZjYtNDhhZi05MGRlLTkwZWU5ZWFlMDZmOCIsImlhdCI6MTcyNTI5NDE1Mywic3ViIjoiZGV2ZWxvcGVyLzQ1ZmY1YzM3LTBiNTgtMWE3My1iZTlkLWRkZTE5MjhiMGNmYyIsInNjb3BlcyI6WyJicmF3bHN0YXJzIl0sImxpbWl0cyI6W3sidGllciI6ImRldmVsb3Blci9zaWx2ZXIiLCJ0eXBlIjoidGhyb3R0bGluZyJ9LHsiY2lkcnMiOlsiNzguNTUuNzkuMTAyIl0sInR5cGUiOiJjbGllbnQifV19.4i79LjVmkfwFgo6o6E_uicDvzGnf_PjMR0wduRszWSe8RVHM4efvH-0UDodW7UtYTQ-dPABmTN_4Vtv8DQzOPA
+'
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        const statsDiv = document.getElementById('stats');
+        statsDiv.innerHTML = `
+          <div><strong>Player Name:</strong> ${data.name}</div>
+          <div><strong>Trophies:</strong> ${data.trophies}</div>
+          <div><strong>Highest Trophies:</strong> ${data.highestTrophies}</div>
+          <div><strong>3v3 Victories:</strong> ${data['3vs3Victories']}</div>
+          <div><strong>Solo Victories:</strong> ${data.soloVictories}</div>
+          <div><strong>Duo Victories:</strong> ${data.duoVictories}</div>
+        `;
+      })
+      .catch(error => {
+        alert('Error fetching player stats! Make sure your Player Tag is correct.');
+        console.error(error);
+      });
+    }
+  </script>
+
+</body>
+</html>
