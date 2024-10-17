@@ -56,6 +56,18 @@
       margin: 10px 0;
       border-radius: 5px;
     }
+    #userLevel {
+      margin-top: 10px;
+    }
+    #premiumSection {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #444;
+      border-radius: 5px;
+    }
+    #premiumSection h2 {
+      color: #f9a825;
+    }
   </style>
 </head>
 <body>
@@ -69,22 +81,45 @@
     <div class="stats" id="stats">
       <!-- Player stats will appear here -->
     </div>
+
+    <div id="userLevel">
+      <strong>Ваш рівень:</strong> <span id="level">1</span>
+    </div>
+
+    <div id="premiumSection">
+      <h2>Преміум аналітика</h2>
+      <p>Додаткові функції та аналітика для гравців, які досягли рівня 5 і вище!</p>
+      <button onclick="premiumFeatures()" id="premiumButton" disabled>Відкрити преміум</button>
+    </div>
   </div>
 
   <script>
+    let userLevel = 1;
+    let searchesDone = 0;
+
     function fetchPlayerStats() {
       const playerTag = document.getElementById('playerTag').value;
       if (!playerTag) {
         alert('Please enter a valid Player Tag!');
         return;
       }
-      
-      // Fetch the player's stats using Brawl Stars API (replace 'YOUR_API_KEY')
+
+      searchesDone++;
+      if (searchesDone % 5 === 0) {
+        userLevel++;
+        document.getElementById('level').innerText = userLevel;
+        alert('Вітаємо! Ви досягли нового рівня: ' + userLevel);
+      }
+
+      if (userLevel >= 5) {
+        document.getElementById('premiumButton').disabled = false;
+      }
+
       fetch(`https://api.brawlstars.com/v1/players/%23${playerTag.replace('#', '')}`, {
         method: 'GET',
         headers: {
-          'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjMxZGNmOTNhLWMzZjYtNDhhZi05MGRlLTkwZWU5ZWFlMDZmOCIsImlhdCI6MTcyNTI5NDE1Mywic3ViIjoiZGV2ZWxvcGVyLzQ1ZmY1YzM3LTBiNTgtMWE3My1iZTlkLWRkZTE5MjhiMGNmYyIsInNjb3BlcyI6WyJicmF3bHN0YXJzIl0sImxpbWl0cyI6W3sidGllciI6ImRldmVsb3Blci9zaWx2ZXIiLCJ0eXBlIjoidGhyb3R0bGluZyJ9LHsiY2lkcnMiOlsiNzguNTUuNzkuMTAyIl0sInR5cGUiOiJjbGllbnQifV19.4i79LjVmkfwFgo6o6E_uicDvzGnf_PjMR0wduRszWSe8RVHM4efvH-0UDodW7UtYTQ-dPABmTN_4Vtv8DQzOPA
-'
+          'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjMxZGNmOTNhLWMzZjYtNDhhZi05MGRlLTkwZWU5ZWFlMDZmOCIsImlhdCI6MTcyNTI5NDE1Mywic3ViIjoiZGV2ZWxvcGVyLzQ1ZmY1YzM3LTBiNTgtMWE3My1iZTlkLWRkZTE5MjhiMGNmYyIsInNjb3BlcyI6WyJicmF3bHN0YXJzIl0sImxpbWl0cyI6W3sidGllciI6ImRldmVsb3Blci9zaWx2ZXIiLCJ0eXBlIjoidGhyb3R0bGluZyJ9LHsiY2lkcnMiOlsiNzguNTUuNzkuMTAyIl0sInR5cGUiOiJjbGllbnQifV19.4i79LjVmkfwFgo6o6E_uicDvzGnf_PjMR0wduRszWSe8RVHM4efvH-0UDodW7UtYTQ-dPABmTN_4Vtv8DQzOPA
+'  // Вставте свій API ключ тут
         }
       })
       .then(response => response.json())
@@ -104,19 +139,16 @@
         console.error(error);
       });
     }
+
+    function premiumFeatures() {
+      if (userLevel < 5) {
+        alert('Вам потрібно досягти рівня 5 для використання преміум функцій.');
+        return;
+      }
+      alert('Вітаємо з доступом до преміум аналітики! Ось ваші ексклюзивні дані...');
+      // Тут можна додати більше складної аналітики
+    }
   </script>
-<script> .then(data => {
-  console.log(data);  // Додайте це для налагодження
-  const statsDiv = document.getElementById('stats');
-  statsDiv.innerHTML = `
-    <div><strong>Player Name:</strong> ${data.name}</div>
-    <div><strong>Trophies:</strong> ${data.trophies}</div>
-    <div><strong>Highest Trophies:</strong> ${data.highestTrophies}</div>
-    <div><strong>3v3 Victories:</strong> ${data['3vs3Victories']}</div>
-    <div><strong>Solo Victories:</strong> ${data.soloVictories}</div>
-    <div><strong>Duo Victories:</strong> ${data.duoVictories}</div>
-  `;
-})
- </script>
+
 </body>
 </html>
