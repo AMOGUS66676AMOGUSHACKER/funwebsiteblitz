@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brawl Stars Player Stats</title>
+  <title>Ultimate Brawl Stars Stats</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -16,73 +16,107 @@
       align-items: center;
       height: 100vh;
       flex-direction: column;
+      perspective: 1000px;
     }
     .container {
       text-align: center;
       background: linear-gradient(145deg, #232526, #414345);
-      padding: 20px;
+      padding: 30px;
       border-radius: 15px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-      margin-bottom: 20px;
+      box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.5);
+      transform: rotateY(20deg);
+      transition: transform 0.6s ease-in-out;
+    }
+    .container:hover {
+      transform: rotateY(0deg);
     }
     h1 {
       color: #f9a825;
-      margin-bottom: 20px;
+      font-size: 3rem;
+      text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.1);
     }
     input {
-      padding: 10px;
-      width: 300px;
+      padding: 15px;
+      width: 350px;
       border: none;
-      border-radius: 5px;
+      border-radius: 10px;
       margin-bottom: 20px;
-      font-size: 16px;
+      font-size: 18px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
     }
     button {
       background-color: #f9a825;
       color: #000;
       border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
+      padding: 15px 30px;
+      border-radius: 10px;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 18px;
+      box-shadow: 0px 5px 15px rgba(255, 255, 0, 0.4);
+      transition: transform 0.3s ease-in-out;
     }
     button:hover {
       background-color: #ffc107;
+      transform: scale(1.1);
     }
     .stats {
-      margin-top: 20px;
+      margin-top: 30px;
+      text-align: left;
     }
     .stats div {
       background-color: #333;
-      padding: 15px;
+      padding: 20px;
       margin: 10px 0;
-      border-radius: 5px;
+      border-radius: 10px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+      transform: translateZ(50px);
+      animation: slide-in 0.5s ease-out;
+    }
+    @keyframes slide-in {
+      from {
+        opacity: 0;
+        transform: translateZ(-300px);
+      }
+      to {
+        opacity: 1;
+        transform: translateZ(0);
+      }
     }
     #userLevel {
-      margin-top: 10px;
+      margin-top: 20px;
     }
     #premiumSection {
-      margin-top: 20px;
-      padding: 15px;
+      margin-top: 30px;
+      padding: 20px;
       background-color: #444;
-      border-radius: 5px;
+      border-radius: 10px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+      transform: translateZ(50px);
     }
     #premiumSection h2 {
       color: #f9a825;
+      text-shadow: 1px 1px 5px rgba(255, 255, 0, 0.3);
     }
     #history {
       margin-top: 20px;
       background-color: #333;
-      padding: 15px;
-      border-radius: 5px;
+      padding: 20px;
+      border-radius: 10px;
       max-width: 400px;
       width: 100%;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
     }
     #history div {
       margin: 5px 0;
       background-color: #444;
-      padding: 10px;
-      border-radius: 5px;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    #animatedModel {
+      width: 300px;
+      height: 300px;
+      margin-top: 40px;
     }
   </style>
 </head>
@@ -122,6 +156,11 @@
     </div>
   </div>
 
+  <!-- 3D модель -->
+  <div id="animatedModel">
+    <!-- Тут можна вставити 3D модель за допомогою WebGL/Three.js -->
+  </div>
+
   <script>
     let userLevel = 1;
     let searchesDone = 0;
@@ -151,8 +190,7 @@
       fetch(`https://api.brawlstars.com/v1/players/${formattedTag}`, {
         method: 'GET',
         headers: {
-          'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjMxZGNmOTNhLWMzZjYtNDhhZi05MGRlLTkwZWU5ZWFlMDZmOCIsImlhdCI6MTcyNTI5NDE1Mywic3ViIjoiZGV2ZWxvcGVyLzQ1ZmY1YzM3LTBiNTgtMWE3My1iZTlkLWRkZTE5MjhiMGNmYyIsInNjb3BlcyI6WyJicmF3bHN0YXJzIl0sImxpbWl0cyI6W3sidGllciI6ImRldmVsb3Blci9zaWx2ZXIiLCJ0eXBlIjoidGhyb3R0bGluZyJ9LHsiY2lkcnMiOlsiNzguNTUuNzkuMTAyIl0sInR5cGUiOiJjbGllbnQifV19.4i79LjVmkfwFgo6o6E_uicDvzGnf_PjMR0wduRszWSe8RVHM4efvH-0UDodW7UtYTQ-dPABmTN_4Vtv8DQzOPA
-'  // Вставте свій API ключ тут
+          'Authorization': 'Bearer YOUR_API_KEY'  // Вставте свій API ключ тут
         }
       })
       .then(response => {
