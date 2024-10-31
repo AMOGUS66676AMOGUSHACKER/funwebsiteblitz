@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realistic Snake Game</title>
+    <title>Realistic Snake Game with Mobile Controls</title>
     <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -14,6 +15,7 @@
             background-color: #4caf50;
             overflow: hidden;
             font-family: Arial, sans-serif;
+            color: #ffffff;
         }
         canvas {
             background: #2e7d32 url('https://www.transparenttextures.com/patterns/grass.png');
@@ -22,18 +24,50 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
         #scoreBoard {
-            position: absolute;
-            top: 10px;
-            color: #ffffff;
             font-size: 24px;
             font-weight: bold;
+            margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+        #deviceSelection, #mobileControls {
+            display: none;
+            text-align: center;
+        }
+        #mobileControls button {
+            background-color: #8bc34a;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 18px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        #mobileControls button:active {
+            background-color: #689f38;
+        }
+        #gameContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
     </style>
 </head>
 <body>
     <div id="scoreBoard">Score: 0</div>
-    <canvas id="gameCanvas" width="500" height="500"></canvas>
+    <div id="deviceSelection">
+        <h2>Select your device</h2>
+        <button onclick="startGame('desktop')">Desktop</button>
+        <button onclick="startGame('mobile')">Mobile</button>
+    </div>
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="500" height="500"></canvas>
+        <div id="mobileControls">
+            <button onclick="setDirection('up')">⬆️</button><br>
+            <button onclick="setDirection('left')">⬅️</button>
+            <button onclick="setDirection('down')">⬇️</button>
+            <button onclick="setDirection('right')">➡️</button>
+        </div>
+    </div>
 
     <script>
         const canvas = document.getElementById("gameCanvas");
@@ -46,6 +80,19 @@
         let direction = { x: boxSize, y: 0 };
         let food = getRandomFoodPosition();
         let score = 0;
+        let isMobile = false;
+
+        document.getElementById("deviceSelection").style.display = "block";
+
+        function startGame(deviceType) {
+            isMobile = deviceType === 'mobile';
+            document.getElementById("deviceSelection").style.display = "none";
+            document.getElementById("gameContainer").style.display = "flex";
+            if (isMobile) {
+                document.getElementById("mobileControls").style.display = "block";
+            }
+            setInterval(drawGame, 100);
+        }
 
         function getRandomFoodPosition() {
             return {
@@ -68,21 +115,17 @@
 
             // Малювання змійки з реалістичним ефектом
             snake.forEach((segment, index) => {
-                // Реалістичний колір для сегментів
                 const gradient = ctx.createLinearGradient(segment.x, segment.y, segment.x + boxSize, segment.y + boxSize);
                 gradient.addColorStop(0, index === 0 ? "#388e3c" : "#4caf50");
                 gradient.addColorStop(1, index === 0 ? "#1b5e20" : "#2e7d32");
                 ctx.fillStyle = gradient;
                 ctx.strokeStyle = "#2e7d32";
                 ctx.lineWidth = 1;
-                
-                // Малювання сегмента
                 ctx.beginPath();
                 ctx.arc(segment.x + boxSize / 2, segment.y + boxSize / 2, boxSize / 2, 0, 2 * Math.PI);
                 ctx.fill();
                 ctx.stroke();
 
-                // Малювання очей на голові змійки
                 if (index === 0) {
                     ctx.fillStyle = "#ffffff";
                     ctx.beginPath();
@@ -90,7 +133,6 @@
                     ctx.arc(segment.x + boxSize * 0.7, segment.y + boxSize * 0.3, boxSize * 0.1, 0, 2 * Math.PI);
                     ctx.fill();
 
-                    // Малюємо язик
                     ctx.fillStyle = "#ff1744";
                     ctx.beginPath();
                     ctx.moveTo(segment.x + boxSize / 2, segment.y + boxSize * 0.8);
@@ -100,14 +142,12 @@
                 }
             });
 
-            // Переміщення змійки
             for (let i = snake.length - 1; i > 0; i--) {
                 snake[i] = { ...snake[i - 1] };
             }
             snake[0].x += direction.x;
             snake[0].y += direction.y;
 
-            // Перевірка на зіткнення зі стінами або самим собою
             if (
                 snake[0].x < 0 || snake[0].x >= canvasSize ||
                 snake[0].y < 0 || snake[0].y >= canvasSize ||
@@ -117,7 +157,6 @@
                 resetGame();
             }
 
-            // Перевірка на з'їдання їжі
             if (snake[0].x === food.x && snake[0].y === food.y) {
                 score++;
                 scoreBoard.textContent = `Score: ${score}`;
@@ -134,26 +173,18 @@
             scoreBoard.textContent = `Score: ${score}`;
         }
 
-        // Зміна напрямку за допомогою клавіш
         document.addEventListener("keydown", (event) => {
-            switch (event.key) {
-                case "ArrowUp":
-                    if (direction.y === 0) direction = { x: 0, y: -boxSize };
-                    break;
-                case "ArrowDown":
-                    if (direction.y === 0) direction = { x: 0, y: boxSize };
-                    break;
-                case "ArrowLeft":
-                    if (direction.x === 0) direction = { x: -boxSize, y: 0 };
-                    break;
-                case "ArrowRight":
-                    if (direction.x === 0) direction = { x: boxSize, y: 0 };
-                    break;
+            if (!isMobile) {
+                setDirection(event.key.replace("Arrow", "").toLowerCase());
             }
         });
 
-        // Запуск гри з інтервалом оновлення
-        setInterval(drawGame, 100);
+        function setDirection(dir) {
+            if (dir === "up" && direction.y === 0) direction = { x: 0, y: -boxSize };
+            if (dir === "down" && direction.y === 0) direction = { x: 0, y: boxSize };
+            if (dir === "left" && direction.x === 0) direction = { x: -boxSize, y: 0 };
+            if (dir === "right" && direction.x === 0) direction = { x: boxSize, y: 0 };
+        }
     </script>
 </body>
 </html>
