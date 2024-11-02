@@ -3,188 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realistic Snake Game with Mobile Controls</title>
+    <title>Online Games Catalog</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            height: 100vh;
             margin: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        header {
             background-color: #4caf50;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-            color: #ffffff;
-        }
-        canvas {
-            background: #2e7d32 url('https://www.transparenttextures.com/patterns/grass.png');
-            border: 10px solid #8bc34a;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-        #scoreBoard {
+            color: white;
+            width: 100%;
+            padding: 10px 0;
+            text-align: center;
             font-size: 24px;
             font-weight: bold;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
         }
-        #deviceSelection, #mobileControls {
-            display: none;
+        .catalog {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .game-card {
+            width: 250px;
+            padding: 15px;
             text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
         }
-        #mobileControls button {
-            background-color: #8bc34a;
+        .game-card:hover {
+            transform: scale(1.05);
+        }
+        .game-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .game-card h3 {
+            margin: 10px 0;
+            color: #4caf50;
+        }
+        .game-card button {
+            padding: 10px 20px;
             border: none;
             border-radius: 5px;
-            padding: 10px;
-            font-size: 18px;
-            margin: 5px;
+            background-color: #4caf50;
+            color: white;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
-        #mobileControls button:active {
-            background-color: #689f38;
+        .game-card button:hover {
+            background-color: #388e3c;
         }
-        #gameContainer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div id="scoreBoard">Score: 0</div>
-    <div id="deviceSelection">
-        <h2>Select your device</h2>
-        <button onclick="startGame('desktop')">Desktop</button>
-        <button onclick="startGame('mobile')">Mobile</button>
-    </div>
-    <div id="gameContainer">
-        <canvas id="gameCanvas" width="500" height="500"></canvas>
-        <div id="mobileControls">
-            <button onclick="setDirection('up')">⬆️</button><br>
-            <button onclick="setDirection('left')">⬅️</button>
-            <button onclick="setDirection('down')">⬇️</button>
-            <button onclick="setDirection('right')">➡️</button>
+
+    <header>Online Games Catalog</header>
+
+    <section class="catalog">
+        <div class="game-card" onclick="openGame('plants-vs-zombies')">
+            <img src="plants-vs-zombies-thumbnail.jpg" alt="Plants vs Zombies">
+            <h3>Plants vs Zombies Online</h3>
+            <button>Play Now</button>
         </div>
-    </div>
+        <div class="game-card" onclick="openGame('flappy-bird')">
+            <img src="flappy-bird-thumbnail.jpg" alt="Flappy Bird">
+            <h3>Flappy Bird</h3>
+            <button>Play Now</button>
+        </div>
+        <div class="game-card" onclick="openGame('snake-game')">
+            <img src="snake-game-thumbnail.jpg" alt="Snake Game">
+            <h3>Realistic Snake Game</h3>
+            <button>Play Now</button>
+        </div>
+    </section>
+
+    <iframe id="gameFrame" src=""></iframe>
 
     <script>
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
-        const scoreBoard = document.getElementById("scoreBoard");
-        const boxSize = 20;
-        const canvasSize = 500;
-
-        let snake = [{ x: 200, y: 200 }];
-        let direction = { x: boxSize, y: 0 };
-        let food = getRandomFoodPosition();
-        let score = 0;
-        let isMobile = false;
-
-        document.getElementById("deviceSelection").style.display = "block";
-
-        function startGame(deviceType) {
-            isMobile = deviceType === 'mobile';
-            document.getElementById("deviceSelection").style.display = "none";
-            document.getElementById("gameContainer").style.display = "flex";
-            if (isMobile) {
-                document.getElementById("mobileControls").style.display = "block";
+        function openGame(game) {
+            const gameFrame = document.getElementById('gameFrame');
+            if (game === 'plants-vs-zombies') {
+                gameFrame.src = 'plants-vs-zombies.html'; // Вставте посилання на сторінку гри
+            } else if (game === 'flappy-bird') {
+                gameFrame.src = 'flappy-bird.html'; // Вставте посилання на сторінку гри
+            } else if (game === 'snake-game') {
+                gameFrame.src = 'snake-game.html'; // Вставте посилання на сторінку гри
             }
-            setInterval(drawGame, 100);
-        }
-
-        function getRandomFoodPosition() {
-            return {
-                x: Math.floor(Math.random() * (canvasSize / boxSize)) * boxSize,
-                y: Math.floor(Math.random() * (canvasSize / boxSize)) * boxSize
-            };
-        }
-
-        function drawGame() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Малювання їжі
-            ctx.fillStyle = "#ffeb3b";
-            ctx.strokeStyle = "#fbc02d";
-            ctx.lineWidth = 3;
-            ctx.beginPath();
-            ctx.arc(food.x + boxSize / 2, food.y + boxSize / 2, boxSize / 2.5, 0, 2 * Math.PI);
-            ctx.fill();
-            ctx.stroke();
-
-            // Малювання змійки з реалістичним ефектом
-            snake.forEach((segment, index) => {
-                const gradient = ctx.createLinearGradient(segment.x, segment.y, segment.x + boxSize, segment.y + boxSize);
-                gradient.addColorStop(0, index === 0 ? "#388e3c" : "#4caf50");
-                gradient.addColorStop(1, index === 0 ? "#1b5e20" : "#2e7d32");
-                ctx.fillStyle = gradient;
-                ctx.strokeStyle = "#2e7d32";
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.arc(segment.x + boxSize / 2, segment.y + boxSize / 2, boxSize / 2, 0, 2 * Math.PI);
-                ctx.fill();
-                ctx.stroke();
-
-                if (index === 0) {
-                    ctx.fillStyle = "#ffffff";
-                    ctx.beginPath();
-                    ctx.arc(segment.x + boxSize * 0.3, segment.y + boxSize * 0.3, boxSize * 0.1, 0, 2 * Math.PI);
-                    ctx.arc(segment.x + boxSize * 0.7, segment.y + boxSize * 0.3, boxSize * 0.1, 0, 2 * Math.PI);
-                    ctx.fill();
-
-                    ctx.fillStyle = "#ff1744";
-                    ctx.beginPath();
-                    ctx.moveTo(segment.x + boxSize / 2, segment.y + boxSize * 0.8);
-                    ctx.lineTo(segment.x + boxSize * 0.4, segment.y + boxSize);
-                    ctx.lineTo(segment.x + boxSize * 0.6, segment.y + boxSize);
-                    ctx.fill();
-                }
-            });
-
-            for (let i = snake.length - 1; i > 0; i--) {
-                snake[i] = { ...snake[i - 1] };
-            }
-            snake[0].x += direction.x;
-            snake[0].y += direction.y;
-
-            if (
-                snake[0].x < 0 || snake[0].x >= canvasSize ||
-                snake[0].y < 0 || snake[0].y >= canvasSize ||
-                snake.slice(1).some(segment => segment.x === snake[0].x && segment.y === snake[0].y)
-            ) {
-                alert(`Game Over! Your score: ${score}`);
-                resetGame();
-            }
-
-            if (snake[0].x === food.x && snake[0].y === food.y) {
-                score++;
-                scoreBoard.textContent = `Score: ${score}`;
-                snake.push({ ...snake[snake.length - 1] });
-                food = getRandomFoodPosition();
-            }
-        }
-
-        function resetGame() {
-            snake = [{ x: 200, y: 200 }];
-            direction = { x: boxSize, y: 0 };
-            food = getRandomFoodPosition();
-            score = 0;
-            scoreBoard.textContent = `Score: ${score}`;
-        }
-
-        document.addEventListener("keydown", (event) => {
-            if (!isMobile) {
-                setDirection(event.key.replace("Arrow", "").toLowerCase());
-            }
-        });
-
-        function setDirection(dir) {
-            if (dir === "up" && direction.y === 0) direction = { x: 0, y: -boxSize };
-            if (dir === "down" && direction.y === 0) direction = { x: 0, y: boxSize };
-            if (dir === "left" && direction.x === 0) direction = { x: -boxSize, y: 0 };
-            if (dir === "right" && direction.x === 0) direction = { x: boxSize, y: 0 };
+            gameFrame.style.display = 'block';
         }
     </script>
+
 </body>
 </html>
