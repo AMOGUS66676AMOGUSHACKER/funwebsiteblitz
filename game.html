@@ -64,11 +64,17 @@
         .game-card button:hover {
             background-color: #388e3c;
         }
-        iframe {
+        .game-container {
+            display: none;
             width: 100%;
             height: 500px;
-            border: none;
-            display: none;
+            text-align: center;
+        }
+        canvas {
+            background: #2e7d32 url('https://www.transparenttextures.com/patterns/grass.png');
+            border: 10px solid #8bc34a;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
@@ -77,37 +83,138 @@
     <header>Online Games Catalog</header>
 
     <section class="catalog">
-        <div class="game-card" onclick="openGame('plants-vs-zombies')">
+        <div class="game-card" onclick="showGame('plants-vs-zombies')">
             <img src="plants-vs-zombies-thumbnail.jpg" alt="Plants vs Zombies">
             <h3>Plants vs Zombies Online</h3>
             <button>Play Now</button>
         </div>
-        <div class="game-card" onclick="openGame('flappy-bird')">
+        <div class="game-card" onclick="showGame('flappy-bird')">
             <img src="flappy-bird-thumbnail.jpg" alt="Flappy Bird">
             <h3>Flappy Bird</h3>
             <button>Play Now</button>
         </div>
-        <div class="game-card" onclick="openGame('snake-game')">
+        <div class="game-card" onclick="showGame('snake-game')">
             <img src="snake-game-thumbnail.jpg" alt="Snake Game">
             <h3>Realistic Snake Game</h3>
             <button>Play Now</button>
         </div>
     </section>
 
-    <iframe id="gameFrame" src=""></iframe>
+    <!-- Plants vs Zombies -->
+    <div id="plants-vs-zombies" class="game-container">
+        <h2>Plants vs Zombies</h2>
+        <p>Гра поки що не реалізована</p>
+        <button onclick="goBack()">Back to Catalog</button>
+    </div>
+
+    <!-- Flappy Bird -->
+    <div id="flappy-bird" class="game-container">
+        <h2>Flappy Bird</h2>
+        <p>Гра поки що не реалізована</p>
+        <button onclick="goBack()">Back to Catalog</button>
+    </div>
+
+    <!-- Snake Game -->
+    <div id="snake-game" class="game-container">
+        <div id="scoreBoard">Score: 0</div>
+        <canvas id="gameCanvas" width="500" height="500"></canvas>
+        <button onclick="goBack()">Back to Catalog</button>
+    </div>
 
     <script>
-        function openGame(game) {
-            const gameFrame = document.getElementById('gameFrame');
-            if (game === 'plants-vs-zombies') {
-                gameFrame.src = 'plants-vs-zombies.html'; // Вставте посилання на сторінку гри
-            } else if (game === 'flappy-bird') {
-                gameFrame.src = 'flappy-bird.html'; // Вставте посилання на сторінку гри
-            } else if (game === 'snake-game') {
-                gameFrame.src = 'snake-game.html'; // Вставте посилання на сторінку гри
+        // Function to show selected game and hide catalog
+        function showGame(gameId) {
+            document.querySelectorAll('.game-container').forEach(container => container.style.display = 'none');
+            document.querySelector('.catalog').style.display = 'none';
+            document.getElementById(gameId).style.display = 'block';
+
+            // Start Snake Game if selected
+            if (gameId === 'snake-game') {
+                startSnakeGame();
             }
-            gameFrame.style.display = 'block';
         }
+
+        // Function to go back to catalog
+        function goBack() {
+            document.querySelectorAll('.game-container').forEach(container => container.style.display = 'none');
+            document.querySelector('.catalog').style.display = 'flex';
+            resetSnakeGame();
+        }
+
+        // Snake Game variables and functions
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const scoreBoard = document.getElementById("scoreBoard");
+        const boxSize = 20;
+        const canvasSize = 500;
+
+        let snake, direction, food, score;
+        resetSnakeGame();
+
+        function resetSnakeGame() {
+            snake = [{ x: 200, y: 200 }];
+            direction = { x: boxSize, y: 0 };
+            food = getRandomFoodPosition();
+            score = 0;
+            scoreBoard.textContent = `Score: ${score}`;
+        }
+
+        function startSnakeGame() {
+            setInterval(drawGame, 100);
+        }
+
+        function getRandomFoodPosition() {
+            return {
+                x: Math.floor(Math.random() * (canvasSize / boxSize)) * boxSize,
+                y: Math.floor(Math.random() * (canvasSize / boxSize)) * boxSize
+            };
+        }
+
+        function drawGame() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw food
+            ctx.fillStyle = "#ffeb3b";
+            ctx.fillRect(food.x, food.y, boxSize, boxSize);
+
+            // Draw snake
+            snake.forEach((segment, index) => {
+                ctx.fillStyle = index === 0 ? "#388e3c" : "#4caf50";
+                ctx.fillRect(segment.x, segment.y, boxSize, boxSize);
+            });
+
+            // Move snake
+            for (let i = snake.length - 1; i > 0; i--) {
+                snake[i] = { ...snake[i - 1] };
+            }
+            snake[0].x += direction.x;
+            snake[0].y += direction.y;
+
+            // Check collision with walls or self
+            if (
+                snake[0].x < 0 || snake[0].x >= canvasSize ||
+                snake[0].y < 0 || snake[0].y >= canvasSize ||
+                snake.slice(1).some(segment => segment.x === snake[0].x && segment.y === snake[0].y)
+            ) {
+                alert(`Game Over! Your score: ${score}`);
+                resetSnakeGame();
+            }
+
+            // Check if snake eats food
+            if (snake[0].x === food.x && snake[0].y === food.y) {
+                score++;
+                scoreBoard.textContent = `Score: ${score}`;
+                snake.push({ ...snake[snake.length - 1] });
+                food = getRandomFoodPosition();
+            }
+        }
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "ArrowUp" && direction.y === 0) direction = { x: 0, y: -boxSize };
+            if (event.key === "ArrowDown" && direction.y === 0) direction = { x: 0, y: boxSize };
+            if (event.key === "ArrowLeft" && direction.x === 0) direction = { x: -boxSize, y: 0 };
+            if (event.key === "ArrowRight" && direction.x === 0) direction = { x: boxSize, y: 0 };
+        });
     </script>
 
 </body>
